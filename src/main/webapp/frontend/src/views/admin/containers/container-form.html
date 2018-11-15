@@ -1,0 +1,76 @@
+<link rel="import" href="../../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../../../bower_components/vaadin-form-layout/src/vaadin-form-layout.html">
+<link rel="import" href="../../../../bower_components/vaadin-combo-box/src/vaadin-combo-box.html">
+<link rel="import" href="../../../../bower_components/vaadin-text-field/src/vaadin-text-field.html">
+<link rel="import" href="../../../../bower_components/vaadin-text-field/src/vaadin-password-field.html">
+<link rel="import" href="../../../../bower_components/vaadin-upload/vaadin-upload.html">
+<link rel="import" href="../../../../bower_components/paper-swatch-picker/paper-swatch-picker.html">
+<link rel="import" href="../../../../bower_components/neon-animation/web-animations.html">
+<link rel="import" href="../../../components/form-buttons-bar.html">
+
+<dom-module id="container-form">
+    <template>
+        <style>
+            :host {
+                display: flex;
+                flex-direction: column;
+                flex: auto;
+                height: 100%;
+            }
+
+            vaadin-form-layout {
+                flex: auto;
+                overflow: auto;
+            }
+        </style>
+
+        <vaadin-form-layout id="form">
+            <h3 id="title" colspan="2"></h3>
+
+            <vaadin-text-field id="id" label="Id"></vaadin-text-field>
+            <vaadin-text-field id="columns" label="Columns"></vaadin-text-field>
+            <vaadin-combo-box id="state" label="State"></vaadin-combo-box>
+
+            <h3 id="title-color" colspan="2">Background Color</h3>
+            <vaadin-text-field id="color" label="Color" colspan="1" value="{{selectedColor}}" readonly></vaadin-text-field>
+            <paper-swatch-picker colspan="1" id="picker_color" color="{{selectedColor}}"></paper-swatch-picker><br>
+
+            <h3 id="title-image">Background Image</h3><br>
+            <vaadin-text-field id="upload_background_name" label="Background file" colspan="2"></vaadin-text-field>
+            <vaadin-upload id="upload_background" colspan="2" max-files="1" accept="image/*"></vaadin-upload>
+
+        </vaadin-form-layout>
+
+        <form-buttons-bar id="buttons"></form-buttons-bar>
+    </template>
+
+    <script>
+        class ContainerForm extends Polymer.Element {
+            static get is() {
+                return 'container-form';
+            }
+
+            static get properties() {
+                return {
+                    selectedColor: {
+                        type: String,
+                        notify: true,
+                        observer: '_colorChanged'
+                    }
+                };
+            }
+
+            _colorChanged(selectedColor) {
+                this.$server.changeColor(selectedColor);
+            }
+
+            ready() {
+                super.ready();
+                this.$.form.addEventListener('change', e => {
+                    this.$.buttons.$.save.disabled = false;
+            });
+            }
+        }
+        window.customElements.define(ContainerForm.is, ContainerForm);
+    </script>
+</dom-module>

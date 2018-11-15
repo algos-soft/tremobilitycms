@@ -1,0 +1,132 @@
+<link rel="import" href="../../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../../../bower_components/vaadin-form-layout/src/vaadin-form-layout.html">
+<link rel="import" href="../../../../bower_components/vaadin-combo-box/src/vaadin-combo-box.html">
+<link rel="import" href="../../../../bower_components/vaadin-text-field/src/vaadin-text-field.html">
+<link rel="import" href="../../../../bower_components/vaadin-text-field/src/vaadin-password-field.html">
+<link rel="import" href="../../../../bower_components/vaadin-upload/vaadin-upload.html">
+<link rel="import" href="../../../../bower_components/paper-swatch-picker/paper-swatch-picker.html">
+<link rel="import" href="../../../../bower_components/neon-animation/web-animations.html">
+<link rel="import" href="../../../components/form-buttons-bar.html">
+
+<dom-module id="card-form">
+    <template>
+        <style>
+            :host {
+                display: flex;
+                flex-direction: column;
+                flex: auto;
+                height: 100%;
+            }
+
+            vaadin-form-layout {
+                flex: auto;
+                overflow: auto;
+            }
+        </style>
+
+        <vaadin-form-layout id="form">
+            <h3 id="title" colspan="2"></h3>
+
+            <vaadin-text-field id="id" label="Id"></vaadin-text-field>
+            <vaadin-combo-box id="state" label="State"></vaadin-combo-box>
+
+            <h3 id="title_element" colspan="2">Related to Element</h3>
+            <vaadin-text-field id="element" label="Linked Element ID"></vaadin-text-field>
+            <vaadin-button
+                    id="link_element"
+                    label="Link Element"
+                    on-click="linkElementPressed"
+                    theme="primary">
+                <iron-icon icon="lumo:arrow-right"
+                           slot="suffix">
+                </iron-icon>
+                Link Element
+            </vaadin-button>
+
+            <h3 id="title-action" colspan="2">Action</h3>
+            <vaadin-text-field id="action-launch" label="Action Launch"></vaadin-text-field>
+            <vaadin-text-field id="action-mode" label="Action Mode"></vaadin-text-field>
+
+            <h3 id="title-card-background" colspan="2">Background</h3>
+
+            <vaadin-text-field id="card-background-color" label="Background Color" colspan="1" value="{{selectedCardBackgroundColor}}" readonly></vaadin-text-field>
+            <paper-swatch-picker colspan="1" id="picker-card-background-color" color="{{selectedCardBackgroundColor}}"></paper-swatch-picker><br>
+
+            <vaadin-text-field id="upload_background_name" label="Background image file" colspan="2"></vaadin-text-field>
+            <vaadin-upload id="upload_background" colspan="2" max-files="1" accept="image/*"></vaadin-upload>
+
+            <h3 id="title-card-logo" colspan="2">Logo</h3>
+            <vaadin-text-field id="upload_logo_name" label="Logo image file" colspan="2"></vaadin-text-field>
+            <vaadin-upload id="upload_logo" colspan="2" max-files="1" accept="image/*"></vaadin-upload>
+
+            <h3 id="title-description" colspan="2">Description</h3>
+            <vaadin-text-field id="description-align" label="Align"></vaadin-text-field>
+            <vaadin-text-field id="description-font" label="Font"></vaadin-text-field>
+            <vaadin-text-field id="description-font-size" label="Size"></vaadin-text-field>
+            <vaadin-text-field id="description-font-style" label="Style"></vaadin-text-field>
+            <vaadin-text-field id="description-text" colspan="2" label="Text"></vaadin-text-field>
+            <vaadin-text-field id="card-description-color" label="Color" colspan="1" value="{{selectedCardDescriptionColor}}" readonly></vaadin-text-field>
+            <paper-swatch-picker colspan="1" id="picker-card-description-color" color="{{selectedCardDescriptionColor}}"></paper-swatch-picker><br>
+
+            <h3 id="title-title" colspan="2">Title</h3>
+            <vaadin-text-field id="title-align" label="Align"></vaadin-text-field>
+            <vaadin-text-field id="title-font" label="Font"></vaadin-text-field>
+            <vaadin-text-field id="title-font-size" label="Size"></vaadin-text-field>
+            <vaadin-text-field id="title-font-style" label="Style"></vaadin-text-field>
+            <vaadin-text-field id="title-text" colspan="2" label="Text"></vaadin-text-field>
+            <vaadin-text-field id="card-title-color" label="Title Color" colspan="1" value="{{selectedCardTitleColor}}" readonly></vaadin-text-field>
+            <paper-swatch-picker colspan="1" id="picker-card-title-color" color="{{selectedCardTitleColor}}"></paper-swatch-picker><br>
+
+        </vaadin-form-layout>
+
+        <form-buttons-bar id="buttons"></form-buttons-bar>
+    </template>
+
+    <script>
+        class CardForm extends Polymer.Element {
+            static get is() {
+                return 'card-form';
+            }
+
+            static get properties() {
+                return {
+                    selectedCardBackgroundColor: {
+                        type: String,
+                        notify: true,
+                        observer: '_cardBackgroundColorChanged'
+                    },
+                    selectedCardDescriptionColor: {
+                        type: String,
+                        notify: true,
+                        observer: '_cardDescriptionColorChanged'
+                    },
+                    selectedCardTitleColor: {
+                        type: String,
+                        notify: true,
+                        observer: '_cardTitleColorChanged'
+                    },
+                };
+            }
+
+            _cardBackgroundColorChanged(selectedCardBackgroundColor) {
+                this.$server.changeCardBackgroundColor(selectedCardBackgroundColor);
+            }
+
+            _cardDescriptionColorChanged(selectedCardDescriptionColor) {
+                this.$server.changeCardDescriptionColor(selectedCardDescriptionColor);
+            }
+
+            _cardTitleColorChanged(selectedCardTitleColor) {
+                this.$server.changeCardTitleColor(selectedCardTitleColor);
+            }
+
+            ready() {
+                super.ready();
+                this.$.form.addEventListener('change', e => {
+                    this.$.buttons.$.save.disabled = false;
+            });
+            }
+        }
+        window.customElements.define(CardForm.is, CardForm);
+    </script>
+</dom-module>

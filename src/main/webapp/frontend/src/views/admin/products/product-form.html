@@ -1,0 +1,139 @@
+<link rel="import" href="../../../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../../../bower_components/vaadin-form-layout/src/vaadin-form-layout.html">
+<link rel="import" href="../../../../bower_components/vaadin-text-field/src/vaadin-text-field.html">
+<link rel="import" href="../../../../bower_components/vaadin-upload/vaadin-upload.html">
+<link rel="import" href="../../../../bower_components/paper-swatch-picker/paper-swatch-picker.html">
+<link rel="import" href="../../../../bower_components/neon-animation/web-animations.html">
+<link rel="import" href="../../../components/form-buttons-bar.html">
+
+<dom-module id="product-form">
+  <template>
+
+    <style>
+      :host {
+        display: flex;
+        flex-direction: column;
+        flex: auto;
+        height: 100%;
+      }
+
+      vaadin-form-layout {
+        flex: auto;
+        overflow: auto;
+      }
+    </style>
+
+    <vaadin-form-layout id="form">
+      <h1 id="title"></h1><br>
+
+      <!--<div id="div_color_picker"></div><br>-->
+
+      <!--<p>{{selectedColor}}</p>-->
+
+      <h3 id="general_details">General Settings</h3><br>
+      <vaadin-text-field id="name" label="Workspace name" colspan="1"></vaadin-text-field>
+      <vaadin-text-field id="company" label="Company" colspan="1"></vaadin-text-field>
+      <vaadin-combo-box id="enabled" label="Workspace Status" colspan="2"></vaadin-combo-box>
+      <vaadin-combo-box id="camera" label="Camera" colspan="2"></vaadin-combo-box>
+
+      <h3 id="splashactivity_details">First Page</h3><br>
+      <vaadin-text-field id="title_label" label="Title" colspan="1"></vaadin-text-field>
+      <vaadin-combo-box id="title_visible" label="Visible" colspan="1"></vaadin-combo-box>
+      <vaadin-text-field id="title_color" label="Title Color" colspan="1" value="{{selectedTitleColor}}" readonly></vaadin-text-field>
+      <paper-swatch-picker colspan="1" id="title_picker_color" color="{{selectedTitleColor}}"></paper-swatch-picker><br>
+
+      <vaadin-text-field id="subtitle_label" label="SubTitle" colspan="1"></vaadin-text-field>
+      <vaadin-combo-box id="subtitle_visible" label="Visible" colspan="1"></vaadin-combo-box>
+      <vaadin-text-field id="subtitle_color" label="SubTitle Color" colspan="1" value="{{selectedSubtitleColor}}" readonly></vaadin-text-field>
+      <paper-swatch-picker colspan="1" id="subtitle_picker_color" color="{{selectedSubtitleColor}}"></paper-swatch-picker><br>
+
+      <vaadin-text-field id="footer_label" label="Footer" colspan="1"></vaadin-text-field>
+      <vaadin-combo-box id="footer_visible" label="Visible" colspan="1"></vaadin-combo-box>
+      <vaadin-text-field id="flashing_interval" label="Flashing" colspan="1"></vaadin-text-field>
+      <vaadin-combo-box id="flashing_enabled" label="Enabled" colspan="1"></vaadin-combo-box>
+
+      <h3 id="userinfo_details">User Info Page</h3><br>
+      <vaadin-text-field id="title_user_label" label="Title" colspan="1"></vaadin-text-field>
+      <vaadin-combo-box id="title_user_visible" label="Visible" colspan="1"></vaadin-combo-box>
+      <vaadin-text-field id="title_user_color" label="Title Color" colspan="1" value="{{selectedTitleUserColor}}" readonly></vaadin-text-field>
+      <paper-swatch-picker colspan="1" id="title_user_picker_color" color="{{selectedTitleUserColor}}"></paper-swatch-picker><br>
+
+      <vaadin-text-field id="subtitle_user_label" label="SubTitle" colspan="1"></vaadin-text-field>
+      <vaadin-combo-box id="subtitle_user_visible" label="Visible" colspan="1"></vaadin-combo-box>
+      <vaadin-text-field id="subtitle_user_color" label="SubTitle Color" colspan="1" value="{{selectedSubtitleUserColor}}" readonly></vaadin-text-field>
+      <paper-swatch-picker colspan="1" id="subtitle_user_picker_color" color="{{selectedSubtitleUserColor}}"></paper-swatch-picker><br>
+
+      <h3 id="facebook_details">Facebook Settings</h3><br>
+      <vaadin-text-field id="facebook_key" label="Facebook Page Access Token" colspan="2"></vaadin-text-field>
+      <vaadin-text-field id="facebook_page" label="Facebook Page Id" colspan="1"></vaadin-text-field>
+      <vaadin-combo-box id="facebook_enabled" label="Facebook Post Enabled" colspan="1"></vaadin-combo-box>
+
+      <h3 id="images_details">Images</h3><br>
+      <vaadin-text-field id="upload_background_name" label="Background file" colspan="2"></vaadin-text-field>
+      <vaadin-upload id="upload_background" colspan="2" max-files="1" accept="image/*"></vaadin-upload>
+      <vaadin-text-field id="upload_watermark_name" label="Watermark file" colspan="2"></vaadin-text-field>
+      <vaadin-upload id="upload_watermark" colspan="2" max-files="1" accept="image/*"></vaadin-upload>
+    </vaadin-form-layout>
+
+    <form-buttons-bar id="buttons"></form-buttons-bar>
+  </template>
+
+  <script>
+    class ProductForm extends Polymer.Element {
+      static get is() {
+        return 'product-form';
+      }
+
+      static get properties() {
+        return {
+          selectedTitleColor: {
+            type: String,
+            notify: true,
+            observer: '_titleColorChanged'
+          },
+
+          selectedSubtitleColor: {
+            type: String,
+            notify: true,
+            observer: '_subtitleColorChanged'
+          },
+          selectedTitleUserColor: {
+            type: String,
+            notify: true,
+            observer: '_titleUserColorChanged'
+          },
+
+          selectedSubtitleUserColor: {
+            type: String,
+            notify: true,
+            observer: '_subtitleUserColorChanged'
+          }
+        };
+      }
+
+      _titleColorChanged(selectedTitleColor) {
+        this.$server.changeTitleColor(selectedTitleColor);
+      }
+
+      _subtitleColorChanged(selectedSubtitleColor) {
+        this.$server.changeSubtitleColor(selectedSubtitleColor);
+      }
+
+      _titleUserColorChanged(selectedTitleUserColor) {
+        this.$server.changeTitleUserColor(selectedTitleUserColor);
+      }
+
+      _subtitleUserColorChanged(selectedSubtitleUserColor) {
+        this.$server.changeSubtitleUserColor(selectedSubtitleUserColor);
+      }
+
+      ready() {
+        super.ready();
+        this.$.form.addEventListener('change', e => {
+          this.$.buttons.$.save.disabled = false;
+        });
+      }
+    }
+    window.customElements.define(ProductForm.is, ProductForm);
+  </script>
+</dom-module>
