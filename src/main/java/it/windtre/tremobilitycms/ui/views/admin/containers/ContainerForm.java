@@ -88,7 +88,7 @@ public class ContainerForm extends PolymerTemplate<TemplateModel> implements Cru
                 //String basepath = "/images/background/";
                 //String basepath = Application.webinfFolder.getAbsolutePath() + "/background/";
 
-                String basepath = "/opt/bitnami/apache-tomcat/webapps/funtablet/images/background/";
+                String basepath = "/opt/bitnami/apache-tomcat/webapps/tremobilitycms/images/background/";
 
                 //LOGGER.log(Level.INFO, basepath);
 

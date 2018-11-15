@@ -210,7 +210,7 @@ public class ProductForm extends PolymerTemplate<TemplateModel> implements CrudV
 				//String basepath = "/images/background/";
 				//String basepath = Application.webinfFolder.getAbsolutePath() + "/background/";
 
-				String basepath = "/opt/bitnami/apache-tomcat/webapps/funtablet/images/background/";
+				String basepath = "/opt/bitnami/apache-tomcat/webapps/tremobilitycms/images/background/";
 
 				//LOGGER.log(Level.INFO, basepath);
 
@@ -243,7 +243,7 @@ public class ProductForm extends PolymerTemplate<TemplateModel> implements CrudV
 			public OutputStream receiveUpload(String filename, String mimeType) {
 				//String basepath = "src/main/webapp/images/watermark/";
 
-				String basepath = "/opt/bitnami/apache-tomcat/webapps/funtablet/images/watermark/";
+				String basepath = "/opt/bitnami/apache-tomcat/webapps/tremobilitycms/images/watermark/";
 
 				File file  = new File(basepath+filename);
 

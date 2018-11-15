@@ -147,7 +147,7 @@ public class CardForm extends PolymerTemplate<TemplateModel> implements CrudView
                 //String basepath = "/images/background/";
                 //String basepath = Application.webinfFolder.getAbsolutePath() + "/background/";
 
-                String basepath = "/opt/bitnami/apache-tomcat/webapps/funtablet/images/background/";
+                String basepath = "/opt/bitnami/apache-tomcat/webapps/tremobilitycms/images/background/";
 
                 //LOGGER.log(Level.INFO, basepath);
 
@@ -179,7 +179,7 @@ public class CardForm extends PolymerTemplate<TemplateModel> implements CrudView
                 //String basepath = "/images/background/";
                 //String basepath = Application.webinfFolder.getAbsolutePath() + "/background/";
 
-                String basepath = "/opt/bitnami/apache-tomcat/webapps/funtablet/images/background/";
+                String basepath = "/opt/bitnami/apache-tomcat/webapps/tremobilitycms/images/background/";
 
                 //LOGGER.log(Level.INFO, basepath);
 
