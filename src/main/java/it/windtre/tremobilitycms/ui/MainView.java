@@ -29,7 +29,7 @@ import static it.windtre.tremobilitycms.ui.utils.BakeryConst.*;
 @Tag("main-view")
 @HtmlImport("src/main-view.html")
 
-@PageTitle("Gertrude")
+@PageTitle("Gertrud")
 @Viewport(VIEWPORT)
 public class MainView extends PolymerTemplate<TemplateModel>
 		implements RouterLayout, BeforeEnterObserver {
@@ -55,10 +55,10 @@ public class MainView extends PolymerTemplate<TemplateModel>
 		}
 		pages.add(new PageInfo(PAGE_SERVICES, ICON_SERVICES, TITLE_SERVICES));
 		pages.add(new PageInfo(PAGE_SERVICE_ITEMS, ICON_SERVICE_ITEMS, TITLE_SERVICE_ITEMS));
-		pages.add(new PageInfo(PAGE_ZONES, ICON_ZONES, TITLE_ZONES));
+		//pages.add(new PageInfo(PAGE_ZONES, ICON_ZONES, TITLE_ZONES));
 		pages.add(new PageInfo(PAGE_CONTAINERS, ICON_CONTAINERS, TITLE_CONTAINERS));
 		pages.add(new PageInfo(PAGE_ELEMENTS, ICON_ELEMENTS, TITLE_ELEMENTS));
-		pages.add(new PageInfo(PAGE_CARDS, ICON_CARDS, TITLE_CARDS));
+		//pages.add(new PageInfo(PAGE_CARDS, ICON_CARDS, TITLE_CARDS));
 		pages.add(new PageInfo(PAGE_LOGOUT, ICON_LOGOUT, TITLE_LOGOUT));
 
 		appNavigation.init(pages, PAGE_DEFAULT, PAGE_LOGOUT);

@@ -39,15 +39,15 @@ public class BakeryConst {
 
 	public static final String TITLE_STOREFRONT = "Storefront";
 	public static final String TITLE_DASHBOARD = "Dashboard";
-	public static final String TITLE_USERS = "Users";
+	public static final String TITLE_USERS = "UTENTE";
 	public static final String TITLE_PRODUCTS = "Workspace";
-	public static final String TITLE_CONTAINERS = "Containers";
-	public static final String TITLE_ELEMENTS = "Elements";
+	public static final String TITLE_CONTAINERS = "HOME PAGE";
+	public static final String TITLE_ELEMENTS = "COMPONENTE";
 	public static final String TITLE_CARDS = "Cards";
-	public static final String TITLE_SERVICES = "Services";
-	public static final String TITLE_SERVICE_ITEMS = "ServiceItems";
+	public static final String TITLE_SERVICES = "SERVIZIO";
+	public static final String TITLE_SERVICE_ITEMS = "BIGLIETTO";
 	public static final String TITLE_ZONES = "Zones";
-	public static final String TITLE_LOGOUT = "Logout";
+	public static final String TITLE_LOGOUT = "LOGOUT";
 	public static final String TITLE_NOT_FOUND = "Page was not found";
 	public static final String TITLE_ACCESS_DENIED = "Access denied";
 

@@ -17,7 +17,7 @@ import it.windtre.tremobilitycms.ui.utils.BakeryConst;
 @HtmlImport("src/views/login/login-view.html")
 
 @Route(value = "login")
-@PageTitle("Gertrude")
+@PageTitle("Gertrud")
 
 @Viewport(BakeryConst.VIEWPORT)
 public class LoginView extends PolymerTemplate<LoginView.Model> implements PageConfigurator, AfterNavigationObserver {
