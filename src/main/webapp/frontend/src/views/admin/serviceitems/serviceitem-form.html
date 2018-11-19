@@ -53,6 +53,19 @@
             <vaadin-text-field id="infozone_name" label="Zone Name"></vaadin-text-field>
             <vaadin-combo-box id="infozone_typez" label="Zone Type"></vaadin-combo-box>
 
+            <h3 id="title_manage_zone" colspan="2"></h3>
+            <vaadin-button
+                    id="manage_zone_button"
+                    label=""
+                    colspan="2"
+                    on-click="manageZonePressed"
+                    theme="primary">
+                <iron-icon icon="lumo:arrow-right"
+                           slot="suffix">
+                </iron-icon>
+                Manage Zone
+            </vaadin-button>
+
         </vaadin-form-layout>
 
         <form-buttons-bar id="buttons"></form-buttons-bar>

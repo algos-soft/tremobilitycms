@@ -95,6 +95,21 @@ public class Serviceitem extends AbstractEntity {
     }
     */
 
+    private String city = null;
+    public String getCity() {
+        return this.city;
+    }
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    private String serviceName = null;
+    public String getServiceName() {
+        return this.serviceName;
+    }
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
+    }
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -119,4 +134,14 @@ public class Serviceitem extends AbstractEntity {
         return sb.toString();
     }
 
+
+    public String getServiceDescription(Service serv) {
+        String s = "";
+        if (serv != null) {
+            s = s + String.valueOf(serv.getId()) + " - ";
+            s = s + serv.getCity() + " - ";
+            s = s + serv.getName();
+        }
+        return s;
+    }
 }

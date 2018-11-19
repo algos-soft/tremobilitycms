@@ -18,4 +18,6 @@ public interface ZoneRepository extends JpaRepository<Zoneitem, Long> {
     List<Zoneitem> findAll();
 
     List<Zoneitem> findByServiceitem(Long serviceitem);
+    Page<Zoneitem> findByServiceitem(Long serviceitem, Pageable page);
+
 }

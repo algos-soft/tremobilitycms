@@ -25,7 +25,9 @@ import it.windtre.tremobilitycms.backend.data.InfoZoneType;
 import it.windtre.tremobilitycms.backend.data.DurationType;
 import it.windtre.tremobilitycms.backend.data.entity.Service;
 import it.windtre.tremobilitycms.backend.data.entity.Serviceitem;
+import it.windtre.tremobilitycms.backend.data.entity.Zoneitem;
 import it.windtre.tremobilitycms.backend.repositories.ServiceRepository;
+import it.windtre.tremobilitycms.backend.repositories.ZoneRepository;
 import it.windtre.tremobilitycms.ui.components.FormButtonsBar;
 import it.windtre.tremobilitycms.ui.crud.CrudView;
 import it.windtre.tremobilitycms.ui.views.admin.service.LongConverter;
@@ -85,20 +87,24 @@ public class ServiceitemForm extends PolymerTemplate<TemplateModel> implements C
     @Id("infozone_typez")
     private ComboBox<String> infozone_typez;
 
-    //TODO
-    //@Id("infozone_zones")
-
     @Id("link_service")
     private Button link_service;
+
+    @Id("manage_zone_button")
+    private Button manage_zone_button;
 
     private ServiceRepository serviceRepository = null;
     private final Dialog dialog = new Dialog();
     private Grid<Service> grid = new Grid<>();
 
+    private ZoneRepository zoneRepository = null;
+    private final Dialog zoneDialog = new Dialog();
+    private Grid<Zoneitem> zoneGrid = new Grid<>();
 
     @Autowired
-    public ServiceitemForm(ServiceRepository serviceRepository) {
+    public ServiceitemForm(ServiceRepository serviceRepository, ZoneRepository zoneRepository) {
         this.serviceRepository = serviceRepository;
+        this.zoneRepository = zoneRepository;
     }
 
     @Override
@@ -145,6 +151,8 @@ public class ServiceitemForm extends PolymerTemplate<TemplateModel> implements C
         return arr;
     }
 
+
+    /** select service */
     @EventHandler
     private void linkServicePressed() {
 
@@ -173,6 +181,39 @@ public class ServiceitemForm extends PolymerTemplate<TemplateModel> implements C
         dialog.getElement().addAttachListener(event -> UI.getCurrent().getPage().executeJavaScript(
                 "$0.$.overlay.setAttribute('theme', 'left');", dialog.getElement()));
         dialog.open();
+    }
+
+    /** manage zone */
+    @EventHandler
+    private void manageZonePressed() {
+        Long serviceitemId = Long.valueOf(21); //Long.valueOf(this.getElement().getProperty("id"));
+        zoneGrid.setItems(zoneRepository.findByServiceitem(serviceitemId));
+
+        zoneGrid.addColumn(Zoneitem::getId).setHeader("ID");
+        zoneGrid.addColumn(Zoneitem::getName).setHeader("Name");
+        zoneGrid.addColumn(Zoneitem::getValue).setHeader("Value");
+        zoneGrid.addColumn(Zoneitem::getPrice).setHeader("Price");
+
+        zoneGrid.addSelectionListener(e -> {
+            e.getFirstSelectedItem().ifPresent(entity -> {
+                String z = entity.getId().toString();
+                System.out.print("selected zoneitem with id = " + z);
+                openZoneitemForm(Long.valueOf(z));
+                //zoneGrid.deselectAll();
+                //dialog.close();
+            });
+        });
+
+
+        zoneDialog.add((Component) zoneGrid);
+        zoneDialog.setHeight("100%");
+        zoneDialog.getElement().addAttachListener(event -> UI.getCurrent().getPage().executeJavaScript(
+                "$0.$.overlay.setAttribute('theme', 'left');", zoneDialog.getElement()));
+        zoneDialog.open();
+    }
+
+    public void openZoneitemForm(Long zoneId) {
+
     }
 
     @Override

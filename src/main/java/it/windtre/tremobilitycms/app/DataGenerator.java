@@ -251,12 +251,14 @@ public class DataGenerator implements HasLogger {
 
 	private void createZones(ZoneRepository zonesRepo, int numberOfItems) {
 		List<Zoneitem> zoneitems = new ArrayList<>();
-		List<String> names = new ArrayList<>( Arrays.asList("zona 1", "zona 2"));
-		List<String> prices = new ArrayList<>( Arrays.asList("1", "1.5"));
+		List<Long> ids = new ArrayList<>( Arrays.asList(Long.valueOf(21),Long.valueOf(21),Long.valueOf(22)));
+		List<String> names = new ArrayList<>( Arrays.asList("zona 1", "zona 2", "zona 3"));
+		List<String> prices = new ArrayList<>( Arrays.asList("1", "1.5", "2.0"));
 
 		for (int i = 0; i < names.size(); i++) {
 			Zoneitem zoneitem = new Zoneitem();
 			zoneitem.setId(Long.valueOf(i));
+			zoneitem.setServiceitem(ids.get(i));
 			zoneitem.setName(names.get(i));
 			zoneitem.setPrice(Double.valueOf(prices.get(i)));
 			zoneitems.add(zonesRepo.save(zoneitem));
