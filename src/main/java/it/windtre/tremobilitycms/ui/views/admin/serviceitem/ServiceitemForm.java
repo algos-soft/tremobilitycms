@@ -1,10 +1,7 @@
 package it.windtre.tremobilitycms.ui.views.admin.serviceitem;
 
-import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.HasText;
-import com.vaadin.flow.component.Tag;
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dependency.HtmlImport;
@@ -186,6 +183,18 @@ public class ServiceitemForm extends PolymerTemplate<TemplateModel> implements C
     /** manage zone */
     @EventHandler
     private void manageZonePressed() {
+
+        Button addButton = new Button("Add Zone");
+        addButton.getElement().setAttribute("theme", "primary");
+        addButton.getElement().setAttribute("colspan", "2");
+        addButton.addClickListener(new ComponentEventListener<ClickEvent<Button>>() {
+            @Override
+            public void onComponentEvent(ClickEvent<Button> buttonClickEvent) {
+                System.out.print("addbutton clicked");
+
+            }
+        });
+
         Long serviceitemId = Long.valueOf(21); //Long.valueOf(this.getElement().getProperty("id"));
         zoneGrid.setItems(zoneRepository.findByServiceitem(serviceitemId));
 
@@ -204,6 +213,7 @@ public class ServiceitemForm extends PolymerTemplate<TemplateModel> implements C
             });
         });
 
+        zoneDialog.add((Component) addButton);
 
         zoneDialog.add((Component) zoneGrid);
         zoneDialog.setHeight("100%");
