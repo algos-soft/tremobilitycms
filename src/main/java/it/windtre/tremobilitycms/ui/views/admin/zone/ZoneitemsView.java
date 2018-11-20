@@ -8,6 +8,8 @@ import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.templatemodel.TemplateModel;
+import com.vaadin.flow.router.*;
+
 import it.windtre.tremobilitycms.backend.data.Role;
 import it.windtre.tremobilitycms.backend.data.entity.Zoneitem;
 import it.windtre.tremobilitycms.backend.data.entity.util.EntityUtil;
@@ -26,7 +28,8 @@ import static it.windtre.tremobilitycms.ui.utils.BakeryConst.PAGE_ZONES;
 @Route(value = PAGE_ZONES, layout = MainView.class)
 @PageTitle(BakeryConst.TITLE_ZONES)
 @Secured(Role.ADMIN)
-public class ZoneitemsView extends CrudView<Zoneitem, TemplateModel> {
+public class ZoneitemsView extends CrudView<Zoneitem, TemplateModel>
+        implements AfterNavigationObserver {
 
     @Id("search")
     private SearchBar search;
@@ -51,8 +54,12 @@ public class ZoneitemsView extends CrudView<Zoneitem, TemplateModel> {
 
     private void setupGrid() {
         grid.addColumn(Zoneitem::getId).setWidth("90px").setHeader("ID").setFlexGrow(2);
-        grid.addColumn(Zoneitem::getName).setWidth("270px").setHeader("Name").setFlexGrow(5);
-        grid.addColumn(Zoneitem::getPrice).setWidth("270px").setHeader("Price").setFlexGrow(5);
+        grid.addColumn(Zoneitem::getName).setWidth("180px").setHeader("Name").setFlexGrow(5);
+        grid.addColumn(Zoneitem::getPrice).setWidth("180px").setHeader("Price").setFlexGrow(5);
+        grid.addColumn(Zoneitem::getCity).setWidth("180px").setHeader("City").setFlexGrow(5);
+        grid.addColumn(Zoneitem::getServiceName).setWidth("180px").setHeader("Service").setFlexGrow(5);
+        grid.addColumn(Zoneitem::getServiceitemName).setWidth("180px").setHeader("Serviceitem").setFlexGrow(5);
+
     }
 
     @Override
@@ -79,4 +86,23 @@ public class ZoneitemsView extends CrudView<Zoneitem, TemplateModel> {
     protected BeanValidationBinder<Zoneitem> getBinder() {
         return binder;
     }
+
+    @Override
+    public void afterNavigation(AfterNavigationEvent event) {
+        //boolean active = event.getLocation().getFirstSegment()
+                //.equals(blog.getHref());
+        //blog.getElement().getClassList().set("active", active);
+
+        //String parameters = event.get getParameters();
+        System.out.println("ZoneitemsView AfterNavigationEvent fired");
+    }
+
+    /*
+    public void enter(ViewChangeEvent event) {
+        String parameters = event.getParameters();
+        if (!StringUtils.isEmpty(parameters)) {
+            Map<String, String> paramMap = ViewUtil.stringToMap(parameters);
+
+        }
+    }*/
 }

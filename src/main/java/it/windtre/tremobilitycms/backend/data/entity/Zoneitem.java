@@ -71,6 +71,31 @@ public class Zoneitem extends AbstractEntity {
         this.value = value;
     }
 
+    private String city = null;
+    public String getCity() {
+        return this.city;
+    }
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    private String serviceName = null;
+    public String getServiceName() {
+        return this.serviceName;
+    }
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
+    }
+
+    private String serviceitemName = null;
+    public String getServiceitemName() {
+        return this.serviceitemName;
+    }
+    public void setServiceitemName(String serviceitemName) {
+        this.serviceitemName = serviceitemName;
+    }
+
+
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class Zoneitem {\n");

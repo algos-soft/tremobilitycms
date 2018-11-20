@@ -13,10 +13,11 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.provider.ListDataProvider;
+import com.vaadin.flow.router.QueryParameters;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.templatemodel.TemplateModel;
 import com.vaadin.flow.component.polymertemplate.EventHandler;
-
+import com.vaadin.flow.router.*;
 
 import it.windtre.tremobilitycms.backend.data.InfoZoneType;
 import it.windtre.tremobilitycms.backend.data.DurationType;
@@ -32,12 +33,15 @@ import it.windtre.tremobilitycms.ui.utils.TemplateUtil;
 import it.windtre.tremobilitycms.ui.views.admin.service.LongConverter;
 
 
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static it.windtre.tremobilitycms.ui.utils.BakeryConst.PAGE_SERVICES;
 import static it.windtre.tremobilitycms.ui.utils.BakeryConst.PAGE_SERVICE_ITEMS;
@@ -162,15 +166,11 @@ public class ServiceitemForm extends PolymerTemplate<TemplateModel> implements C
     @EventHandler
     private void linkServicePressed() {
 
-        //UI.getCurrent().navigate(PAGE_SERVICESLIST);
-
         grid.setItems(serviceRepository.findAll());
-
         grid.addColumn(Service::getId).setHeader("ID");
         grid.addColumn(Service::getCity).setHeader("City");
         grid.addColumn(Service::getName).setHeader("Name");
         grid.addColumn(Service::getType).setHeader("Type");
-
         grid.addSelectionListener(e -> {
             e.getFirstSelectedItem().ifPresent(entity -> {
                 String srv = entity.getId().toString();
@@ -180,7 +180,6 @@ public class ServiceitemForm extends PolymerTemplate<TemplateModel> implements C
                 dialog.close();
             });
         });
-
 
         dialog.add((Component) grid);
         dialog.setHeight("100%");
@@ -195,8 +194,14 @@ public class ServiceitemForm extends PolymerTemplate<TemplateModel> implements C
 
         UI.getCurrent().close();
 
-        UI.getCurrent().navigate(PAGE_ZONES);
+        Map<String,String> myMap = new HashMap<>();
+        myMap.put("serviceitemId", id.getValue());
+        QueryParameters params = QueryParameters.simple(myMap);
+        System.out.println(params.getQueryString());
+        UI.getCurrent().navigate (PAGE_ZONES, params);
+    }
 
+    public void oldMethod() {
         /* // no more used
         Button addButton = new Button("Add Zone");
         addButton.getElement().setAttribute("theme", "primary");
