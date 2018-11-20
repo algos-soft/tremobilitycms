@@ -21,6 +21,8 @@ import it.windtre.tremobilitycms.ui.utils.BakeryConst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 
+import java.util.ArrayList;
+
 import static it.windtre.tremobilitycms.ui.utils.BakeryConst.PAGE_ZONES;
 
 @Tag("zoneitems-view")
@@ -29,7 +31,7 @@ import static it.windtre.tremobilitycms.ui.utils.BakeryConst.PAGE_ZONES;
 @PageTitle(BakeryConst.TITLE_ZONES)
 @Secured(Role.ADMIN)
 public class ZoneitemsView extends CrudView<Zoneitem, TemplateModel>
-        implements AfterNavigationObserver {
+        implements AfterNavigationObserver, BeforeEnterObserver {
 
     @Id("search")
     private SearchBar search;
@@ -88,21 +90,24 @@ public class ZoneitemsView extends CrudView<Zoneitem, TemplateModel>
     }
 
     @Override
-    public void afterNavigation(AfterNavigationEvent event) {
-        //boolean active = event.getLocation().getFirstSegment()
-                //.equals(blog.getHref());
-        //blog.getElement().getClassList().set("active", active);
-
-        //String parameters = event.get getParameters();
-        System.out.println("ZoneitemsView AfterNavigationEvent fired");
+    public void beforeEnter(BeforeEnterEvent event) {
+        String params = event.getLocation().getQueryParameters().getQueryString();
+        System.out.println("ZoneitemsView BeforeEnter params = " + params);
+        String[] arr = params.split("=");
+        if (arr.length == 2) {
+            if (arr[0].equalsIgnoreCase("serviceitemId")) {
+                reloadDataSourceById(arr[1]);
+            }
+        }
     }
 
-    /*
-    public void enter(ViewChangeEvent event) {
-        String parameters = event.getParameters();
-        if (!StringUtils.isEmpty(parameters)) {
-            Map<String, String> paramMap = ViewUtil.stringToMap(parameters);
+    @Override
+    public void afterNavigation(AfterNavigationEvent event) {
+        System.out.println("ZoneitemsView AfterNavigationEvent fired");
+    }
+    
 
-        }
-    }*/
+    private void reloadDataSourceById(String id) {
+        System.out.println("reload with only id = " + id);
+    }
 }
