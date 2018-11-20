@@ -26,7 +26,9 @@ import it.windtre.tremobilitycms.backend.data.entity.Zoneitem;
 import it.windtre.tremobilitycms.backend.repositories.ServiceRepository;
 import it.windtre.tremobilitycms.backend.repositories.ZoneRepository;
 import it.windtre.tremobilitycms.ui.components.FormButtonsBar;
+import it.windtre.tremobilitycms.ui.crud.CrudEntityPresenter;
 import it.windtre.tremobilitycms.ui.crud.CrudView;
+import it.windtre.tremobilitycms.ui.utils.TemplateUtil;
 import it.windtre.tremobilitycms.ui.views.admin.service.LongConverter;
 
 
@@ -37,6 +39,9 @@ import org.springframework.context.annotation.Scope;
 import java.util.List;
 import java.util.ArrayList;
 
+import static it.windtre.tremobilitycms.ui.utils.BakeryConst.PAGE_SERVICES;
+import static it.windtre.tremobilitycms.ui.utils.BakeryConst.PAGE_SERVICE_ITEMS;
+import static it.windtre.tremobilitycms.ui.utils.BakeryConst.PAGE_ZONES;
 
 
 @Tag("serviceitem-form")
@@ -98,10 +103,14 @@ public class ServiceitemForm extends PolymerTemplate<TemplateModel> implements C
     private final Dialog zoneDialog = new Dialog();
     private Grid<Zoneitem> zoneGrid = new Grid<>();
 
+    private final CrudEntityPresenter<Zoneitem> zonePresenter;
+
+
     @Autowired
-    public ServiceitemForm(ServiceRepository serviceRepository, ZoneRepository zoneRepository) {
+    public ServiceitemForm(ServiceRepository serviceRepository, ZoneRepository zoneRepository, CrudEntityPresenter<Zoneitem> zonePresenter) {
         this.serviceRepository = serviceRepository;
         this.zoneRepository = zoneRepository;
+        this.zonePresenter = zonePresenter;
     }
 
     @Override
@@ -184,6 +193,11 @@ public class ServiceitemForm extends PolymerTemplate<TemplateModel> implements C
     @EventHandler
     private void manageZonePressed() {
 
+        UI.getCurrent().close();
+
+        UI.getCurrent().navigate(PAGE_ZONES);
+
+        /* // no more used
         Button addButton = new Button("Add Zone");
         addButton.getElement().setAttribute("theme", "primary");
         addButton.getElement().setAttribute("colspan", "2");
@@ -192,10 +206,17 @@ public class ServiceitemForm extends PolymerTemplate<TemplateModel> implements C
             public void onComponentEvent(ClickEvent<Button> buttonClickEvent) {
                 System.out.print("addbutton clicked");
 
+                //getUI().ifPresent(ui -> ui.navigate(PAGE_ZONES));
+                //UI.getCurrent().navigate(PAGE_ZONES);
+                UI.getCurrent().navigate(PAGE_ZONES);
+
+                //zonePresenter.createNew();
+                //openZoneitemForm("");
             }
         });
 
         Long serviceitemId = Long.valueOf(21); //Long.valueOf(this.getElement().getProperty("id"));
+        zoneGrid.getElement().setAttribute("theme", "crud");
         zoneGrid.setItems(zoneRepository.findByServiceitem(serviceitemId));
 
         zoneGrid.addColumn(Zoneitem::getId).setHeader("ID");
@@ -207,9 +228,9 @@ public class ServiceitemForm extends PolymerTemplate<TemplateModel> implements C
             e.getFirstSelectedItem().ifPresent(entity -> {
                 String z = entity.getId().toString();
                 System.out.print("selected zoneitem with id = " + z);
-                openZoneitemForm(Long.valueOf(z));
-                //zoneGrid.deselectAll();
-                //dialog.close();
+                openZoneitemForm(z);
+                zoneGrid.deselectAll();
+                dialog.close();
             });
         });
 
@@ -220,10 +241,11 @@ public class ServiceitemForm extends PolymerTemplate<TemplateModel> implements C
         zoneDialog.getElement().addAttachListener(event -> UI.getCurrent().getPage().executeJavaScript(
                 "$0.$.overlay.setAttribute('theme', 'left');", zoneDialog.getElement()));
         zoneDialog.open();
+        */
     }
 
-    public void openZoneitemForm(Long zoneId) {
-
+    public void openZoneitemForm(String zoneId) {
+        getUI().ifPresent(ui -> ui.navigate(TemplateUtil.generateLocation(getBasePage(), zoneId)));
     }
 
     @Override
@@ -236,4 +258,7 @@ public class ServiceitemForm extends PolymerTemplate<TemplateModel> implements C
         return title;
     }
 
+    protected String getBasePage() {
+        return PAGE_ZONES;
+    }
 }
