@@ -61,7 +61,7 @@ public class ZoneitemsView extends CrudView<Zoneitem, TemplateModel>
         grid.addColumn(Zoneitem::getCity).setWidth("180px").setHeader("City").setFlexGrow(5);
         grid.addColumn(Zoneitem::getServiceName).setWidth("180px").setHeader("Service").setFlexGrow(5);
         grid.addColumn(Zoneitem::getServiceitemName).setWidth("180px").setHeader("Serviceitem").setFlexGrow(5);
-
+        grid.addColumn(Zoneitem::getServiceitem).setWidth("90px").setHeader("sitemId").setFlexGrow(2);
     }
 
     @Override
@@ -105,9 +105,10 @@ public class ZoneitemsView extends CrudView<Zoneitem, TemplateModel>
     public void afterNavigation(AfterNavigationEvent event) {
         System.out.println("ZoneitemsView AfterNavigationEvent fired");
     }
-    
+
 
     private void reloadDataSourceById(String id) {
-        System.out.println("reload with only id = " + id);
+        System.out.println("filter by id = " + id);
+        getPresenter().filter(id);
     }
 }

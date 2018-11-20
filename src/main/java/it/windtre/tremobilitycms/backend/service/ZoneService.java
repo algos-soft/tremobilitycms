@@ -25,7 +25,8 @@ public class ZoneService implements FilterableCrudService<Zoneitem> {
     public Page<Zoneitem> findAnyMatching(Optional<String> filter, Pageable pageable) {
         if (filter.isPresent()) {
             String repositoryFilter = "%" + filter.get() + "%";
-            return zoneRepository.findByNameLikeIgnoreCase(repositoryFilter, pageable);
+            //origianl was: return zoneRepository.findByNameLikeIgnoreCase(repositoryFilter, pageable);
+            return zoneRepository.findByServiceitem(Long.valueOf(repositoryFilter), pageable);
         } else {
             return find(pageable);
         }
