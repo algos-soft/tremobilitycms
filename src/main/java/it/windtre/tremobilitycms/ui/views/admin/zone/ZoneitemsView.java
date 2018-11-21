@@ -58,9 +58,9 @@ public class ZoneitemsView extends CrudView<Zoneitem, TemplateModel>
         grid.addColumn(Zoneitem::getId).setWidth("90px").setHeader("ID").setFlexGrow(2);
         grid.addColumn(Zoneitem::getName).setWidth("180px").setHeader("Name").setFlexGrow(5);
         grid.addColumn(Zoneitem::getPrice).setWidth("180px").setHeader("Price").setFlexGrow(5);
-        grid.addColumn(Zoneitem::getCity).setWidth("180px").setHeader("City").setFlexGrow(5);
-        grid.addColumn(Zoneitem::getServiceName).setWidth("180px").setHeader("Service").setFlexGrow(5);
-        grid.addColumn(Zoneitem::getServiceitemName).setWidth("180px").setHeader("Serviceitem").setFlexGrow(5);
+        //grid.addColumn(Zoneitem::getCity).setWidth("180px").setHeader("City").setFlexGrow(5);
+        //grid.addColumn(Zoneitem::getServiceName).setWidth("180px").setHeader("Service").setFlexGrow(5);
+        //grid.addColumn(Zoneitem::getServiceitemName).setWidth("180px").setHeader("Serviceitem").setFlexGrow(5);
         grid.addColumn(Zoneitem::getServiceitem).setWidth("90px").setHeader("sitemId").setFlexGrow(2);
     }
 
@@ -109,6 +109,6 @@ public class ZoneitemsView extends CrudView<Zoneitem, TemplateModel>
 
     private void reloadDataSourceById(String id) {
         System.out.println("filter by id = " + id);
-        getPresenter().filter(id);
+        //getPresenter().filter(id);
     }
 }

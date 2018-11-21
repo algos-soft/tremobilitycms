@@ -3,6 +3,7 @@ package it.windtre.tremobilitycms.backend.service;
 import it.windtre.tremobilitycms.backend.data.entity.User;
 import it.windtre.tremobilitycms.backend.data.entity.Zoneitem;
 import it.windtre.tremobilitycms.backend.repositories.ZoneRepository;
+import it.windtre.tremobilitycms.ui.utils.FormattingUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -26,7 +27,10 @@ public class ZoneService implements FilterableCrudService<Zoneitem> {
         if (filter.isPresent()) {
             String repositoryFilter = "%" + filter.get() + "%";
             //origianl was: return zoneRepository.findByNameLikeIgnoreCase(repositoryFilter, pageable);
-            return zoneRepository.findByServiceitem(Long.valueOf(repositoryFilter), pageable);
+            String digits = FormattingUtils.extractOnlyNumbers(filter.get());
+            Long l = Long.valueOf(digits);
+            Page<Zoneitem> list = zoneRepository.findByServiceitem(l, pageable);
+            return list;
         } else {
             return find(pageable);
         }

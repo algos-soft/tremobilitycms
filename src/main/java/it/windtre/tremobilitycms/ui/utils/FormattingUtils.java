@@ -68,4 +68,8 @@ public class FormattingUtils {
 		formatter.setGroupingUsed(false);
 		return formatter;
 	}
+
+	public static String extractOnlyNumbers(String s) {
+		return s.replaceAll("[^0-9.]", "");
+	}
 }
