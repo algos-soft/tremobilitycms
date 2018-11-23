@@ -24,6 +24,7 @@ import org.springframework.security.access.annotation.Secured;
 import java.util.ArrayList;
 
 import static it.windtre.tremobilitycms.ui.utils.BakeryConst.PAGE_ZONES;
+import static it.windtre.tremobilitycms.ui.utils.BakeryConst.QPKEY_serviceitemId;
 
 @Tag("zoneitems-view")
 @HtmlImport("src/views/admin/zones/zoneitems-view.html")
@@ -52,7 +53,7 @@ public class ZoneitemsView extends CrudView<Zoneitem, TemplateModel>
         this.presenter = presenter;
         form.setBinder(binder);
 
-        setupEventListeners();
+        this.setupEventListeners();
         setupGrid();
         presenter.setView(this);
     }
@@ -65,6 +66,12 @@ public class ZoneitemsView extends CrudView<Zoneitem, TemplateModel>
         //grid.addColumn(Zoneitem::getServiceName).setWidth("180px").setHeader("Service").setFlexGrow(5);
         //grid.addColumn(Zoneitem::getServiceitemName).setWidth("180px").setHeader("Serviceitem").setFlexGrow(5);
         grid.addColumn(Zoneitem::getServiceitem).setWidth("90px").setHeader("sitemId").setFlexGrow(2);
+    }
+
+    @Override
+    public void setupEventListeners() {
+        super.setupEventListeners();
+
     }
 
     @Override
@@ -99,7 +106,7 @@ public class ZoneitemsView extends CrudView<Zoneitem, TemplateModel>
         serviceitemIdStr = null;
         String[] arr = params.split("=");
         if (arr.length == 2) {
-            if (arr[0].equalsIgnoreCase("serviceitemId")) {
+            if (arr[0].equalsIgnoreCase(QPKEY_serviceitemId)) {
                 serviceitemIdStr = arr[1];
             }
         }

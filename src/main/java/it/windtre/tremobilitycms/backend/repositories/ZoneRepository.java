@@ -22,5 +22,5 @@ public interface ZoneRepository extends JpaRepository<Zoneitem, Long> {
     Page<Zoneitem> findByServiceitem(Long serviceitem, Pageable page);
 
     int countByServiceitem(Long serviceitem);
-    
+
 }

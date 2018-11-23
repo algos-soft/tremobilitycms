@@ -59,4 +59,5 @@ public class BakeryConst {
 	// Mutable for testing.
 	public static int NOTIFICATION_DURATION = 4000;
 
+	public static final String QPKEY_serviceitemId = "serviceitemId";
 }

@@ -43,9 +43,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import static it.windtre.tremobilitycms.ui.utils.BakeryConst.PAGE_SERVICES;
-import static it.windtre.tremobilitycms.ui.utils.BakeryConst.PAGE_SERVICE_ITEMS;
-import static it.windtre.tremobilitycms.ui.utils.BakeryConst.PAGE_ZONES;
+import static it.windtre.tremobilitycms.ui.utils.BakeryConst.*;
 
 
 @Tag("serviceitem-form")
@@ -194,10 +192,14 @@ public class ServiceitemForm extends PolymerTemplate<TemplateModel> implements C
 
         UI.getCurrent().close();
 
-        Map<String,String> myMap = new HashMap<>();
+        /*Map<String,String> myMap = new HashMap<>();
         myMap.put("serviceitemId", id.getValue());
         QueryParameters params = QueryParameters.simple(myMap);
         System.out.println(params.getQueryString());
+        */
+        String[] keys = {QPKEY_serviceitemId};
+        String[] values = {id.getValue()};
+        QueryParameters params = TemplateUtil.buildQueryParams(keys, values);
         UI.getCurrent().navigate (PAGE_ZONES, params);
     }
 
