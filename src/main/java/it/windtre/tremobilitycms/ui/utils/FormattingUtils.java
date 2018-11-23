@@ -69,7 +69,20 @@ public class FormattingUtils {
 		return formatter;
 	}
 
+
+	/** useful string functions */
+
 	public static String extractOnlyNumbers(String s) {
 		return s.replaceAll("[^0-9.]", "");
 	}
+
+	public static Boolean containsOnlyNumber(String s) {
+		if (s.matches("[0-9]+") && s.length() > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+
 }

@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
+import java.util.List;
 
 @org.springframework.stereotype.Service
 public class ZoneService implements FilterableCrudService<Zoneitem> {
@@ -24,13 +26,28 @@ public class ZoneService implements FilterableCrudService<Zoneitem> {
 
     @Override
     public Page<Zoneitem> findAnyMatching(Optional<String> filter, Pageable pageable) {
+        System.out.println("ZoneService findAnyMatching is called...");
         if (filter.isPresent()) {
-            String repositoryFilter = "%" + filter.get() + "%";
-            //origianl was: return zoneRepository.findByNameLikeIgnoreCase(repositoryFilter, pageable);
-            String digits = FormattingUtils.extractOnlyNumbers(filter.get());
-            Long l = Long.valueOf(digits);
-            Page<Zoneitem> list = zoneRepository.findByServiceitem(l, pageable);
-            return list;
+            if (FormattingUtils.containsOnlyNumber(filter.get())) {
+                // filtered by serviceitemId
+                Page<Zoneitem> page = zoneRepository.findByServiceitem(getIdByFilter(filter.get()), pageable);
+                if (page != null) {
+                    return page;
+                } else {
+                    return find(pageable);
+                }
+                /*List<Zoneitem> list = zoneRepository.findByServiceitem(l);
+                if (list.size() > 0) {
+                    Page<Zoneitem> page = new PageImpl<>(list);
+                    return page;
+                } else {
+                    return find(pageable);
+                }*/
+            } else {
+                // filtered by name
+                String repositoryFilter = "%" + filter.get() + "%";
+                return zoneRepository.findByNameLikeIgnoreCase(repositoryFilter, pageable);
+            }
         } else {
             return find(pageable);
         }
@@ -38,9 +55,16 @@ public class ZoneService implements FilterableCrudService<Zoneitem> {
 
     @Override
     public long countAnyMatching(Optional<String> filter) {
+        System.out.println("ZoneService countAnyMatching is called...");
         if (filter.isPresent()) {
-            String repositoryFilter = "%" + filter.get() + "%";
-            return zoneRepository.countByNameLikeIgnoreCase(repositoryFilter);
+            if (FormattingUtils.containsOnlyNumber(filter.get())) {
+                // filtered by serviceitemId
+                return zoneRepository.countByServiceitem(getIdByFilter(filter.get()));
+            } else {
+                // filtered by name
+                String repositoryFilter = "%" + filter.get() + "%";
+                return zoneRepository.countByNameLikeIgnoreCase(repositoryFilter);
+            }
         } else {
             return count();
         }
@@ -71,5 +95,12 @@ public class ZoneService implements FilterableCrudService<Zoneitem> {
 
     }
 
+
+    /** support method */
+
+    private Long getIdByFilter(String filter) {
+        String digits = FormattingUtils.extractOnlyNumbers(filter);
+        return Long.valueOf(digits);
+    }
 }
 

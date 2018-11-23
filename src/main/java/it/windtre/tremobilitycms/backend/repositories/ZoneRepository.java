@@ -19,19 +19,25 @@ public interface ZoneRepository extends JpaRepository<Zoneitem, Long> {
 
     List<Zoneitem> findAll();
 
-    //no more used: List<Zoneitem> findByServiceitem(Long serviceitem);
+    Page<Zoneitem> findByServiceitem(Long serviceitem, Pageable page);
 
-    //@Query("SELECT con FROM Contact con  WHERE con.phoneType=(:pType) AND con.lastName= (:lName)")
-    //List<Contact> findByLastNameAndPhoneType(@Param("pType") PhoneType pType, @Param("lName") String lName);
+    int countByServiceitem(Long serviceitem);
 
-    //@Query("SELECT z FROM Zoneitem z WHERE z.serviceitem=(:serviceitemId)")
-    //Page<Zoneitem> findByServiceitem(@Param("serviceitemId") Long serviceitemId, @Param("page") Pageable page);
-
+    /* funziona
     @Query(value = "SELECT * FROM Zoneitem z WHERE z.serviceitem = :serviceitem",
             countQuery = "SELECT count(*) FROM Zoneitem z WHERE z.serviceitem = :serviceitem",
             nativeQuery = true)
-    Page<Zoneitem> findByServiceitem(@Param("serviceitem") Long serviceitem, Pageable page);
+    List<Zoneitem> findByServiceitem(@Param("serviceitem") Long serviceitem);
+    */
 
-    int countByServiceitem(Long serviceitem);
+    /* non va
+    //@Query("SELECT z FROM Zoneitem z WHERE z.serviceitem=(:serviceitemId)")
+    //Page<Zoneitem> findByServiceitem(@Param("serviceitemId") Long serviceitemId, @Param("page") Pageable page);
+    */
+
+    /*@Query(value = "SELECT * FROM Zoneitem z WHERE z.serviceitem = :serviceitem",
+            countQuery = "SELECT count(*) FROM Zoneitem z WHERE z.serviceitem = :serviceitem",
+            nativeQuery = true)
+    */
 
 }

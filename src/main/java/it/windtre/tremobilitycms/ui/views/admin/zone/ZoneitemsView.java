@@ -43,6 +43,9 @@ public class ZoneitemsView extends CrudView<Zoneitem, TemplateModel>
 
     private final BeanValidationBinder<Zoneitem> binder = new BeanValidationBinder<>(Zoneitem.class);
 
+    private String serviceitemIdStr = null;
+
+
     @Autowired
     public ZoneitemsView(CrudEntityPresenter<Zoneitem> presenter, ZoneitemForm form) {
         super(EntityUtil.getName(Zoneitem.class), form);
@@ -93,10 +96,11 @@ public class ZoneitemsView extends CrudView<Zoneitem, TemplateModel>
     public void beforeEnter(BeforeEnterEvent event) {
         String params = event.getLocation().getQueryParameters().getQueryString();
         System.out.println("ZoneitemsView BeforeEnter params = " + params);
+        serviceitemIdStr = null;
         String[] arr = params.split("=");
         if (arr.length == 2) {
             if (arr[0].equalsIgnoreCase("serviceitemId")) {
-                reloadDataSourceById(arr[1]);
+                serviceitemIdStr = arr[1];
             }
         }
     }
@@ -104,11 +108,16 @@ public class ZoneitemsView extends CrudView<Zoneitem, TemplateModel>
     @Override
     public void afterNavigation(AfterNavigationEvent event) {
         System.out.println("ZoneitemsView AfterNavigationEvent fired");
+        if (serviceitemIdStr != null && !serviceitemIdStr.isEmpty()) {
+            reloadDataSourceById(serviceitemIdStr);
+        }
     }
 
 
+    /** support method */
+
     private void reloadDataSourceById(String id) {
-        System.out.println("filter by id = " + id);
-        //getPresenter().filter(id);
+        System.out.println("reloadDataSource filter by id = " + id);
+        getPresenter().filter(id);
     }
 }
