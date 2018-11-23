@@ -22,22 +22,5 @@ public interface ZoneRepository extends JpaRepository<Zoneitem, Long> {
     Page<Zoneitem> findByServiceitem(Long serviceitem, Pageable page);
 
     int countByServiceitem(Long serviceitem);
-
-    /* funziona
-    @Query(value = "SELECT * FROM Zoneitem z WHERE z.serviceitem = :serviceitem",
-            countQuery = "SELECT count(*) FROM Zoneitem z WHERE z.serviceitem = :serviceitem",
-            nativeQuery = true)
-    List<Zoneitem> findByServiceitem(@Param("serviceitem") Long serviceitem);
-    */
-
-    /* non va
-    //@Query("SELECT z FROM Zoneitem z WHERE z.serviceitem=(:serviceitemId)")
-    //Page<Zoneitem> findByServiceitem(@Param("serviceitemId") Long serviceitemId, @Param("page") Pageable page);
-    */
-
-    /*@Query(value = "SELECT * FROM Zoneitem z WHERE z.serviceitem = :serviceitem",
-            countQuery = "SELECT count(*) FROM Zoneitem z WHERE z.serviceitem = :serviceitem",
-            nativeQuery = true)
-    */
-
+    
 }

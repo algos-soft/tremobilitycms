@@ -36,13 +36,6 @@ public class ZoneService implements FilterableCrudService<Zoneitem> {
                 } else {
                     return find(pageable);
                 }
-                /*List<Zoneitem> list = zoneRepository.findByServiceitem(l);
-                if (list.size() > 0) {
-                    Page<Zoneitem> page = new PageImpl<>(list);
-                    return page;
-                } else {
-                    return find(pageable);
-                }*/
             } else {
                 // filtered by name
                 String repositoryFilter = "%" + filter.get() + "%";
