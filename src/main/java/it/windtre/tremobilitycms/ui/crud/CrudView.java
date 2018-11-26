@@ -56,9 +56,6 @@ public abstract class CrudView<E extends AbstractEntity, T extends TemplateModel
 
 	protected abstract Grid<E> getGrid();
 
-	// non serve
-	//protected QueryParameters params = null;
-
 	private PropertyChangeSupport support;
 
 
@@ -74,7 +71,6 @@ public abstract class CrudView<E extends AbstractEntity, T extends TemplateModel
 				"$0.$.overlay.setAttribute('theme', 'right');", dialog.getElement()));
 
 		support = new PropertyChangeSupport(this);
-
 	}
 
     public CrudForm<E> getForm() {
@@ -113,14 +109,6 @@ public abstract class CrudView<E extends AbstractEntity, T extends TemplateModel
 
 	protected void navigateToEntity(String id) {
 		getUI().ifPresent(ui -> ui.navigate(TemplateUtil.generateLocation(getBasePage(), id)));
-
-		/* non serve
-		if (params != null) {
-			params = null;
-			getUI().ifPresent(ui -> ui.navigate(TemplateUtil.generateLocation(getBasePage(), id), params));
-		} else {
-			getUI().ifPresent(ui -> ui.navigate(TemplateUtil.generateLocation(getBasePage(), id)));
-		}*/
 	}
 
 	@Override
@@ -181,7 +169,8 @@ public abstract class CrudView<E extends AbstractEntity, T extends TemplateModel
 	}
 
 
-	/** propertyChange */
+	/** property change listener */
+
 	public void addPropertyChangeListener(PropertyChangeListener pcl) {
 		support.addPropertyChangeListener(pcl);
 	}

@@ -69,24 +69,14 @@ public class ZoneitemsView extends CrudView<Zoneitem, TemplateModel>
 
     private void setupGrid() {
         grid.addColumn(Zoneitem::getId).setWidth("90px").setHeader("ID").setFlexGrow(2);
-        grid.addColumn(Zoneitem::getName).setWidth("180px").setHeader("Name").setFlexGrow(5);
-        grid.addColumn(Zoneitem::getPrice).setWidth("180px").setHeader("Price").setFlexGrow(5);
-        //grid.addColumn(Zoneitem::getCity).setWidth("180px").setHeader("City").setFlexGrow(5);
-        //grid.addColumn(Zoneitem::getServiceName).setWidth("180px").setHeader("Service").setFlexGrow(5);
-        //grid.addColumn(Zoneitem::getServiceitemName).setWidth("180px").setHeader("Serviceitem").setFlexGrow(5);
-        grid.addColumn(Zoneitem::getServiceitem).setWidth("90px").setHeader("sitemId").setFlexGrow(2);
+        grid.addColumn(Zoneitem::getName).setWidth("140px").setHeader("Name").setFlexGrow(4);
+        grid.addColumn(Zoneitem::getPrice).setWidth("140px").setHeader("Price").setFlexGrow(4);
+        grid.addColumn(Zoneitem::getCity).setWidth("140px").setHeader("City").setFlexGrow(4);
+        grid.addColumn(Zoneitem::getServiceName).setWidth("140px").setHeader("Service").setFlexGrow(4);
+        grid.addColumn(Zoneitem::getServiceitemName).setWidth("140px").setHeader("Srvitm").setFlexGrow(4);
+        grid.addColumn(Zoneitem::getServiceitem).setWidth("90px").setHeader("Srvitm Id").setFlexGrow(2);
     }
 
-    // non serve
-    /*@Override
-    public void setupEventListeners() {
-        String[] keys = {QPKEY_serviceitemId};
-        String[] values = {serviceitemIdStr};
-        QueryParameters params = TemplateUtil.buildQueryParams(keys, values);
-        super.params = params;
-        super.setupEventListeners();
-        //super.params = null;
-    }*/
 
     @Override
     public Grid<Zoneitem> getGrid() {
@@ -112,6 +102,9 @@ public class ZoneitemsView extends CrudView<Zoneitem, TemplateModel>
     protected BeanValidationBinder<Zoneitem> getBinder() {
         return binder;
     }
+
+
+    /** view life cycle */
 
     @Override
     public void beforeEnter(BeforeEnterEvent event) {
