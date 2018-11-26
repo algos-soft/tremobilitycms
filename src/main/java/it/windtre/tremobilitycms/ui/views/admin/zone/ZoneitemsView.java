@@ -49,7 +49,9 @@ public class ZoneitemsView extends CrudView<Zoneitem, TemplateModel>
     private final BeanValidationBinder<Zoneitem> binder = new BeanValidationBinder<>(Zoneitem.class);
 
     private String serviceitemIdStr = null;
+    private Long currentServiceitemId = null;
 
+    ZoneitemForm zoneForm = null;
 
     @Autowired
     public ZoneitemsView(CrudEntityPresenter<Zoneitem> presenter, ZoneitemForm form) {
@@ -60,6 +62,9 @@ public class ZoneitemsView extends CrudView<Zoneitem, TemplateModel>
         this.setupEventListeners();
         setupGrid();
         presenter.setView(this);
+
+        super.addPropertyChangeListener(this);
+        zoneForm = form;
     }
 
     private void setupGrid() {
@@ -117,6 +122,7 @@ public class ZoneitemsView extends CrudView<Zoneitem, TemplateModel>
         if (arr.length == 2) {
             if (arr[0].equalsIgnoreCase(QPKEY_serviceitemId)) {
                 serviceitemIdStr = arr[1];
+                currentServiceitemId = Long.valueOf(serviceitemIdStr);
             }
         }
     }
@@ -141,10 +147,11 @@ public class ZoneitemsView extends CrudView<Zoneitem, TemplateModel>
     /** property change */
 
     public void propertyChange(PropertyChangeEvent evt) {
-        //this.setNews((String) evt.getNewValue());
-        getPresenter().getEntity().setServiceitem(Long.valueOf(serviceitemIdStr));
-        getPresenter().save();
-        
+        //to get newValue (String) evt.getNewValue();
+        getPresenter().getEntity().setServiceitem(currentServiceitemId);
+        //getPresenter().save();
+        System.out.println("new zoneitem has serviceitem == " + getPresenter().getEntity().getServiceitem());
+        zoneForm.getServiceitemTF().setValue(String.valueOf(currentServiceitemId));
     }
 
 }

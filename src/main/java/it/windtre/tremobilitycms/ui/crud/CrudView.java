@@ -102,7 +102,7 @@ public abstract class CrudView<E extends AbstractEntity, T extends TemplateModel
 
 		getSearchBar().addActionClickListener(e -> {
 			getPresenter().createNew();
-			support.firePropertyChange ("NewEntity", true, true);
+			support.firePropertyChange ("NewEntity", false, true);
 		});
 		getSearchBar()
 				.addFilterChangeListener(e -> getPresenter().filter(getSearchBar().getFilter()));

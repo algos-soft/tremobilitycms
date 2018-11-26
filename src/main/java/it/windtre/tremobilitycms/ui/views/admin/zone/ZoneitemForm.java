@@ -33,7 +33,7 @@ import org.springframework.context.annotation.Scope;
 @HtmlImport("src/views/admin/zones/zoneitem-form.html")
 @SpringComponent
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class ZoneitemForm extends PolymerTemplate<TemplateModel> implements CrudView.CrudForm<Zoneitem>, AfterNavigationObserver {
+public class ZoneitemForm extends PolymerTemplate<TemplateModel> implements CrudView.CrudForm<Zoneitem> {
 
     @Id("title")
     private H3 title;
@@ -84,19 +84,16 @@ public class ZoneitemForm extends PolymerTemplate<TemplateModel> implements Crud
         binder.bind(shape, "shape");
         binder.bind(value, "value");
         binder.forField(serviceitem).withConverter(new LongConverter()).bind("serviceitem");
-
     }
 
     @EventHandler
     private void linkServiceitemPressed() {
 
         grid.setItems(serviceitemRepository.findAll());
-
         grid.addColumn(Serviceitem::getId).setHeader("ID");
         grid.addColumn(Serviceitem::getName).setHeader("Name");
         grid.addColumn(Serviceitem::getDescription).setHeader("Description");
         grid.addColumn(Serviceitem::getDurationDescription).setHeader("Duration");
-
         grid.addSelectionListener(e -> {
             e.getFirstSelectedItem().ifPresent(entity -> {
                 String srv = entity.getId().toString();
@@ -122,14 +119,6 @@ public class ZoneitemForm extends PolymerTemplate<TemplateModel> implements Crud
     @Override
     public HasText getTitle() {
         return title;
-    }
-
-    @Override
-    public void afterNavigation(AfterNavigationEvent event) {
-        System.out.println("ZoneitemForm AfterNavigationEvent fired");
-        /*if (serviceitemIdStr != null && !serviceitemIdStr.isEmpty()) {
-            reloadDataSourceById(serviceitemIdStr);
-        }*/
     }
 
     public TextField getServiceitemTF() {
