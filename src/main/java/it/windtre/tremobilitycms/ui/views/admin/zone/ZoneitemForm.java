@@ -13,6 +13,8 @@ import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
+import com.vaadin.flow.router.AfterNavigationEvent;
+import com.vaadin.flow.router.AfterNavigationObserver;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.templatemodel.TemplateModel;
 import it.windtre.tremobilitycms.backend.data.entity.Serviceitem;
@@ -31,7 +33,7 @@ import org.springframework.context.annotation.Scope;
 @HtmlImport("src/views/admin/zones/zoneitem-form.html")
 @SpringComponent
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class ZoneitemForm extends PolymerTemplate<TemplateModel> implements CrudView.CrudForm<Zoneitem> {
+public class ZoneitemForm extends PolymerTemplate<TemplateModel> implements CrudView.CrudForm<Zoneitem>, AfterNavigationObserver {
 
     @Id("title")
     private H3 title;
@@ -122,4 +124,15 @@ public class ZoneitemForm extends PolymerTemplate<TemplateModel> implements Crud
         return title;
     }
 
+    @Override
+    public void afterNavigation(AfterNavigationEvent event) {
+        System.out.println("ZoneitemForm AfterNavigationEvent fired");
+        /*if (serviceitemIdStr != null && !serviceitemIdStr.isEmpty()) {
+            reloadDataSourceById(serviceitemIdStr);
+        }*/
+    }
+
+    public TextField getServiceitemTF() {
+        return serviceitem;
+    }
 }

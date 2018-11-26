@@ -1,6 +1,7 @@
 package it.windtre.tremobilitycms.ui.views.admin.zone;
 
 import com.vaadin.flow.component.Tag;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.polymertemplate.Id;
@@ -18,10 +19,13 @@ import it.windtre.tremobilitycms.ui.components.SearchBar;
 import it.windtre.tremobilitycms.ui.crud.CrudEntityPresenter;
 import it.windtre.tremobilitycms.ui.crud.CrudView;
 import it.windtre.tremobilitycms.ui.utils.BakeryConst;
+import it.windtre.tremobilitycms.ui.utils.TemplateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 
 import java.util.ArrayList;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 import static it.windtre.tremobilitycms.ui.utils.BakeryConst.PAGE_ZONES;
 import static it.windtre.tremobilitycms.ui.utils.BakeryConst.QPKEY_serviceitemId;
@@ -32,7 +36,7 @@ import static it.windtre.tremobilitycms.ui.utils.BakeryConst.QPKEY_serviceitemId
 @PageTitle(BakeryConst.TITLE_ZONES)
 @Secured(Role.ADMIN)
 public class ZoneitemsView extends CrudView<Zoneitem, TemplateModel>
-        implements AfterNavigationObserver, BeforeEnterObserver {
+        implements AfterNavigationObserver, BeforeEnterObserver, PropertyChangeListener {
 
     @Id("search")
     private SearchBar search;
@@ -68,11 +72,16 @@ public class ZoneitemsView extends CrudView<Zoneitem, TemplateModel>
         grid.addColumn(Zoneitem::getServiceitem).setWidth("90px").setHeader("sitemId").setFlexGrow(2);
     }
 
-    @Override
+    // non serve
+    /*@Override
     public void setupEventListeners() {
+        String[] keys = {QPKEY_serviceitemId};
+        String[] values = {serviceitemIdStr};
+        QueryParameters params = TemplateUtil.buildQueryParams(keys, values);
+        super.params = params;
         super.setupEventListeners();
-
-    }
+        //super.params = null;
+    }*/
 
     @Override
     public Grid<Zoneitem> getGrid() {
@@ -127,4 +136,15 @@ public class ZoneitemsView extends CrudView<Zoneitem, TemplateModel>
         System.out.println("reloadDataSource filter by id = " + id);
         getPresenter().filter(id);
     }
+
+
+    /** property change */
+
+    public void propertyChange(PropertyChangeEvent evt) {
+        //this.setNews((String) evt.getNewValue());
+        getPresenter().getEntity().setServiceitem(Long.valueOf(serviceitemIdStr));
+        getPresenter().save();
+        
+    }
+
 }

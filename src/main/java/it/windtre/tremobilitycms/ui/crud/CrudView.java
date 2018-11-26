@@ -14,6 +14,7 @@ import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.OptionalParameter;
+import com.vaadin.flow.router.QueryParameters;
 import com.vaadin.flow.templatemodel.TemplateModel;
 import it.windtre.tremobilitycms.app.HasLogger;
 import it.windtre.tremobilitycms.backend.data.entity.AbstractEntity;
@@ -22,6 +23,9 @@ import it.windtre.tremobilitycms.ui.components.FormButtonsBar;
 import it.windtre.tremobilitycms.ui.components.SearchBar;
 import it.windtre.tremobilitycms.ui.utils.TemplateUtil;
 import it.windtre.tremobilitycms.ui.views.EntityView;
+import java.beans.PropertyChangeSupport;
+import java.beans.PropertyChangeListener;
+
 
 public abstract class CrudView<E extends AbstractEntity, T extends TemplateModel> extends PolymerTemplate<T>
 		implements HasLogger, EntityView<E>, HasUrlParameter<Long> {
@@ -52,6 +56,12 @@ public abstract class CrudView<E extends AbstractEntity, T extends TemplateModel
 
 	protected abstract Grid<E> getGrid();
 
+	// non serve
+	//protected QueryParameters params = null;
+
+	private PropertyChangeSupport support;
+
+
 	public CrudView(String entityName, CrudForm<E> form) {
 		this.entityName = entityName;
 		this.form = form;
@@ -62,6 +72,9 @@ public abstract class CrudView<E extends AbstractEntity, T extends TemplateModel
 		// Workaround for https://github.com/vaadin/vaadin-dialog-flow/issues/28
 		dialog.getElement().addAttachListener(event -> UI.getCurrent().getPage().executeJavaScript(
 				"$0.$.overlay.setAttribute('theme', 'right');", dialog.getElement()));
+
+		support = new PropertyChangeSupport(this);
+
 	}
 
     public CrudForm<E> getForm() {
@@ -87,7 +100,10 @@ public abstract class CrudView<E extends AbstractEntity, T extends TemplateModel
 
 		getForm().getButtons().addDeleteListener(e -> getPresenter().delete());
 
-		getSearchBar().addActionClickListener(e -> getPresenter().createNew());
+		getSearchBar().addActionClickListener(e -> {
+			getPresenter().createNew();
+			support.firePropertyChange ("NewEntity", true, true);
+		});
 		getSearchBar()
 				.addFilterChangeListener(e -> getPresenter().filter(getSearchBar().getFilter()));
 
@@ -97,6 +113,14 @@ public abstract class CrudView<E extends AbstractEntity, T extends TemplateModel
 
 	protected void navigateToEntity(String id) {
 		getUI().ifPresent(ui -> ui.navigate(TemplateUtil.generateLocation(getBasePage(), id)));
+
+		/* non serve
+		if (params != null) {
+			params = null;
+			getUI().ifPresent(ui -> ui.navigate(TemplateUtil.generateLocation(getBasePage(), id), params));
+		} else {
+			getUI().ifPresent(ui -> ui.navigate(TemplateUtil.generateLocation(getBasePage(), id)));
+		}*/
 	}
 
 	@Override
@@ -133,6 +157,7 @@ public abstract class CrudView<E extends AbstractEntity, T extends TemplateModel
 
 	public void updateTitle(boolean newEntity) {
 		getForm().getTitle().setText((newEntity ? "New" : "Edit") + " " + entityName);
+
 	}
 
 	@Override
@@ -153,5 +178,15 @@ public abstract class CrudView<E extends AbstractEntity, T extends TemplateModel
 	@Override
 	public String getEntityName() {
 		return entityName;
+	}
+
+
+	/** propertyChange */
+	public void addPropertyChangeListener(PropertyChangeListener pcl) {
+		support.addPropertyChangeListener(pcl);
+	}
+
+	public void removePropertyChangeListener(PropertyChangeListener pcl) {
+		support.removePropertyChangeListener(pcl);
 	}
 }
