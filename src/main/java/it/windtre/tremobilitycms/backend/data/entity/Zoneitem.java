@@ -2,11 +2,17 @@ package it.windtre.tremobilitycms.backend.data.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
 
 @Entity
 public class Zoneitem extends AbstractEntity {
 
-    @Column(unique = true)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false, nullable = false)
     private Long id = null;
     public Long getId() {
         return this.id;

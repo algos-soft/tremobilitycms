@@ -69,6 +69,7 @@ public class ZoneitemForm extends PolymerTemplate<TemplateModel> implements Crud
     private final Dialog dialog = new Dialog();
     private Grid<Serviceitem> grid = new Grid<>();
 
+
     @Autowired
     public ZoneitemForm(ServiceitemRepository serviceitemRepository) {
         this.serviceitemRepository = serviceitemRepository;
@@ -123,6 +124,10 @@ public class ZoneitemForm extends PolymerTemplate<TemplateModel> implements Crud
 
 
     /** support method */
+
+    public TextField getIdTF() {
+        return id;
+    }
 
     public TextField getServiceitemTF() {
         return serviceitem;

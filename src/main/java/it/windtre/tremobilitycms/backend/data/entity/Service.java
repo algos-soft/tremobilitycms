@@ -2,12 +2,13 @@ package it.windtre.tremobilitycms.backend.data.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.validation.constraints.Size;
 
 @Entity
 public class Service extends AbstractEntity {
 
-    @Column(unique = true)
+    @Id
     private Long id = null;
     public Long getId() {
         return this.id;

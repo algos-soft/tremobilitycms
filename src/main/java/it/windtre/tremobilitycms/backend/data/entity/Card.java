@@ -1,10 +1,12 @@
 package it.windtre.tremobilitycms.backend.data.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 public class Card extends AbstractEntity {
 
+    @Id
     private Long id = null;
     public Long getId() {
         return this.id;

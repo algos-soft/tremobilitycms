@@ -14,6 +14,8 @@ import com.vaadin.flow.router.*;
 import it.windtre.tremobilitycms.backend.data.Role;
 import it.windtre.tremobilitycms.backend.data.entity.Zoneitem;
 import it.windtre.tremobilitycms.backend.data.entity.util.EntityUtil;
+import it.windtre.tremobilitycms.backend.repositories.ServiceitemRepository;
+import it.windtre.tremobilitycms.backend.repositories.ZoneRepository;
 import it.windtre.tremobilitycms.ui.MainView;
 import it.windtre.tremobilitycms.ui.components.SearchBar;
 import it.windtre.tremobilitycms.ui.crud.CrudEntityPresenter;
@@ -52,9 +54,11 @@ public class ZoneitemsView extends CrudView<Zoneitem, TemplateModel>
     private Long currentServiceitemId = null;
 
     ZoneitemForm zoneForm = null;
+    private ZoneRepository zoneRepository = null;
+
 
     @Autowired
-    public ZoneitemsView(CrudEntityPresenter<Zoneitem> presenter, ZoneitemForm form) {
+    public ZoneitemsView(CrudEntityPresenter<Zoneitem> presenter, ZoneitemForm form, ZoneRepository zoneRepository) {
         super(EntityUtil.getName(Zoneitem.class), form);
         this.presenter = presenter;
         form.setBinder(binder);
@@ -64,7 +68,10 @@ public class ZoneitemsView extends CrudView<Zoneitem, TemplateModel>
         presenter.setView(this);
 
         super.addPropertyChangeListener(this);
+
         zoneForm = form;
+
+        this.zoneRepository = zoneRepository;
     }
 
     private void setupGrid() {
@@ -141,10 +148,17 @@ public class ZoneitemsView extends CrudView<Zoneitem, TemplateModel>
 
     public void propertyChange(PropertyChangeEvent evt) {
         //to get newValue (String) evt.getNewValue();
+
+        // auto fill serviceitem
         getPresenter().getEntity().setServiceitem(currentServiceitemId);
-        //getPresenter().save();
-        System.out.println("new zoneitem has serviceitem == " + getPresenter().getEntity().getServiceitem());
+
+        // generate new id and fill it
+        Long id = Long.valueOf(zoneRepository.findAll().size() + 1);
+        getPresenter().getEntity().setId(id);
+
+        // update form UI
         zoneForm.getServiceitemTF().setValue(String.valueOf(currentServiceitemId));
+        zoneForm.getIdTF().setValue(String.valueOf(id));
     }
 
 }
