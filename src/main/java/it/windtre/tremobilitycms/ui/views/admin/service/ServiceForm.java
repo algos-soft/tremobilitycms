@@ -152,4 +152,10 @@ public class ServiceForm extends PolymerTemplate<TemplateModel> implements CrudV
         return title;
     }
 
+
+    /** support method */
+
+    public TextField getIdTF() {
+        return id;
+    }
 }
