@@ -10,7 +10,6 @@ public class BakeryConst {
 	public static final Locale APP_LOCALE = Locale.US;
 
 	public static final String PAGE_ROOT = "";
-	public static final String PAGE_STOREFRONT = "products";
 	public static final String PAGE_STOREFRONT_EDIT = "storefront/edit";
 	public static final String PAGE_DASHBOARD = "dashboard";
 	public static final String PAGE_USERS = "users";
@@ -24,6 +23,7 @@ public class BakeryConst {
 	public static final String PAGE_ZONES = "zoneitems";
 	public static final String PAGE_LOGOUT = "logout";
 	public static final String PAGE_DEFAULT = PAGE_SERVICES;
+	public static final String PAGE_STOREFRONT = PAGE_SERVICES;
 
 	public static final String ICON_STOREFRONT = "edit";
 	public static final String ICON_DASHBOARD = "clock";

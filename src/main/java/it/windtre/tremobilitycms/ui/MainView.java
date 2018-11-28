@@ -50,9 +50,9 @@ public class MainView extends PolymerTemplate<TemplateModel>
 		if (SecurityUtils.isAccessGranted(UsersView.class)) {
 			pages.add(new PageInfo(PAGE_USERS, ICON_USERS, TITLE_USERS));
 		}
-		if (SecurityUtils.isAccessGranted(ProductsView.class)) {
-			//pages.add(new PageInfo(PAGE_PRODUCTS, ICON_PRODUCTS, TITLE_PRODUCTS));
-		}
+		/*if (SecurityUtils.isAccessGranted(ProductsView.class)) {
+			pages.add(new PageInfo(PAGE_PRODUCTS, ICON_PRODUCTS, TITLE_PRODUCTS));
+		}*/
 		pages.add(new PageInfo(PAGE_SERVICES, ICON_SERVICES, TITLE_SERVICES));
 		pages.add(new PageInfo(PAGE_SERVICE_ITEMS, ICON_SERVICE_ITEMS, TITLE_SERVICE_ITEMS));
 		//pages.add(new PageInfo(PAGE_ZONES, ICON_ZONES, TITLE_ZONES));

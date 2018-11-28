@@ -26,7 +26,6 @@ import static it.windtre.tremobilitycms.ui.utils.BakeryConst.PAGE_PRODUCTS;
 @HtmlImport("src/views/admin/products/products-view.html")
 @Route(value = PAGE_PRODUCTS, layout = MainView.class)
 @PageTitle(BakeryConst.TITLE_PRODUCTS)
-@RouteAlias(value = BakeryConst.PAGE_ROOT, layout = MainView.class)
 @Secured(Role.ADMIN)
 public class ProductsView extends CrudView<Workspace, TemplateModel> {
 

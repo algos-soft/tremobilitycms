@@ -7,6 +7,7 @@ import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.templatemodel.TemplateModel;
 import it.windtre.tremobilitycms.backend.data.Role;
 import it.windtre.tremobilitycms.backend.data.entity.Service;
@@ -29,6 +30,7 @@ import static it.windtre.tremobilitycms.ui.utils.BakeryConst.PAGE_SERVICES;
 @HtmlImport("src/views/admin/services/services-view.html")
 @Route(value = PAGE_SERVICES, layout = MainView.class)
 @PageTitle(BakeryConst.TITLE_SERVICES)
+@RouteAlias(value = BakeryConst.PAGE_ROOT, layout = MainView.class)
 @Secured(Role.ADMIN)
 public class ServicesView extends CrudView<Service, TemplateModel>
     implements PropertyChangeListener {
