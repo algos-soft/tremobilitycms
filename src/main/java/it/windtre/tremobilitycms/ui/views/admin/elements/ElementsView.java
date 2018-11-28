@@ -11,6 +11,7 @@ import com.vaadin.flow.templatemodel.TemplateModel;
 import it.windtre.tremobilitycms.backend.data.Role;
 import it.windtre.tremobilitycms.backend.data.entity.Element;
 import it.windtre.tremobilitycms.backend.data.entity.util.EntityUtil;
+import it.windtre.tremobilitycms.backend.repositories.ElementRepository;
 import it.windtre.tremobilitycms.ui.MainView;
 import it.windtre.tremobilitycms.ui.components.SearchBar;
 import it.windtre.tremobilitycms.ui.crud.CrudEntityPresenter;
@@ -19,6 +20,9 @@ import it.windtre.tremobilitycms.ui.utils.BakeryConst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
 import static it.windtre.tremobilitycms.ui.utils.BakeryConst.PAGE_ELEMENTS;
 
 @Tag("elements-view")
@@ -26,7 +30,8 @@ import static it.windtre.tremobilitycms.ui.utils.BakeryConst.PAGE_ELEMENTS;
 @Route(value = PAGE_ELEMENTS, layout = MainView.class)
 @PageTitle(BakeryConst.TITLE_ELEMENTS)
 @Secured(Role.ADMIN)
-public class ElementsView extends CrudView<Element, TemplateModel> {
+public class ElementsView extends CrudView<Element, TemplateModel>
+    implements PropertyChangeListener {
 
     @Id("search")
     private SearchBar search;
@@ -38,8 +43,12 @@ public class ElementsView extends CrudView<Element, TemplateModel> {
 
     private final BeanValidationBinder<Element> binder = new BeanValidationBinder<>(Element.class);
 
+    private ElementForm elementForm;
+    private ElementRepository elementRepository;
+
+
     @Autowired
-    public ElementsView(CrudEntityPresenter<Element> presenter, ElementForm form) {
+    public ElementsView(CrudEntityPresenter<Element> presenter, ElementForm form, ElementRepository elementRepository) {
         super(EntityUtil.getName(Element.class), form);
         this.presenter = presenter;
         form.setBinder(binder);
@@ -47,6 +56,12 @@ public class ElementsView extends CrudView<Element, TemplateModel> {
         setupEventListeners();
         setupGrid();
         presenter.setView(this);
+
+        super.addPropertyChangeListener(this);
+
+        elementForm = form;
+
+        this.elementRepository = elementRepository;
     }
 
     private void setupGrid() {
@@ -80,6 +95,20 @@ public class ElementsView extends CrudView<Element, TemplateModel> {
     @Override
     protected BeanValidationBinder<Element> getBinder() {
         return binder;
+    }
+
+
+    /** property change */
+
+    public void propertyChange(PropertyChangeEvent evt) {
+        //to get newValue (String) evt.getNewValue();
+
+        // generate new id and fill it
+        Long id = Long.valueOf(elementRepository.findAll().size() + 1);
+        getPresenter().getEntity().setId(id);
+
+        // update form UI
+        elementForm.getIdTF().setValue(String.valueOf(id));
     }
 }
 
