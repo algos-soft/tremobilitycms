@@ -129,4 +129,11 @@ public class ContainerForm extends PolymerTemplate<TemplateModel> implements Cru
         }
     }
 
+
+    /** support method */
+
+    public TextField getIdTF() {
+        return id;
+    }
+
 }

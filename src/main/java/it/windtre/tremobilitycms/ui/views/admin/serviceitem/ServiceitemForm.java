@@ -268,4 +268,11 @@ public class ServiceitemForm extends PolymerTemplate<TemplateModel> implements C
     protected String getBasePage() {
         return PAGE_ZONES;
     }
+
+
+    /** support method */
+
+    public TextField getIdTF() {
+        return id;
+    }
 }

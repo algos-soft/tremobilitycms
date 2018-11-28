@@ -268,4 +268,11 @@ public class CardForm extends PolymerTemplate<TemplateModel> implements CrudView
             this.card_title_color.setValue(color);
         }
     }
+
+
+    /** support method */
+
+    public TextField getIdTF() {
+        return id;
+    }
 }
