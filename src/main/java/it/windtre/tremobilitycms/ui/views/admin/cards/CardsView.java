@@ -5,28 +5,36 @@ import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
-import com.vaadin.flow.router.PageTitle;
-import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.*;
 import com.vaadin.flow.templatemodel.TemplateModel;
 import it.windtre.tremobilitycms.backend.data.Role;
 import it.windtre.tremobilitycms.backend.data.entity.Card;
 import it.windtre.tremobilitycms.backend.data.entity.util.EntityUtil;
+import it.windtre.tremobilitycms.backend.repositories.CardRepository;
+import it.windtre.tremobilitycms.backend.repositories.ZoneRepository;
 import it.windtre.tremobilitycms.ui.MainView;
 import it.windtre.tremobilitycms.ui.components.SearchBar;
 import it.windtre.tremobilitycms.ui.crud.CrudEntityPresenter;
 import it.windtre.tremobilitycms.ui.crud.CrudView;
 import it.windtre.tremobilitycms.ui.utils.BakeryConst;
+import it.windtre.tremobilitycms.ui.views.admin.zone.ZoneitemForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
 import static it.windtre.tremobilitycms.ui.utils.BakeryConst.PAGE_CARDS;
+import static it.windtre.tremobilitycms.ui.utils.BakeryConst.QPKEY_elementId;
+import static it.windtre.tremobilitycms.ui.utils.BakeryConst.QPKEY_serviceitemId;
 
 @Tag("cards-view")
 @HtmlImport("src/views/admin/cards/cards-view.html")
 @Route(value = PAGE_CARDS, layout = MainView.class)
 @PageTitle(BakeryConst.TITLE_CARDS)
 @Secured(Role.ADMIN)
-public class CardsView extends CrudView<Card, TemplateModel> {
+public class CardsView extends CrudView<Card, TemplateModel>
+    implements AfterNavigationObserver, BeforeEnterObserver, PropertyChangeListener {
 
     @Id("search")
     private SearchBar search;
@@ -38,8 +46,15 @@ public class CardsView extends CrudView<Card, TemplateModel> {
 
     private final BeanValidationBinder<Card> binder = new BeanValidationBinder<>(Card.class);
 
+    private String elementIdStr = null;
+    private Long currentElementId = null;
+
+    private CardForm cardForm = null;
+    private CardRepository cardRepository = null;
+
+
     @Autowired
-    public CardsView(CrudEntityPresenter<Card> presenter, CardForm form) {
+    public CardsView(CrudEntityPresenter<Card> presenter, CardForm form, CardRepository cardRepository) {
         super(EntityUtil.getName(Card.class), form);
         this.presenter = presenter;
         form.setBinder(binder);
@@ -47,6 +62,12 @@ public class CardsView extends CrudView<Card, TemplateModel> {
         setupEventListeners();
         setupGrid();
         presenter.setView(this);
+
+        super.addPropertyChangeListener(this);
+
+        cardForm = form;
+
+        this.cardRepository = cardRepository;
     }
 
     private void setupGrid() {
@@ -80,4 +101,56 @@ public class CardsView extends CrudView<Card, TemplateModel> {
     protected BeanValidationBinder<Card> getBinder() {
         return binder;
     }
+
+
+    /** view life cycle */
+
+    @Override
+    public void beforeEnter(BeforeEnterEvent event) {
+        String params = event.getLocation().getQueryParameters().getQueryString();
+        System.out.println("CardsView BeforeEnter params = " + params);
+        elementIdStr = null;
+        String[] arr = params.split("=");
+        if (arr.length == 2) {
+            if (arr[0].equalsIgnoreCase(QPKEY_elementId)) {
+                elementIdStr = arr[1];
+                currentElementId = Long.valueOf(elementIdStr);
+            }
+        }
+    }
+
+    @Override
+    public void afterNavigation(AfterNavigationEvent event) {
+        System.out.println("CardsView AfterNavigationEvent fired");
+        if (elementIdStr != null && !elementIdStr.isEmpty()) {
+            reloadDataSourceById(elementIdStr);
+        }
+    }
+
+
+    /** support method */
+
+    private void reloadDataSourceById(String id) {
+        System.out.println("reloadDataSource filter by id = " + id);
+        getPresenter().filter(id);
+    }
+
+
+    /** property change */
+
+    public void propertyChange(PropertyChangeEvent evt) {
+        //to get newValue (String) evt.getNewValue();
+
+        // auto fill serviceitem
+        getPresenter().getEntity().setElement(currentElementId);
+
+        // generate new id and fill it
+        Long id = Long.valueOf(cardRepository.findAll().size() + 1);
+        getPresenter().getEntity().setId(id);
+
+        // update form UI
+        cardForm.getElementTF().setValue(String.valueOf(currentElementId));
+        cardForm.getIdTF().setValue(String.valueOf(id));
+    }
+
 }

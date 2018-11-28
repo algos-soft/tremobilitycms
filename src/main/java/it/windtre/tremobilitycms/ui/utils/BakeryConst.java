@@ -60,4 +60,6 @@ public class BakeryConst {
 	public static int NOTIFICATION_DURATION = 4000;
 
 	public static final String QPKEY_serviceitemId = "serviceitemId";
+	public static final String QPKEY_elementId = "elementId";
+
 }

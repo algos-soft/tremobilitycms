@@ -272,7 +272,12 @@ public class CardForm extends PolymerTemplate<TemplateModel> implements CrudView
 
     /** support method */
 
+    public TextField getElementTF() {
+        return element;
+    }
+
     public TextField getIdTF() {
         return id;
     }
+
 }
