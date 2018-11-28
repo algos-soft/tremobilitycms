@@ -11,13 +11,19 @@ import com.vaadin.flow.templatemodel.TemplateModel;
 import it.windtre.tremobilitycms.backend.data.Role;
 import it.windtre.tremobilitycms.backend.data.entity.Container;
 import it.windtre.tremobilitycms.backend.data.entity.util.EntityUtil;
+import it.windtre.tremobilitycms.backend.repositories.ContainerRepository;
+import it.windtre.tremobilitycms.backend.repositories.ServiceitemRepository;
 import it.windtre.tremobilitycms.ui.MainView;
 import it.windtre.tremobilitycms.ui.components.SearchBar;
 import it.windtre.tremobilitycms.ui.crud.CrudEntityPresenter;
 import it.windtre.tremobilitycms.ui.crud.CrudView;
 import it.windtre.tremobilitycms.ui.utils.BakeryConst;
+import it.windtre.tremobilitycms.ui.views.admin.serviceitem.ServiceitemForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 import static it.windtre.tremobilitycms.ui.utils.BakeryConst.PAGE_CONTAINERS;
 
@@ -26,7 +32,8 @@ import static it.windtre.tremobilitycms.ui.utils.BakeryConst.PAGE_CONTAINERS;
 @Route(value = PAGE_CONTAINERS, layout = MainView.class)
 @PageTitle(BakeryConst.TITLE_CONTAINERS)
 @Secured(Role.ADMIN)
-public class ContainersView extends CrudView<Container, TemplateModel> {
+public class ContainersView extends CrudView<Container, TemplateModel>
+    implements PropertyChangeListener {
 
     @Id("search")
     private SearchBar search;
@@ -38,8 +45,12 @@ public class ContainersView extends CrudView<Container, TemplateModel> {
 
     private final BeanValidationBinder<Container> binder = new BeanValidationBinder<>(Container.class);
 
+    private ContainerForm containerForm;
+    private ContainerRepository containerRepository;
+
+
     @Autowired
-    public ContainersView(CrudEntityPresenter<Container> presenter, ContainerForm form) {
+    public ContainersView(CrudEntityPresenter<Container> presenter, ContainerForm form, ContainerRepository containerRepository) {
         super(EntityUtil.getName(Container.class), form);
         this.presenter = presenter;
         form.setBinder(binder);
@@ -47,6 +58,13 @@ public class ContainersView extends CrudView<Container, TemplateModel> {
         setupEventListeners();
         setupGrid();
         presenter.setView(this);
+
+        super.addPropertyChangeListener(this);
+
+        containerForm = form;
+
+        this.containerRepository = containerRepository;
+
     }
 
     private void setupGrid() {
@@ -78,4 +96,18 @@ public class ContainersView extends CrudView<Container, TemplateModel> {
     protected BeanValidationBinder<Container> getBinder() {
         return binder;
     }
+
+    /** property change */
+
+    public void propertyChange(PropertyChangeEvent evt) {
+        //to get newValue (String) evt.getNewValue();
+
+        // generate new id and fill it
+        Long id = Long.valueOf(containerRepository.findAll().size() + 1);
+        getPresenter().getEntity().setId(id);
+
+        // update form UI
+        containerForm.getIdTF().setValue(String.valueOf(id));
+    }
+
 }
