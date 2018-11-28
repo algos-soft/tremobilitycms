@@ -2,13 +2,16 @@ package it.windtre.tremobilitycms.backend.service;
 
 import it.windtre.tremobilitycms.backend.data.entity.User;
 import it.windtre.tremobilitycms.backend.data.entity.Card;
+import it.windtre.tremobilitycms.backend.data.entity.Zoneitem;
 import it.windtre.tremobilitycms.backend.repositories.CardRepository;
+import it.windtre.tremobilitycms.ui.utils.FormattingUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.text.Format;
 import java.util.Optional;
 
 @org.springframework.stereotype.Service
@@ -23,9 +26,19 @@ public class CardService implements FilterableCrudService<Card> {
 
     @Override
     public Page<Card> findAnyMatching(Optional<String> filter, Pageable pageable) {
+        System.out.println("CardService findAnyMatching is called...");
         if (filter.isPresent()) {
-            String repositoryFilter = "%" + filter.get() + "%";
-            return find(pageable); //cardRepository.findByNameLikeIgnoreCase(repositoryFilter, pageable);
+            if (FormattingUtils.containsOnlyNumber(filter.get())) {
+                // filtered by elementId
+                Page<Card> page = cardRepository.findByElement(FormattingUtils.getIdByFilter(filter.get()), pageable);
+                if (page != null) {
+                    return page;
+                } else {
+                    return find(pageable);
+                }
+            } else {
+                return find(pageable);
+            }
         } else {
             return find(pageable);
         }
@@ -33,9 +46,14 @@ public class CardService implements FilterableCrudService<Card> {
 
     @Override
     public long countAnyMatching(Optional<String> filter) {
+        System.out.println("CardService countAnyMatching is called...");
         if (filter.isPresent()) {
-            String repositoryFilter = "%" + filter.get() + "%";
-            return count();//cardRepository.countByNameLikeIgnoreCase(repositoryFilter);
+            if (FormattingUtils.containsOnlyNumber(filter.get())) {
+                // filtered by elementId
+                return cardRepository.countByElement(FormattingUtils.getIdByFilter(filter.get()));
+            } else {
+                return count();
+            }
         } else {
             return count();
         }
@@ -66,4 +84,11 @@ public class CardService implements FilterableCrudService<Card> {
 
     }
 
+
+    /** support method */
+    /*
+    private Long getIdByFilter(String filter) {
+        String digits = FormattingUtils.extractOnlyNumbers(filter);
+        return Long.valueOf(digits);
+    }*/
 }

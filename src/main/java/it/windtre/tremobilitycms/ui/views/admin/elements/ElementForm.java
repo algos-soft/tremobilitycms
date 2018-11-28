@@ -2,26 +2,33 @@ package it.windtre.tremobilitycms.ui.views.admin.elements;
 
 import com.vaadin.flow.component.HasText;
 import com.vaadin.flow.component.Tag;
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.polymertemplate.EventHandler;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.provider.ListDataProvider;
+import com.vaadin.flow.router.QueryParameters;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.templatemodel.TemplateModel;
 import it.windtre.tremobilitycms.backend.data.StateType;
 import it.windtre.tremobilitycms.backend.data.entity.Element;
 import it.windtre.tremobilitycms.ui.components.FormButtonsBar;
 import it.windtre.tremobilitycms.ui.crud.CrudView;
+import it.windtre.tremobilitycms.ui.utils.TemplateUtil;
 import it.windtre.tremobilitycms.ui.views.admin.products.IntegerConverter;
 import it.windtre.tremobilitycms.ui.views.admin.service.LongConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
+
+import static it.windtre.tremobilitycms.ui.utils.BakeryConst.*;
 
 @Tag("element-form")
 @HtmlImport("src/views/admin/elements/element-form.html")
@@ -37,16 +44,24 @@ public class ElementForm extends PolymerTemplate<TemplateModel> implements CrudV
 
     @Id("id")
     private TextField id;
+
     @Id("mode")
     private TextField mode;
+
     @Id("pos-column")
     private TextField pos_column;
+
     @Id("pos-row")
     private TextField pos_row;
+
     @Id("pos-span")
     private TextField pos_span;
+
     @Id("state")
     private ComboBox<String> state;
+
+    @Id("manage_card_button")
+    private Button manage_card_button;
 
 
     @Autowired
@@ -75,6 +90,19 @@ public class ElementForm extends PolymerTemplate<TemplateModel> implements CrudV
     @Override
     public HasText getTitle() {
         return title;
+    }
+
+
+    /** manage card */
+    @EventHandler
+    private void manageCardPressed() {
+
+        UI.getCurrent().close();
+
+        String[] keys = {QPKEY_elementId};
+        String[] values = {id.getValue()};
+        QueryParameters params = TemplateUtil.buildQueryParams(keys, values);
+        UI.getCurrent().navigate (PAGE_CARDS, params);
     }
 
 

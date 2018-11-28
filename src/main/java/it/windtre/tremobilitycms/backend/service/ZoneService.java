@@ -30,7 +30,7 @@ public class ZoneService implements FilterableCrudService<Zoneitem> {
         if (filter.isPresent()) {
             if (FormattingUtils.containsOnlyNumber(filter.get())) {
                 // filtered by serviceitemId
-                Page<Zoneitem> page = zoneRepository.findByServiceitem(getIdByFilter(filter.get()), pageable);
+                Page<Zoneitem> page = zoneRepository.findByServiceitem(FormattingUtils.getIdByFilter(filter.get()), pageable);
                 if (page != null) {
                     return page;
                 } else {
@@ -52,7 +52,7 @@ public class ZoneService implements FilterableCrudService<Zoneitem> {
         if (filter.isPresent()) {
             if (FormattingUtils.containsOnlyNumber(filter.get())) {
                 // filtered by serviceitemId
-                return zoneRepository.countByServiceitem(getIdByFilter(filter.get()));
+                return zoneRepository.countByServiceitem(FormattingUtils.getIdByFilter(filter.get()));
             } else {
                 // filtered by name
                 String repositoryFilter = "%" + filter.get() + "%";
@@ -90,10 +90,10 @@ public class ZoneService implements FilterableCrudService<Zoneitem> {
 
 
     /** support method */
-
+    /*
     private Long getIdByFilter(String filter) {
         String digits = FormattingUtils.extractOnlyNumbers(filter);
         return Long.valueOf(digits);
-    }
+    }*/
 }
 

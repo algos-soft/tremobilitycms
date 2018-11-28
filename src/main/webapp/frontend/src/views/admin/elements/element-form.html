@@ -34,6 +34,19 @@
             <vaadin-text-field id="pos-row" label="Row"></vaadin-text-field>
             <vaadin-text-field id="pos-span" label="Span"></vaadin-text-field>
 
+            <h3 id="title_manage_card" colspan="2"></h3>
+            <vaadin-button
+                    id="manage_card_button"
+                    label=""
+                    colspan="2"
+                    on-click="manageCardPressed"
+                    theme="primary">
+                <iron-icon icon="lumo:arrow-right"
+                           slot="suffix">
+                </iron-icon>
+                Manage Cards
+            </vaadin-button>
+
         </vaadin-form-layout>
 
         <form-buttons-bar id="buttons"></form-buttons-bar>

@@ -84,5 +84,9 @@ public class FormattingUtils {
 		}
 	}
 
+	public static Long getIdByFilter(String filter) {
+		String digits = FormattingUtils.extractOnlyNumbers(filter);
+		return Long.valueOf(digits);
+	}
 
 }
