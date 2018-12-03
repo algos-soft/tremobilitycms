@@ -69,7 +69,10 @@ public abstract class CrudView<E extends AbstractEntity, T extends TemplateModel
 	public void setFormTitleLabel(String label) {
 		formTitleLabel = label;
 	}
-
+	private Boolean addItemButtonEnabled = true;
+	public void setAddItemButtonEnabled(Boolean enabled) {
+		addItemButtonEnabled = enabled;
+	}
 
 	public CrudView(String entityName, CrudForm<E> form) {
 		this.entityName = entityName;
@@ -116,6 +119,7 @@ public abstract class CrudView<E extends AbstractEntity, T extends TemplateModel
 				.addFilterChangeListener(e -> getPresenter().filter(getSearchBar().getFilter()));
 
 		getSearchBar().setActionText(getAddLabel());
+		getSearchBar().setAddButtonEnabled(addItemButtonEnabled);
 		getBinder().addValueChangeListener(e -> getPresenter().onValueChange(isDirty()));
 	}
 

@@ -85,4 +85,9 @@ public class SearchBar extends PolymerTemplate<SearchBar.Model> {
 			super(source, fromClient);
 		}
 	}
+
+	public void setAddButtonEnabled(Boolean enabled) {
+		actionButton.setEnabled(enabled);
+	}
+
 }
