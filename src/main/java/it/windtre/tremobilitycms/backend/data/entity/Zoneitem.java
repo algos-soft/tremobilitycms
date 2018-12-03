@@ -117,4 +117,7 @@ public class Zoneitem extends AbstractEntity {
         return sb.toString();
     }
 
+    public static String getEntityName() {
+        return " Zona";
+    }
 }

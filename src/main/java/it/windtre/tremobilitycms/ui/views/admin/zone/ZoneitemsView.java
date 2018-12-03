@@ -59,7 +59,7 @@ public class ZoneitemsView extends CrudView<Zoneitem, TemplateModel>
 
     @Autowired
     public ZoneitemsView(CrudEntityPresenter<Zoneitem> presenter, ZoneitemForm form, ZoneRepository zoneRepository) {
-        super(EntityUtil.getName(Zoneitem.class), form);
+        super(Zoneitem.getEntityName() /*EntityUtil.getName(Zoneitem.class)*/, form);
         this.presenter = presenter;
         form.setBinder(binder);
 

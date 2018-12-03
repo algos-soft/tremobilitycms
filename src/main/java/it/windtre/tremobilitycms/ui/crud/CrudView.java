@@ -23,6 +23,7 @@ import it.windtre.tremobilitycms.ui.components.FormButtonsBar;
 import it.windtre.tremobilitycms.ui.components.SearchBar;
 import it.windtre.tremobilitycms.ui.utils.TemplateUtil;
 import it.windtre.tremobilitycms.ui.views.EntityView;
+import it.windtre.tremobilitycms.ui.utils.BakeryConst;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 
@@ -57,6 +58,17 @@ public abstract class CrudView<E extends AbstractEntity, T extends TemplateModel
 	protected abstract Grid<E> getGrid();
 
 	private PropertyChangeSupport support;
+
+
+	// custom labels
+	private String addItemButtonLabel = null;
+	public void setAddItemButtonLabel(String label) {
+		addItemButtonLabel = label;
+	}
+	private String formTitleLabel = null;
+	public void setFormTitleLabel(String label) {
+		formTitleLabel = label;
+	}
 
 
 	public CrudView(String entityName, CrudForm<E> form) {
@@ -103,7 +115,7 @@ public abstract class CrudView<E extends AbstractEntity, T extends TemplateModel
 		getSearchBar()
 				.addFilterChangeListener(e -> getPresenter().filter(getSearchBar().getFilter()));
 
-		getSearchBar().setActionText("New " + entityName);
+		getSearchBar().setActionText(getAddLabel());
 		getBinder().addValueChangeListener(e -> getPresenter().onValueChange(isDirty()));
 	}
 
@@ -144,8 +156,11 @@ public abstract class CrudView<E extends AbstractEntity, T extends TemplateModel
 	}
 
 	public void updateTitle(boolean newEntity) {
-		getForm().getTitle().setText((newEntity ? "New" : "Edit") + " " + entityName);
-
+		if (formTitleLabel != null) {
+			getForm().getTitle().setText(formTitleLabel);
+		} else {
+			getForm().getTitle().setText((newEntity ? "New" : "Edit") + " " + entityName);
+		}
 	}
 
 	@Override
@@ -177,5 +192,14 @@ public abstract class CrudView<E extends AbstractEntity, T extends TemplateModel
 
 	public void removePropertyChangeListener(PropertyChangeListener pcl) {
 		support.removePropertyChangeListener(pcl);
+	}
+
+	private String getAddLabel() {
+		String addLabel = BakeryConst.KEY_NEW + entityName;
+		if (addItemButtonLabel != null) {
+			addLabel = addItemButtonLabel;
+			addItemButtonLabel = null;
+		}
+		return addLabel;
 	}
 }

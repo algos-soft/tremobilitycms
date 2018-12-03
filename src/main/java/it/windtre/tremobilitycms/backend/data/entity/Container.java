@@ -47,4 +47,15 @@ public class Container extends AbstractEntity {
         this.state = state;
     }
 
+    private String description = null;
+    public String getDescription() {
+        return this.description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public static String getEntityName() {
+        return " Home Page";
+    }
 }

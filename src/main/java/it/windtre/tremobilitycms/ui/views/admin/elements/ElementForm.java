@@ -2,6 +2,7 @@ package it.windtre.tremobilitycms.ui.views.admin.elements;
 
 import com.vaadin.flow.component.HasText;
 import com.vaadin.flow.component.Tag;
+import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
@@ -63,6 +64,9 @@ public class ElementForm extends PolymerTemplate<TemplateModel> implements CrudV
     @Id("manage_card_button")
     private Button manage_card_button;
 
+    @Id("description")
+    private TextField description;
+
 
     @Autowired
     public ElementForm() {
@@ -80,6 +84,8 @@ public class ElementForm extends PolymerTemplate<TemplateModel> implements CrudV
         state.setItemLabelGenerator(s -> s != null ? s : "");
         state.setDataProvider(stateProvider);
         binder.bind(state, "state");
+
+        binder.bind(description, "description");
     }
 
     @Override

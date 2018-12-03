@@ -51,7 +51,7 @@ public class ContainersView extends CrudView<Container, TemplateModel>
 
     @Autowired
     public ContainersView(CrudEntityPresenter<Container> presenter, ContainerForm form, ContainerRepository containerRepository) {
-        super(EntityUtil.getName(Container.class), form);
+        super(Container.getEntityName() /*EntityUtil.getName(Container.class)*/, form);
         this.presenter = presenter;
         form.setBinder(binder);
 
@@ -65,11 +65,13 @@ public class ContainersView extends CrudView<Container, TemplateModel>
 
         this.containerRepository = containerRepository;
 
+        super.setAddItemButtonLabel("Nuova Home Page");
     }
 
     private void setupGrid() {
         grid.addColumn(Container::getId).setWidth("90px").setHeader("ID").setFlexGrow(2);
-        grid.addColumn(Container::getState).setWidth("270px").setHeader("State").setFlexGrow(5);
+        grid.addColumn(Container::getDescription).setWidth("270px").setHeader("Description").setFlexGrow(5);
+        grid.addColumn(Container::getState).setWidth("270px").setHeader("Status").setFlexGrow(5);
     }
 
     @Override

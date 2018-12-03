@@ -54,4 +54,16 @@ public class Element extends AbstractEntity {
     public void setState(String state) {
         this.state = state;
     }
+
+    private String description = null;
+    public String getDescription() {
+        return this.description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public static String getEntityName() {
+        return " Componente";
+    }
 }

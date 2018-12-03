@@ -155,4 +155,8 @@ public class Service extends AbstractEntity {
         //sb.append("  items: ").append(this.items.size()).append("\n");
         return sb.toString();
     }
+
+    public static String getEntityName() {
+        return " Servizio";
+    }
 }

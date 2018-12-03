@@ -46,19 +46,24 @@ public class ContainerForm extends PolymerTemplate<TemplateModel> implements Cru
 
     @Id("id")
     private TextField id;
+
     @Id("color")
     private TextField colorTF;
+
     @Id("columns")
     private TextField columns;
+
     @Id("state")
     private ComboBox<String> state;
 
     @Id("upload_background_name")
     private TextField background_image_name;
+
     @Id("upload_background")
     private Upload background_image;
 
-
+    @Id("description")
+    private TextField description;
 
     @Autowired
     public ContainerForm() {
@@ -107,6 +112,8 @@ public class ContainerForm extends PolymerTemplate<TemplateModel> implements Cru
                 //return null;
             }
         });
+
+        binder.bind(description, "description");
     }
 
     @Override

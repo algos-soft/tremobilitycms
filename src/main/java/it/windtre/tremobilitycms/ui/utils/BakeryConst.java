@@ -62,4 +62,6 @@ public class BakeryConst {
 	public static final String QPKEY_serviceitemId = "serviceitemId";
 	public static final String QPKEY_elementId = "elementId";
 
+	public static final String KEY_NEW = "Nuovo";
+
 }

@@ -145,4 +145,8 @@ public class Serviceitem extends AbstractEntity {
         }
         return s;
     }
+
+    public static String getEntityName() {
+        return " Biglietto";
+    }
 }

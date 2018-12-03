@@ -51,7 +51,7 @@ public class ServicesView extends CrudView<Service, TemplateModel>
 
     @Autowired
     public ServicesView(CrudEntityPresenter<Service> presenter, ServiceForm form, ServiceRepository serviceRepository) {
-        super(EntityUtil.getName(Service.class), form);
+        super(Service.getEntityName() /*EntityUtil.getName(Service.class)*/, form);
         this.presenter = presenter;
         form.setBinder(binder);
 

@@ -49,7 +49,7 @@ public class ElementsView extends CrudView<Element, TemplateModel>
 
     @Autowired
     public ElementsView(CrudEntityPresenter<Element> presenter, ElementForm form, ElementRepository elementRepository) {
-        super(EntityUtil.getName(Element.class), form);
+        super(Element.getEntityName() /*EntityUtil.getName(Element.class)*/, form);
         this.presenter = presenter;
         form.setBinder(binder);
 

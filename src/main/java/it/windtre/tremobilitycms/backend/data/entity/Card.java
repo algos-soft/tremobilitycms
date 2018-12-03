@@ -167,4 +167,7 @@ public class Card extends AbstractEntity {
         this.titleText = titleText;
     }
 
+    public static String getEntityName() {
+        return " Card";
+    }
 }

@@ -15,6 +15,7 @@ import it.windtre.tremobilitycms.app.HasLogger;
 import it.windtre.tremobilitycms.backend.data.entity.AbstractEntity;
 import it.windtre.tremobilitycms.ui.components.ConfirmDialog;
 import it.windtre.tremobilitycms.ui.components.SearchBar;
+import it.windtre.tremobilitycms.ui.utils.BakeryConst;
 import it.windtre.tremobilitycms.ui.utils.TemplateUtil;
 import it.windtre.tremobilitycms.ui.views.EntityView;
 
@@ -67,7 +68,7 @@ public abstract class LinkEntityView<E extends AbstractEntity, T extends Templat
         getSearchBar()
                 .addFilterChangeListener(e -> getPresenter().filter(getSearchBar().getFilter()));
 
-        getSearchBar().setActionText("New " + entityName);
+        getSearchBar().setActionText(BakeryConst.KEY_NEW + entityName);
         getBinder().addValueChangeListener(e -> getPresenter().onValueChange(isDirty()));
     }
 
