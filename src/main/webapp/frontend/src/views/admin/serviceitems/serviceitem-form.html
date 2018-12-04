@@ -30,7 +30,7 @@
             <vaadin-text-field id="description" label="Description"></vaadin-text-field>
             <vaadin-text-field id="currency" label="Currency"></vaadin-text-field>
 
-            <h3 id="title_service" colspan="2">Related to Service</h3>
+            <h3 id="title_service" colspan="2">Seleziona Servizio</h3>
             <vaadin-text-field id="service" label="Linked Service ID"></vaadin-text-field>
             <vaadin-button
                     id="link_service"
@@ -43,13 +43,12 @@
                 Link Service
             </vaadin-button>
 
-            <h3 id="title_duration" colspan="2">Duration</h3>
-            <vaadin-text-field id="duration_description" label="Duration Description"></vaadin-text-field>
-            <vaadin-text-field id="duration_interval" label="Duration Interval"></vaadin-text-field>
-            <vaadin-text-field id="duration_name" label="Duration Name"></vaadin-text-field>
-            <vaadin-combo-box id="duration_type" label="Duration Type"></vaadin-combo-box>
+            <h3 id="title_duration" colspan="2">Durata</h3>
+            <vaadin-text-field id="duration_description" label="Description"></vaadin-text-field>
+            <vaadin-text-field id="duration_interval" label="Description Min" title="Tempo di validità del biglietto espresso in minuti"></vaadin-text-field>
+            <vaadin-text-field id="duration_name" label="Name"></vaadin-text-field>
+            <vaadin-combo-box id="duration_type" label="Type"></vaadin-combo-box>
 
-            <h3 id="title_infozone" colspan="2">Info Zone</h3>
             <vaadin-text-field id="infozone_name" label="Zone Name"></vaadin-text-field>
             <vaadin-combo-box id="infozone_typez" label="Zone Type"></vaadin-combo-box>
 
@@ -63,7 +62,7 @@
                 <iron-icon icon="lumo:arrow-right"
                            slot="suffix">
                 </iron-icon>
-                Manage Zones
+                Dettagli
             </vaadin-button>
 
         </vaadin-form-layout>

@@ -1,5 +1,7 @@
 package it.windtre.tremobilitycms.ui.utils;
 
+import com.vaadin.flow.dom.Element;
+
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -89,4 +91,7 @@ public class FormattingUtils {
 		return Long.valueOf(digits);
 	}
 
+	public static void setTooltip(Element element, String tooltip) {
+		element.setAttribute("title", tooltip);
+	}
 }

@@ -22,6 +22,7 @@ import it.windtre.tremobilitycms.backend.data.entity.Zoneitem;
 import it.windtre.tremobilitycms.backend.repositories.ServiceitemRepository;
 import it.windtre.tremobilitycms.ui.components.FormButtonsBar;
 import it.windtre.tremobilitycms.ui.crud.CrudView;
+import it.windtre.tremobilitycms.ui.utils.FormattingUtils;
 import it.windtre.tremobilitycms.ui.views.admin.products.IntegerConverter;
 import it.windtre.tremobilitycms.ui.views.admin.service.DoubleConverter;
 import it.windtre.tremobilitycms.ui.views.admin.service.LongConverter;
@@ -65,6 +66,9 @@ public class ZoneitemForm extends PolymerTemplate<TemplateModel> implements Crud
     @Id("value")
     private TextField value;
 
+    
+    /** variables */
+
     private ServiceitemRepository serviceitemRepository = null;
     private final Dialog dialog = new Dialog();
     private Grid<Serviceitem> grid = new Grid<>();
@@ -85,6 +89,9 @@ public class ZoneitemForm extends PolymerTemplate<TemplateModel> implements Crud
         binder.bind(shape, "shape");
         binder.bind(value, "value");
         binder.forField(serviceitem).withConverter(new LongConverter()).bind("serviceitem");
+
+        hideFields();
+        setTooltips();
     }
 
     @EventHandler
@@ -131,5 +138,13 @@ public class ZoneitemForm extends PolymerTemplate<TemplateModel> implements Crud
 
     public TextField getServiceitemTF() {
         return serviceitem;
+    }
+
+    private void hideFields() {
+        shape.setVisible(false);
+    }
+
+    private void setTooltips() {
+        FormattingUtils.setTooltip(smstext.getElement(), "Testo del messaggio da inviare per l’acquisto del ticket");
     }
 }

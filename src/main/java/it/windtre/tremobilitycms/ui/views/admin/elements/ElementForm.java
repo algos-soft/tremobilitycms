@@ -22,12 +22,15 @@ import it.windtre.tremobilitycms.backend.data.StateType;
 import it.windtre.tremobilitycms.backend.data.entity.Element;
 import it.windtre.tremobilitycms.ui.components.FormButtonsBar;
 import it.windtre.tremobilitycms.ui.crud.CrudView;
+import it.windtre.tremobilitycms.ui.utils.FormattingUtils;
 import it.windtre.tremobilitycms.ui.utils.TemplateUtil;
 import it.windtre.tremobilitycms.ui.views.admin.products.IntegerConverter;
 import it.windtre.tremobilitycms.ui.views.admin.service.LongConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
+
+import java.text.Format;
 
 import static it.windtre.tremobilitycms.ui.utils.BakeryConst.*;
 
@@ -86,6 +89,8 @@ public class ElementForm extends PolymerTemplate<TemplateModel> implements CrudV
         binder.bind(state, "state");
 
         binder.bind(description, "description");
+
+        setTooltips();
     }
 
     @Override
@@ -116,6 +121,14 @@ public class ElementForm extends PolymerTemplate<TemplateModel> implements CrudV
 
     public TextField getIdTF() {
         return id;
+    }
+
+    private void setTooltips() {
+        FormattingUtils.setTooltip(description.getElement(), "Descrizione del componente");
+        FormattingUtils.setTooltip(mode.getElement(), "Tipologia del componente");
+        FormattingUtils.setTooltip(pos_column.getElement(), "Colonna dove il componente è posizionato");
+        FormattingUtils.setTooltip(pos_row.getElement(), "Riga dove il componente è posizionato");
+        FormattingUtils.setTooltip(pos_span.getElement(), "Numero di colonne occupate del componente sulla riga");
     }
 }
 

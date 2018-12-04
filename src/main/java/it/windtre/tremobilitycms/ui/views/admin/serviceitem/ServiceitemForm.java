@@ -29,6 +29,7 @@ import it.windtre.tremobilitycms.backend.repositories.ZoneRepository;
 import it.windtre.tremobilitycms.ui.components.FormButtonsBar;
 import it.windtre.tremobilitycms.ui.crud.CrudEntityPresenter;
 import it.windtre.tremobilitycms.ui.crud.CrudView;
+import it.windtre.tremobilitycms.ui.utils.FormattingUtils;
 import it.windtre.tremobilitycms.ui.utils.TemplateUtil;
 import it.windtre.tremobilitycms.ui.views.admin.service.LongConverter;
 
@@ -97,6 +98,8 @@ public class ServiceitemForm extends PolymerTemplate<TemplateModel> implements C
     @Id("manage_zone_button")
     private Button manage_zone_button;
 
+    /** variables */
+
     private ServiceRepository serviceRepository = null;
     private final Dialog dialog = new Dialog();
     private Grid<Service> grid = new Grid<>();
@@ -122,13 +125,6 @@ public class ServiceitemForm extends PolymerTemplate<TemplateModel> implements C
         binder.bind(description, "description");
         binder.bind(currency, "currency");
 
-        /*// WHEN SERVICE WAS A COMBO
-        List<Service> allServices = serviceRepository.findAll();
-        ListDataProvider<String> servProvider = DataProvider.ofItems(getAllComboServices(allServices));
-        service.setItemLabelGenerator(s -> s != null ? s : "");
-        service.setDataProvider(servProvider);
-        binder.forField(service).withConverter(new StringServiceItemToLongConverter()).bind("service");
-        */
         binder.forField(service).withConverter(new LongConverter()).bind("service");
 
         binder.bind(duration_description, "durationDescription");
@@ -145,6 +141,8 @@ public class ServiceitemForm extends PolymerTemplate<TemplateModel> implements C
         infozone_typez.setDataProvider(zoneTypeProvider);
         binder.bind(infozone_typez, "infozoneTypez");
 
+        hideFields();
+        setTooltips();
     }
 
     private String[] getAllComboServices(List<Service> services) {
@@ -161,9 +159,9 @@ public class ServiceitemForm extends PolymerTemplate<TemplateModel> implements C
 
 
     /** select service */
+
     @EventHandler
     private void linkServicePressed() {
-
         grid.setItems(serviceRepository.findAll());
         grid.addColumn(Service::getId).setHeader("ID");
         grid.addColumn(Service::getCity).setHeader("City");
@@ -187,6 +185,7 @@ public class ServiceitemForm extends PolymerTemplate<TemplateModel> implements C
     }
 
     /** manage zone */
+
     @EventHandler
     private void manageZonePressed() {
 
@@ -275,4 +274,17 @@ public class ServiceitemForm extends PolymerTemplate<TemplateModel> implements C
     public TextField getIdTF() {
         return id;
     }
+
+    private void hideFields() {
+        duration_name.setVisible(false);
+        infozone_name.setVisible(false);
+        infozone_typez.setVisible(false);
+    }
+
+    private void setTooltips() {
+        FormattingUtils.setTooltip(description.getElement(), "Descrizione del biglietto disponibile all’acquisto");
+        FormattingUtils.setTooltip(name.getElement(), "Descrizione breve del servizio");
+        FormattingUtils.setTooltip(duration_interval.getElement(), "Tempo di validità del biglietto espresso in minuti");
+    }
+
 }

@@ -50,6 +50,8 @@ public class ElementsView extends CrudView<Element, TemplateModel>
     @Autowired
     public ElementsView(CrudEntityPresenter<Element> presenter, ElementForm form, ElementRepository elementRepository) {
         super(Element.getEntityName() /*EntityUtil.getName(Element.class)*/, form);
+        super.setAddItemButtonLabel("Nuovo Componente");
+
         this.presenter = presenter;
         form.setBinder(binder);
 
@@ -66,10 +68,11 @@ public class ElementsView extends CrudView<Element, TemplateModel>
 
     private void setupGrid() {
         grid.addColumn(Element::getId).setWidth("90px").setHeader("ID").setFlexGrow(2);
-        grid.addColumn(Element::getMode).setWidth("270px").setHeader("Mode").setFlexGrow(5);
-        grid.addColumn(Element::getPosColumn).setWidth("270px").setHeader("Column").setFlexGrow(5);
-        grid.addColumn(Element::getPosRow).setWidth("270px").setHeader("Row").setFlexGrow(5);
-        grid.addColumn(Element::getPosSpan).setWidth("270px").setHeader("Span").setFlexGrow(5);
+        grid.addColumn(Element::getMode).setWidth("180px").setHeader("Mode").setFlexGrow(4);
+        grid.addColumn(Element::getPosColumn).setWidth("180px").setHeader("Column").setFlexGrow(4);
+        grid.addColumn(Element::getPosRow).setWidth("180px").setHeader("Row").setFlexGrow(4);
+        grid.addColumn(Element::getPosSpan).setWidth("180px").setHeader("Span").setFlexGrow(4);
+        grid.addColumn(Element::getDescription).setWidth("180px").setHeader("Description").setFlexGrow(4);
     }
 
     @Override

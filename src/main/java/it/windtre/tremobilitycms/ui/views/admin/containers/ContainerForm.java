@@ -20,6 +20,7 @@ import it.windtre.tremobilitycms.backend.data.StateType;
 import it.windtre.tremobilitycms.backend.data.entity.Container;
 import it.windtre.tremobilitycms.ui.components.FormButtonsBar;
 import it.windtre.tremobilitycms.ui.crud.CrudView;
+import it.windtre.tremobilitycms.ui.utils.FormattingUtils;
 import it.windtre.tremobilitycms.ui.views.admin.service.LongConverter;
 import it.windtre.tremobilitycms.ui.views.admin.products.IntegerConverter;
 
@@ -114,6 +115,8 @@ public class ContainerForm extends PolymerTemplate<TemplateModel> implements Cru
         });
 
         binder.bind(description, "description");
+
+        setTooltips();
     }
 
     @Override
@@ -141,6 +144,11 @@ public class ContainerForm extends PolymerTemplate<TemplateModel> implements Cru
 
     public TextField getIdTF() {
         return id;
+    }
+
+    private void setTooltips() {
+        FormattingUtils.setTooltip(description.getElement(), "Descrizione dell’home page");
+        FormattingUtils.setTooltip(state.getElement(), "Indica la visibilità del menù dell’home page");
     }
 
 }

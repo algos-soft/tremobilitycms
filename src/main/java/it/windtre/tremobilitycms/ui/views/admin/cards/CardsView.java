@@ -56,6 +56,7 @@ public class CardsView extends CrudView<Card, TemplateModel>
     @Autowired
     public CardsView(CrudEntityPresenter<Card> presenter, CardForm form, CardRepository cardRepository) {
         super(Card.getEntityName() /*EntityUtil.getName(Card.class)*/, form);
+
         this.presenter = presenter;
         form.setBinder(binder);
 

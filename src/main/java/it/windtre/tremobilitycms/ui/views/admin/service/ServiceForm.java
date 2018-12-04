@@ -20,6 +20,7 @@ import it.windtre.tremobilitycms.backend.data.ServiceType;
 import it.windtre.tremobilitycms.backend.data.entity.Service;
 import it.windtre.tremobilitycms.ui.components.FormButtonsBar;
 import it.windtre.tremobilitycms.ui.crud.CrudView;
+import it.windtre.tremobilitycms.ui.utils.FormattingUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
@@ -27,6 +28,7 @@ import org.springframework.context.annotation.Scope;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.text.Format;
 
 @Tag("service-form")
 @HtmlImport("src/views/admin/services/service-form.html")
@@ -141,7 +143,8 @@ public class ServiceForm extends PolymerTemplate<TemplateModel> implements CrudV
             }
         });
 
-        web.getElement().setProperty("title", "ciaociao");
+        hideFields();
+        setTooltips();
     }
 
     @Override
@@ -159,5 +162,26 @@ public class ServiceForm extends PolymerTemplate<TemplateModel> implements CrudV
 
     public TextField getIdTF() {
         return id;
+    }
+
+    private void hideFields() {
+        latitude.setVisible(false);
+        longitude.setVisible(false);
+        code.setVisible(false);
+    }
+
+    private void setTooltips() {
+        FormattingUtils.setTooltip(city.getElement(), "Comune italiano e/o area geografica del servizio");
+        FormattingUtils.setTooltip(name.getElement(), "Descrizione breve del servizio");
+        FormattingUtils.setTooltip(type.getElement(), "Tipologia del servizio");
+
+        FormattingUtils.setTooltip(info.getElement(), "Path relativo del file html contenente la pagina del tutorial, se presente");
+        FormattingUtils.setTooltip(sender.getElement(), "Sigla alfanumerica che consente l’identificazione univoca del fornitore del servizio");
+        FormattingUtils.setTooltip(sms.getElement(), "Numero al quale inviare la richiesta di acquisto del ticket");
+        FormattingUtils.setTooltip(telephone.getElement(), "Numero da chiamare per assistenza tecnica");
+        FormattingUtils.setTooltip(email.getElement(), "Indirizzo email del fornitore del servizio");
+        FormattingUtils.setTooltip(web.getElement(), "URL del sito web del fornitore");
+
+
     }
 }

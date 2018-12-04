@@ -163,7 +163,7 @@ public abstract class CrudView<E extends AbstractEntity, T extends TemplateModel
 		if (formTitleLabel != null) {
 			getForm().getTitle().setText(formTitleLabel);
 		} else {
-			getForm().getTitle().setText((newEntity ? "New" : "Edit") + " " + entityName);
+			getForm().getTitle().setText((newEntity ? "Nuovo" : "Modifica") + " " + entityName);
 		}
 	}
 
