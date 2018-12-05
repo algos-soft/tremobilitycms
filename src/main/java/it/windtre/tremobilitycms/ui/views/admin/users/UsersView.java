@@ -40,7 +40,9 @@ public class UsersView extends CrudView<User, TemplateModel> {
 
 	@Autowired
 	public UsersView(CrudEntityPresenter<User> presenter, UserForm form) {
-		super(EntityUtil.getName(User.class), form);
+		super(User.getEntityName() /*EntityUtil.getName(User.class)*/, form);
+		super.setAddItemButtonLabel("Nuovo Utente");
+
 		this.presenter = presenter;
 		form.setBinder(binder);
 

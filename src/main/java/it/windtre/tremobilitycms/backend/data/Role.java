@@ -1,9 +1,8 @@
 package it.windtre.tremobilitycms.backend.data;
 
 public class Role {
-	public static final String BARISTA = "barista";
-	public static final String BAKER = "baker";
-	// This role implicitly allows access to all views.
+	public static final String OPERATOR = "operator";
+	public static final String READONLY = "readonly";
 	public static final String ADMIN = "admin";
 
 	private Role() {
@@ -11,7 +10,7 @@ public class Role {
 	}
 
 	public static String[] getAllRoles() {
-		return new String[] { BARISTA, BAKER, ADMIN };
+		return new String[] {OPERATOR, READONLY, ADMIN };
 	}
 
 }

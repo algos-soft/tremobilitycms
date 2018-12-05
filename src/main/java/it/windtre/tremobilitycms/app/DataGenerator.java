@@ -23,13 +23,6 @@ public class DataGenerator implements HasLogger {
 			"Vanilla" };
 	private static final String[] TYPE = new String[] { "Cake", "Pastry", "Tart", "Muffin", "Biscuit", "Bread", "Bagel",
 			"Bun", "Brownie", "Cookie", "Cracker", "Cheese Cake" };
-	private static final String[] FIRST_NAME = new String[] { "Ori", "Amanda", "Octavia", "Laurel", "Lael", "Delilah",
-			"Jason", "Skyler", "Arsenio", "Haley", "Lionel", "Sylvia", "Jessica", "Lester", "Ferdinand", "Elaine",
-			"Griffin", "Kerry", "Dominique" };
-	private static final String[] LAST_NAME = new String[] { "Carter", "Castro", "Rich", "Irwin", "Moore", "Hendricks",
-			"Huber", "Patton", "Wilkinson", "Thornton", "Nunez", "Macias", "Gallegos", "Blevins", "Mejia", "Pickett",
-			"Whitney", "Farmer", "Henry", "Chen", "Macias", "Rowland", "Pierce", "Cortez", "Noble", "Howard", "Nixon",
-			"Mcbride", "Leblanc", "Russell", "Carver", "Benton", "Maldonado", "Lyons" };
 
 	private final Random random = new Random(1L);
 
@@ -66,9 +59,9 @@ public class DataGenerator implements HasLogger {
 
 		getLogger().info("Generating demo data");
 
-		getLogger().info("... generating users");
-		User baker = createBaker(userRepository, passwordEncoder);
-		User barista = createBarista(userRepository, passwordEncoder);
+		/*getLogger().info("... generating users");
+		User baker = createOperator(userRepository, passwordEncoder);
+		User barista = createReadonlyUser(userRepository, passwordEncoder);
 		createAdmin(userRepository, passwordEncoder);
 		// A set of products without constrains that can be deleted
 		createDeletableUsers(userRepository, passwordEncoder);
@@ -78,8 +71,28 @@ public class DataGenerator implements HasLogger {
 		Supplier<Workspace> productSupplier = createProducts(productRepository, 8);
 		// A set of products without relationships that can be deleted
 		createProducts(productRepository, 4);
+		*/
 
-		getLogger().info("... generating services, serviceitems and zones");
+		getLogger().info("... generating users");
+		User vanni = createUser("vanni@vaadin.com", "Vanni", "Casari", passwordEncoder.encode("admin"),
+				Role.ADMIN, "https://randomuser.me/api/portraits/men/34.jpg", true);
+		User daniele = createUser("daniele@vaadin.com", "Daniele", "Marabese", passwordEncoder.encode("admin"),
+				Role.ADMIN, "https://randomuser.me/api/portraits/men/35.jpg", true);
+		User corrado = createUser("corrado@vaadin.com", "Corrado", "Tonini", passwordEncoder.encode("operator"),
+				Role.OPERATOR, "https://randomuser.me/api/portraits/men/21.jpg", false);
+		User filomena = createUser("filomena@vaadin.com", "Filomena", "Fortino", passwordEncoder.encode("operator"),
+				Role.OPERATOR, "https://randomuser.me/api/portraits/woman/20.jpg", false);
+		User marialaura = createUser("marialaura@vaadin.com", "Marialaura", "Mele", passwordEncoder.encode("readonly"),
+				Role.READONLY, "https://randomuser.me/api/portraits/woman/24.jpg", false);
+		ArrayList<User> users = new ArrayList<>();
+		users.add(vanni);
+		users.add(daniele);
+		users.add(corrado);
+		users.add(filomena);
+		users.add(marialaura);
+		saveUsers(userRepository, passwordEncoder, users);
+
+		getLogger().info("... generating services, serviceitems, zones, containers, elements and cards");
 		createServices(serviceRepository, 4);
 		createServiceitems(serviceitemRepository, 4);
 		createZones(zoneRepository, 4);
@@ -89,14 +102,14 @@ public class DataGenerator implements HasLogger {
 	}
 
 
+	/** support method */
+
 	private String getRandomPhone() {
 		return "+1-555-" + String.format("%04d", random.nextInt(10000));
 	}
 
-
 	private LocalTime getRandomDueTime() {
 		int time = 8 + 4 * random.nextInt(3);
-
 		return LocalTime.of(time, 0);
 	}
 
@@ -143,6 +156,27 @@ public class DataGenerator implements HasLogger {
 		return array[random.nextInt(array.length)];
 	}
 
+	private String getRandomProductName() {
+		String firstFilling = getRandom(FILLING);
+		String name;
+		if (random.nextBoolean()) {
+			String secondFilling;
+			do {
+				secondFilling = getRandom(FILLING);
+			} while (secondFilling.equals(firstFilling));
+
+			name = firstFilling + " " + secondFilling;
+		} else {
+			name = firstFilling;
+		}
+		name += " " + getRandom(TYPE);
+
+		return name;
+	}
+
+
+	/** products */
+
 	private Supplier<Workspace> createProducts(ProductRepository productsRepo, int numberOfItems) {
 		List<Workspace> products  = new ArrayList<>();
 		for (int i = 0; i < numberOfItems; i++) {
@@ -163,33 +197,18 @@ public class DataGenerator implements HasLogger {
 		};
 	}
 
-	private String getRandomProductName() {
-		String firstFilling = getRandom(FILLING);
-		String name;
-		if (random.nextBoolean()) {
-			String secondFilling;
-			do {
-				secondFilling = getRandom(FILLING);
-			} while (secondFilling.equals(firstFilling));
 
-			name = firstFilling + " " + secondFilling;
-		} else {
-			name = firstFilling;
-		}
-		name += " " + getRandom(TYPE);
+	/** Users */
 
-		return name;
+	private User createOperator(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+		return userRepository.save(createUser("corrado@vaadin.com", "Corrado", "Carter", passwordEncoder.encode("baker"),
+				Role.READONLY, "https://randomuser.me/api/portraits/women/76.jpg", false));
 	}
 
-	private User createBaker(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-		return userRepository.save(createUser("baker@vaadin.com", "Heidi", "Carter", passwordEncoder.encode("baker"),
-				Role.BAKER, "https://randomuser.me/api/portraits/women/76.jpg", false));
-	}
-
-	private User createBarista(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+	private User createReadonlyUser(UserRepository userRepository, PasswordEncoder passwordEncoder) {
 		return userRepository
 				.save(createUser("barista@vaadin.com", "Malin", "Castro", passwordEncoder.encode("barista"),
-						Role.BARISTA, "https://randomuser.me/api/portraits/women/89.jpg", true));
+						Role.OPERATOR, "https://randomuser.me/api/portraits/women/89.jpg", true));
 	}
 
 	private User createAdmin(UserRepository userRepository, PasswordEncoder passwordEncoder) {
@@ -199,9 +218,9 @@ public class DataGenerator implements HasLogger {
 
 	private void createDeletableUsers(UserRepository userRepository, PasswordEncoder passwordEncoder) {
 		userRepository
-				.save(createUser("peter@vaadin.com", "Peter", "Bush", passwordEncoder.encode("peter"), Role.BARISTA,
+				.save(createUser("peter@vaadin.com", "Peter", "Bush", passwordEncoder.encode("peter"), Role.OPERATOR,
 				"https://randomuser.me/api/portraits/men/10.jpg", false));
-		userRepository.save(createUser("mary@vaadin.com", "Mary", "Ocon", passwordEncoder.encode("mary"), Role.BAKER,
+		userRepository.save(createUser("mary@vaadin.com", "Mary", "Ocon", passwordEncoder.encode("mary"), Role.READONLY,
 				"https://randomuser.me/api/portraits/women/40.jpg", true));
 	}
 
@@ -217,6 +236,20 @@ public class DataGenerator implements HasLogger {
 		user.setLocked(locked);
 		return user;
 	}
+
+	private User saveUser(UserRepository userRepository, PasswordEncoder passwordEncoder, User user) {
+		return userRepository.save(user);
+	}
+
+	private ArrayList<User> saveUsers(UserRepository userRepository, PasswordEncoder passwordEncoder, ArrayList<User> users) {
+		ArrayList<User> saved = new ArrayList<>();
+		for (User u : users) {
+			saved.add(userRepository.save(u));
+		}
+		return saved;
+	}
+
+	/** services */
 
 	private void createServices(ServiceRepository servicesRepo, int numberOfItems) {
 		List<Service> services  = new ArrayList<>();
@@ -234,6 +267,7 @@ public class DataGenerator implements HasLogger {
 		}
 	}
 
+	/** serviceitems */
 
 	private void createServiceitems(ServiceitemRepository serviceitemsRepo, int numberOfItems) {
 		List<Serviceitem> serviceitems  = new ArrayList<>();
@@ -248,6 +282,9 @@ public class DataGenerator implements HasLogger {
 			serviceitems.add(serviceitemsRepo.save(serviceit));
 		}
 	}
+
+
+	/** zones */
 
 	private void createZones(ZoneRepository zonesRepo, int numberOfItems) {
 		List<Zoneitem> zoneitems = new ArrayList<>();
@@ -265,12 +302,18 @@ public class DataGenerator implements HasLogger {
 		}
 	}
 
+
+	/** containers */
+
 	private void createContainers(ContainerRepository containerRepository, int numberOfItems) {
 		Container cont = new Container();
 		cont.setId(Long.valueOf(1));
 		cont.setState(StateType.VISIBLE);
 		containerRepository.save(cont);
 	}
+
+
+	/** elements */
 
 	private void createElements(ElementRepository elementRepository, int numberOfItems) {
 		List<Element> elements = new ArrayList<>();
@@ -290,6 +333,9 @@ public class DataGenerator implements HasLogger {
 			elements.add(elementRepository.save(el));
 		}
 	}
+
+
+	/** cards */
 
 	private void createCards(CardRepository cardRepository, int numberOfItems) {
 		List<Card> cards = new ArrayList<>();

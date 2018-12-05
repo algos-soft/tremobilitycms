@@ -101,4 +101,9 @@ public class User extends AbstractEntity {
 	public void setLocked(boolean locked) {
 		this.locked = locked;
 	}
+
+	public static String getEntityName() {
+		return " Utente";
+	}
+
 }
