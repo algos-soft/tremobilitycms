@@ -74,22 +74,25 @@ public class DataGenerator implements HasLogger {
 		*/
 
 		getLogger().info("... generating users");
-		User vanni = createUser("vanni@vaadin.com", "Vanni", "Casari", passwordEncoder.encode("admin"),
+		User vanni = createUser("vanni.casari@windtre.it", "Vanni", "Casari", passwordEncoder.encode("admin"),
 				Role.ADMIN, "https://randomuser.me/api/portraits/men/34.jpg", true);
-		User daniele = createUser("daniele@vaadin.com", "Daniele", "Marabese", passwordEncoder.encode("admin"),
+		User daniele = createUser("daniele.marabese@windtre.it", "Daniele", "Marabese", passwordEncoder.encode("admin"),
 				Role.ADMIN, "https://randomuser.me/api/portraits/men/35.jpg", true);
-		User corrado = createUser("corrado@vaadin.com", "Corrado", "Tonini", passwordEncoder.encode("operator"),
+		User corrado = createUser("corrado.tonini@windtre.it", "Corrado", "Tonini", passwordEncoder.encode("operator"),
 				Role.OPERATOR, "https://randomuser.me/api/portraits/men/21.jpg", false);
-		User filomena = createUser("filomena@vaadin.com", "Filomena", "Fortino", passwordEncoder.encode("operator"),
+		User filomena = createUser("filomena.fortino@windtre.it", "Filomena", "Fortino", passwordEncoder.encode("operator"),
 				Role.OPERATOR, "https://randomuser.me/api/portraits/woman/20.jpg", false);
-		User marialaura = createUser("marialaura@vaadin.com", "Marialaura", "Mele", passwordEncoder.encode("readonly"),
-				Role.READONLY, "https://randomuser.me/api/portraits/woman/24.jpg", false);
+		User marialaura = createUser("marialaura.mele@windtre.it", "Marialaura", "Mele", passwordEncoder.encode("admin"),
+				Role.ADMIN, "https://randomuser.me/api/portraits/woman/24.jpg", false);
+		User develop = createUser("admin@admin.it", "Admin", "Sviluppo", passwordEncoder.encode("admin"),
+				Role.ADMIN, "https://randomuser.me/api/portraits/woman/24.jpg", false);
 		ArrayList<User> users = new ArrayList<>();
 		users.add(vanni);
 		users.add(daniele);
 		users.add(corrado);
 		users.add(filomena);
 		users.add(marialaura);
+		users.add(develop);
 		saveUsers(userRepository, passwordEncoder, users);
 
 		getLogger().info("... generating services, serviceitems, zones, containers, elements and cards");
@@ -256,13 +259,28 @@ public class DataGenerator implements HasLogger {
 		List<String> cities = new ArrayList<>( Arrays.asList("Milano", "Roma", "Bologna"));
 		List<String> names = new ArrayList<>( Arrays.asList("ATM", "ATAC", "TPER"));
 		List<String> types = new ArrayList<>( Arrays.asList(ServiceType.TICKETING, ServiceType.ZTL, ServiceType.PARKING));
+		List<String> icons = new ArrayList<>( Arrays.asList("GoQuick/logo/atm.png", "GoQuick/logo/atm.png", "GoQuick/logo/atm.png"));
+		List<String> infos = new ArrayList<>( Arrays.asList("Ticketing/PopUp/popup17.html", "Ticketing/PopUp/popup17.html", "Ticketing/PopUp/popup17.html"));
+		List<String> senders = new ArrayList<>( Arrays.asList("ATM Milano", "ATM Milano", "ATM Milano"));
+		List<String> msgs = new ArrayList<>( Arrays.asList("48444", "48444", "48444"));
+		List<String> telephones = new ArrayList<>( Arrays.asList("0248607607", "0248607607", "0248607607"));
+		List<String> emails = new ArrayList<>( Arrays.asList("", "", ""));
+		List<String> webs = new ArrayList<>( Arrays.asList(ServiceType.TICKETING, ServiceType.ZTL, ServiceType.PARKING));
+		List<String> ids = new ArrayList<>( Arrays.asList("1", "1", "1"));
 
 		for (int i = 0; i < names.size(); i++) {
 			Service service = new Service();
-			service.setId(Long.valueOf(i));
+			service.setId(Long.valueOf(ids.get(i)));
 			service.setCity(cities.get(i));
 			service.setName(names.get(i));
 			service.setType(types.get(i));
+			service.setIcon(icons.get(i));
+			service.setInfo(infos.get(i));
+			service.setSender(senders.get(i));
+			service.setSms(msgs.get(i));
+			service.setTelephone(telephones.get(i));
+			service.setEmail(emails.get(i));
+			service.setWeb(webs.get(i));
 			services.add(servicesRepo.save(service));
 		}
 	}
@@ -271,14 +289,23 @@ public class DataGenerator implements HasLogger {
 
 	private void createServiceitems(ServiceitemRepository serviceitemsRepo, int numberOfItems) {
 		List<Serviceitem> serviceitems  = new ArrayList<>();
-		List<String> names = new ArrayList<>( Arrays.asList("Sosta oraria", "Sosta giornaliera"));
-		List<String> durations = new ArrayList<>( Arrays.asList("1 ora", "8 ore"));
+		List<String> names = new ArrayList<>( Arrays.asList("Urbano", "Extraurbano (Rho Fiera)"));
+		List<String> durations = new ArrayList<>( Arrays.asList("90 minuti", "105 minuti"));
+		List<String> cities = new ArrayList<>( Arrays.asList("ATM - Milano", "ATM - Milano"));
+		List<String> types = new ArrayList<>( Arrays.asList("fromPurchaseTime", "fromPurchaseTime"));
+		List<String> serviceIds = new ArrayList<>( Arrays.asList("7", "7"));
+		List<String> ids = new ArrayList<>( Arrays.asList("10", "11"));
 
 		for (int i = 0; i < names.size(); i++) {
 			Serviceitem serviceit = new Serviceitem();
-			serviceit.setId(Long.valueOf(i));
+			serviceit.setId(Long.valueOf(ids.get(i)));
 			serviceit.setName(names.get(i));
+			serviceit.setDurationType(types.get(i));
 			serviceit.setDurationDescription(durations.get(i));
+			serviceit.setCurrency("€");
+			serviceit.setService(Long.valueOf(serviceIds.get(i)));
+			serviceit.setCity(cities.get(i));
+			serviceit.setDescription(names.get(i));
 			serviceitems.add(serviceitemsRepo.save(serviceit));
 		}
 	}
@@ -288,14 +315,15 @@ public class DataGenerator implements HasLogger {
 
 	private void createZones(ZoneRepository zonesRepo, int numberOfItems) {
 		List<Zoneitem> zoneitems = new ArrayList<>();
-		List<Long> ids = new ArrayList<>( Arrays.asList(Long.valueOf(21),Long.valueOf(21),Long.valueOf(22)));
+		//List<Long> ids = new ArrayList<>( Arrays.asList(Long.valueOf(21),Long.valueOf(21),Long.valueOf(22)));
 		List<String> names = new ArrayList<>( Arrays.asList("zona 1", "zona 2", "zona 3"));
 		List<String> prices = new ArrayList<>( Arrays.asList("1", "1.5", "2.0"));
+		List<String> ids = new ArrayList<>(Arrays.asList("10", "10", "10"));
 
 		for (int i = 0; i < names.size(); i++) {
 			Zoneitem zoneitem = new Zoneitem();
 			zoneitem.setId(Long.valueOf(i));
-			zoneitem.setServiceitem(ids.get(i));
+			zoneitem.setServiceitem(Long.valueOf(ids.get(i)));
 			zoneitem.setName(names.get(i));
 			zoneitem.setPrice(Double.valueOf(prices.get(i)));
 			zoneitems.add(zonesRepo.save(zoneitem));
