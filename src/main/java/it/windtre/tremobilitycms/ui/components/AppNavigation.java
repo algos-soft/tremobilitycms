@@ -34,10 +34,10 @@ public class AppNavigation extends PolymerTemplate<TemplateModel> implements Aft
 		this.defaultHref = defaultHref;
 
 		for (PageInfo page : pages) {
-			Tab tab = new Tab(new IronIcon("vaadin", page.getIcon()), new Span(page.getTitle()));
-			tab.getElement().setAttribute("theme", "icon-on-top");
+			//Tab tab = new Tab(new IronIcon(page.getCollection(), page.getIcon()), new Span(page.getTitle()));
+			//tab.getElement().setAttribute("theme", "icon-on-top");
 			hrefs.add(page.getLink());
-			tabs.add(tab);
+			//tabs.add(tab);
 		}
 
 		tabs.addSelectedChangeListener(e -> navigate());

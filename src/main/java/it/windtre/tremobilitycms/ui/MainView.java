@@ -48,18 +48,16 @@ public class MainView extends PolymerTemplate<TemplateModel>
 		//pages.add(new PageInfo(PAGE_STOREFRONT, ICON_STOREFRONT, TITLE_STOREFRONT));
 		//pages.add(new PageInfo(PAGE_DASHBOARD, ICON_DASHBOARD, TITLE_DASHBOARD));
 		if (SecurityUtils.isAccessGranted(UsersView.class)) {
-			pages.add(new PageInfo(PAGE_USERS, ICON_USERS, TITLE_USERS));
+			pages.add(new PageInfo(PAGE_USERS, ICON_USERS, TITLE_USERS, ICON_COLLECTION_VAADIN));
 		}
 		/*if (SecurityUtils.isAccessGranted(ProductsView.class)) {
 			pages.add(new PageInfo(PAGE_PRODUCTS, ICON_PRODUCTS, TITLE_PRODUCTS));
 		}*/
-		pages.add(new PageInfo(PAGE_SERVICES, ICON_SERVICES, TITLE_SERVICES));
-		pages.add(new PageInfo(PAGE_SERVICE_ITEMS, ICON_SERVICE_ITEMS, TITLE_SERVICE_ITEMS));
-		//pages.add(new PageInfo(PAGE_ZONES, ICON_ZONES, TITLE_ZONES));
-		pages.add(new PageInfo(PAGE_CONTAINERS, ICON_CONTAINERS, TITLE_CONTAINERS));
-		pages.add(new PageInfo(PAGE_ELEMENTS, ICON_ELEMENTS, TITLE_ELEMENTS));
-		//pages.add(new PageInfo(PAGE_CARDS, ICON_CARDS, TITLE_CARDS));
-		pages.add(new PageInfo(PAGE_LOGOUT, ICON_LOGOUT, TITLE_LOGOUT));
+		pages.add(new PageInfo(PAGE_SERVICES, ICON_SERVICES, TITLE_SERVICES, ICON_COLLECTION_VAADIN));
+		pages.add(new PageInfo(PAGE_SERVICE_ITEMS, ICON_SERVICE_ITEMS, TITLE_SERVICE_ITEMS, ICON_COLLECTION_VAADIN));
+		pages.add(new PageInfo(PAGE_CONTAINERS, ICON_CONTAINERS, TITLE_CONTAINERS, ICON_COLLECTION_VAADIN));
+		pages.add(new PageInfo(PAGE_ELEMENTS, ICON_ELEMENTS, TITLE_ELEMENTS, ICON_COLLECTION_VAADIN));
+		pages.add(new PageInfo(PAGE_LOGOUT, ICON_LOGOUT, TITLE_LOGOUT, ICON_COLLECTION_VAADIN));
 
 		appNavigation.init(pages, PAGE_DEFAULT, PAGE_LOGOUT);
 

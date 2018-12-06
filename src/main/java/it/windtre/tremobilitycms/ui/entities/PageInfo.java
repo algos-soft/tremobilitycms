@@ -4,11 +4,13 @@ public class PageInfo {
 	private final String link;
 	private final String icon;
 	private final String title;
+	private String collection;
 
-	public PageInfo(String link, String icon, String title) {
+	public PageInfo(String link, String icon, String title, String collection) {
 		this.link = link;
 		this.icon = icon;
 		this.title = title;
+		this.collection = collection;
 	}
 
 	public String getLink() {
@@ -23,4 +25,5 @@ public class PageInfo {
 		return title;
 	}
 
+	public String getCollection() { return collection; }
 }
