@@ -33,7 +33,7 @@ public class BakeryConst {
 	public static final String ICON_ELEMENTS = "clock";
 	public static final String ICON_CARDS = "clock";
 	public static final String ICON_SERVICES = "clock";
-	public static final String ICON_SERVICE_ITEMS = "clock";
+	public static final String ICON_SERVICE_ITEMS = "ruler";
 	public static final String ICON_ZONES = "clock";
 	public static final String ICON_LOGOUT = "arrow-right";
 
@@ -50,6 +50,10 @@ public class BakeryConst {
 	public static final String TITLE_LOGOUT = "LOGOUT";
 	public static final String TITLE_NOT_FOUND = "Page was not found";
 	public static final String TITLE_ACCESS_DENIED = "Access denied";
+
+	public static final String ICON_COLLECTION_VAADIN = "vaadin";
+	public static final String ICON_COLLECTION_GERTRUD = "gertrud";
+
 
 	public static final String[] ORDER_SORT_FIELDS = {"dueDate", "dueTime", "id"};
 	public static final Sort.Direction DEFAULT_SORT_DIRECTION = Sort.Direction.ASC;
