@@ -33,7 +33,7 @@ public class BakeryConst {
 	public static final String ICON_ELEMENTS = "clock";
 	public static final String ICON_CARDS = "clock";
 	public static final String ICON_SERVICES = "clock";
-	public static final String ICON_SERVICE_ITEMS = "ruler";
+	public static final String ICON_SERVICE_ITEMS = "BIGLIETTO";
 	public static final String ICON_ZONES = "clock";
 	public static final String ICON_LOGOUT = "arrow-right";
 
