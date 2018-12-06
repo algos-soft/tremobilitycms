@@ -101,7 +101,7 @@ public class ServiceitemForm extends PolymerTemplate<TemplateModel> implements C
     /** variables */
 
     private ServiceRepository serviceRepository = null;
-    private final Dialog dialog = new Dialog();
+    private Dialog dialog = new Dialog();
     private Grid<Service> grid = new Grid<>();
 
     private ZoneRepository zoneRepository = null;
@@ -162,6 +162,11 @@ public class ServiceitemForm extends PolymerTemplate<TemplateModel> implements C
 
     @EventHandler
     private void linkServicePressed() {
+        grid = null;
+        dialog.close();
+        dialog = null;
+        dialog = new Dialog();
+        grid = new Grid<>();
         grid.setItems(serviceRepository.findAll());
         grid.addColumn(Service::getId).setHeader("ID");
         grid.addColumn(Service::getCity).setHeader("City");

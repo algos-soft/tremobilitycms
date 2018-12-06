@@ -69,9 +69,9 @@ public class ServiceItemsView extends CrudView<Serviceitem, TemplateModel>
     private void setupGrid() {
         grid.addColumn(Serviceitem::getId).setWidth("90px").setHeader("ID").setFlexGrow(2);
         grid.addColumn(Serviceitem::getName).setWidth("180px").setHeader("Description").setFlexGrow(5);
-        grid.addColumn(Serviceitem::getService).setWidth("90px").setHeader("ID Servizio").setFlexGrow(2);
+        grid.addColumn(Serviceitem::getService).setWidth("180px").setHeader("ID Servizio").setFlexGrow(5);
         grid.addColumn(Serviceitem::getCity).setWidth("180px").setHeader("City").setFlexGrow(5);
-        grid.addColumn(Serviceitem::getServiceName).setWidth("180px").setHeader("Name").setFlexGrow(5);
+        //grid.addColumn(Serviceitem::getServiceName).setWidth("180px").setHeader("Name").setFlexGrow(5);
     }
 
     @Override
