@@ -77,9 +77,9 @@ public abstract class CrudView<E extends AbstractEntity, T extends TemplateModel
 	public CrudView(String entityName, CrudForm<E> form) {
 		this.entityName = entityName;
 		this.form = form;
-		form.getButtons().setSaveText("Salva");
-		form.getButtons().setDeleteText("Rimuovi");
-		form.getButtons().setCancelText("Annulla");
+		//form.getButtons().setSaveText("Salva");
+		//form.getButtons().setDeleteText("Rimuovi");
+		//form.getButtons().setCancelText("Annulla");
 
 		dialog.add((Component) getForm());
 
