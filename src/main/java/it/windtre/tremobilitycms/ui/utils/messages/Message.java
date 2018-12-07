@@ -2,13 +2,13 @@ package it.windtre.tremobilitycms.ui.utils.messages;
 
 public class Message {
 
-	public static final String CONFIRM_CAPTION_DELETE = "Confirm Delete";
-	public static final String CONFIRM_MESSAGE_DELETE = "Are you sure you want to delete the selected Item? This action cannot be undone.";
-	public static final String BUTTON_CAPTION_DELETE = "Delete";
-	public static final String BUTTON_CAPTION_CANCEL = "Cancel";
+	public static final String CONFIRM_CAPTION_DELETE = "Conferma eliminazione";
+	public static final String CONFIRM_MESSAGE_DELETE = "Sei sicuro di voler eliminare l'elemento selezionato? Questa azione non può essere ripristinata.";
+	public static final String BUTTON_CAPTION_DELETE = "Elimina";
+	public static final String BUTTON_CAPTION_CANCEL = "Annulla";
 
-	public static final MessageSupplier UNSAVED_CHANGES = createMessage("Unsaved Changes", "Discard", "Continue Editing",
-			"There are unsaved modifications to the %s. Discard changes?");
+	public static final MessageSupplier UNSAVED_CHANGES = createMessage("Modifiche non salvate", "Annulla modifica", "Continua modifica",
+			"Ci sono modifiche non salvate in %s. Anullare modifiche?");
 
 	public static final MessageSupplier CONFIRM_DELETE = createMessage(CONFIRM_CAPTION_DELETE, BUTTON_CAPTION_DELETE,
 			BUTTON_CAPTION_CANCEL, CONFIRM_MESSAGE_DELETE);

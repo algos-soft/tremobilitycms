@@ -3,6 +3,7 @@
  */
 package it.windtre.tremobilitycms.ui.crud;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasText;
 import com.vaadin.flow.component.UI;
@@ -68,6 +69,10 @@ public abstract class CrudView<E extends AbstractEntity, T extends TemplateModel
 	private String formTitleLabel = null;
 	public void setFormTitleLabel(String label) {
 		formTitleLabel = label;
+	}
+	private Boolean isEntityFemale = false;
+	public void setEntityFemale(Boolean b) {
+		isEntityFemale = true;
 	}
 	private Boolean addItemButtonEnabled = true;
 	public void setAddItemButtonEnabled(Boolean enabled) {
@@ -166,7 +171,11 @@ public abstract class CrudView<E extends AbstractEntity, T extends TemplateModel
 		if (formTitleLabel != null) {
 			getForm().getTitle().setText(formTitleLabel);
 		} else {
-			getForm().getTitle().setText((newEntity ? "Nuovo" : "Modifica") + " " + entityName);
+			if (isEntityFemale) {
+				getForm().getTitle().setText((newEntity ? "Nuova" : "Modifica") + " " + entityName);
+			} else {
+				getForm().getTitle().setText((newEntity ? "Nuovo" : "Modifica") + " " + entityName);
+			}
 		}
 	}
 

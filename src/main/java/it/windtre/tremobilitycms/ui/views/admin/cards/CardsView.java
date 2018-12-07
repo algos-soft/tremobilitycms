@@ -9,15 +9,12 @@ import com.vaadin.flow.router.*;
 import com.vaadin.flow.templatemodel.TemplateModel;
 import it.windtre.tremobilitycms.backend.data.Role;
 import it.windtre.tremobilitycms.backend.data.entity.Card;
-import it.windtre.tremobilitycms.backend.data.entity.util.EntityUtil;
 import it.windtre.tremobilitycms.backend.repositories.CardRepository;
-import it.windtre.tremobilitycms.backend.repositories.ZoneRepository;
 import it.windtre.tremobilitycms.ui.MainView;
 import it.windtre.tremobilitycms.ui.components.SearchBar;
 import it.windtre.tremobilitycms.ui.crud.CrudEntityPresenter;
 import it.windtre.tremobilitycms.ui.crud.CrudView;
 import it.windtre.tremobilitycms.ui.utils.BakeryConst;
-import it.windtre.tremobilitycms.ui.views.admin.zone.ZoneitemForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 
@@ -26,7 +23,6 @@ import java.beans.PropertyChangeListener;
 
 import static it.windtre.tremobilitycms.ui.utils.BakeryConst.PAGE_CARDS;
 import static it.windtre.tremobilitycms.ui.utils.BakeryConst.QPKEY_elementId;
-import static it.windtre.tremobilitycms.ui.utils.BakeryConst.QPKEY_serviceitemId;
 
 @Tag("cards-view")
 @HtmlImport("src/views/admin/cards/cards-view.html")
@@ -56,6 +52,8 @@ public class CardsView extends CrudView<Card, TemplateModel>
     @Autowired
     public CardsView(CrudEntityPresenter<Card> presenter, CardForm form, CardRepository cardRepository) {
         super(Card.getEntityName() /*EntityUtil.getName(Card.class)*/, form);
+        super.setAddItemButtonLabel("Nuova Card");
+        super.setEntityFemale(true);
 
         this.presenter = presenter;
         form.setBinder(binder);
