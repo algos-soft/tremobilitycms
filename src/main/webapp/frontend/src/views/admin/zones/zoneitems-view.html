@@ -14,7 +14,17 @@
                 flex-direction: column;
                 height: 100vh;
             }
+
+
+            vaadin-form-layout {
+                flex: auto;
+                overflow: auto;
+            }
         </style>
+
+        <vaadin-form-layout id="header-layout">
+            <vaadin-text-field id="header-tf" label="" readonly="true"></vaadin-text-field>
+        </vaadin-form-layout>
 
         <search-bar id="search"></search-bar>
 

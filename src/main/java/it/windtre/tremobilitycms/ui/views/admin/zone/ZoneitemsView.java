@@ -1,9 +1,12 @@
 package it.windtre.tremobilitycms.ui.views.admin.zone;
 
 import com.vaadin.flow.component.Tag;
+import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.dependency.HtmlImport;
+import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.router.PageTitle;
@@ -25,6 +28,7 @@ import it.windtre.tremobilitycms.ui.utils.TemplateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
@@ -45,6 +49,15 @@ public class ZoneitemsView extends CrudView<Zoneitem, TemplateModel>
 
     @Id("grid")
     private Grid<Zoneitem> grid;
+
+    @Id("header-layout")
+    private FormLayout headerLayout;
+
+    @Id("header-tf")
+    private TextField headerTF;
+
+
+    /** variables */
 
     private final CrudEntityPresenter<Zoneitem> presenter;
 
@@ -134,6 +147,7 @@ public class ZoneitemsView extends CrudView<Zoneitem, TemplateModel>
         System.out.println("ZoneitemsView AfterNavigationEvent fired");
         if (serviceitemIdStr != null && !serviceitemIdStr.isEmpty()) {
             reloadDataSourceById(serviceitemIdStr);
+            headerTF.setValue("Biglietto: " + serviceitemIdStr);
         }
     }
 
