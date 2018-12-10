@@ -7,6 +7,7 @@ import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.component.textfield.TextField;
@@ -172,6 +173,7 @@ public class ServiceitemForm extends PolymerTemplate<TemplateModel> implements C
         grid.addColumn(Service::getCity).setHeader("City");
         grid.addColumn(Service::getName).setHeader("Name");
         grid.addColumn(Service::getType).setHeader("Type");
+        grid.setHeight("95%");
         grid.addSelectionListener(e -> {
             e.getFirstSelectedItem().ifPresent(entity -> {
                 String srv = entity.getId().toString();
@@ -182,6 +184,9 @@ public class ServiceitemForm extends PolymerTemplate<TemplateModel> implements C
             });
         });
 
+        Label title = new Label("Scegli il servizio");
+
+        dialog.add((Component) title);
         dialog.add((Component) grid);
         dialog.setHeight("100%");
         dialog.getElement().addAttachListener(event -> UI.getCurrent().getPage().executeJavaScript(

@@ -1,9 +1,12 @@
 package it.windtre.tremobilitycms.ui.views.admin.zone;
 
 import com.vaadin.flow.component.Tag;
+import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.dependency.HtmlImport;
+import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.router.PageTitle;
@@ -12,6 +15,7 @@ import com.vaadin.flow.templatemodel.TemplateModel;
 import com.vaadin.flow.router.*;
 
 import it.windtre.tremobilitycms.backend.data.Role;
+import it.windtre.tremobilitycms.backend.data.entity.Serviceitem;
 import it.windtre.tremobilitycms.backend.data.entity.Zoneitem;
 import it.windtre.tremobilitycms.backend.data.entity.util.EntityUtil;
 import it.windtre.tremobilitycms.backend.repositories.ServiceitemRepository;
@@ -25,9 +29,11 @@ import it.windtre.tremobilitycms.ui.utils.TemplateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
+import java.util.Optional;
 
 import static it.windtre.tremobilitycms.ui.utils.BakeryConst.PAGE_ZONES;
 import static it.windtre.tremobilitycms.ui.utils.BakeryConst.QPKEY_serviceitemId;
@@ -46,6 +52,15 @@ public class ZoneitemsView extends CrudView<Zoneitem, TemplateModel>
     @Id("grid")
     private Grid<Zoneitem> grid;
 
+    @Id("header-layout")
+    private FormLayout headerLayout;
+
+    @Id("header-tf")
+    private TextField headerTF;
+
+
+    /** variables */
+
     private final CrudEntityPresenter<Zoneitem> presenter;
 
     private final BeanValidationBinder<Zoneitem> binder = new BeanValidationBinder<>(Zoneitem.class);
@@ -55,10 +70,10 @@ public class ZoneitemsView extends CrudView<Zoneitem, TemplateModel>
 
     ZoneitemForm zoneForm = null;
     private ZoneRepository zoneRepository = null;
-
+    private ServiceitemRepository serviceitemRepository = null;
 
     @Autowired
-    public ZoneitemsView(CrudEntityPresenter<Zoneitem> presenter, ZoneitemForm form, ZoneRepository zoneRepository) {
+    public ZoneitemsView(CrudEntityPresenter<Zoneitem> presenter, ZoneitemForm form, ZoneRepository zoneRepository, ServiceitemRepository serviceitemRepository) {
         super(Zoneitem.getEntityName() /*EntityUtil.getName(Zoneitem.class)*/, form);
         super.setAddItemButtonLabel("Nuovo Dettaglio");
 
@@ -74,6 +89,7 @@ public class ZoneitemsView extends CrudView<Zoneitem, TemplateModel>
         zoneForm = form;
 
         this.zoneRepository = zoneRepository;
+        this.serviceitemRepository = serviceitemRepository;
     }
 
     private void setupGrid() {
@@ -134,6 +150,7 @@ public class ZoneitemsView extends CrudView<Zoneitem, TemplateModel>
         System.out.println("ZoneitemsView AfterNavigationEvent fired");
         if (serviceitemIdStr != null && !serviceitemIdStr.isEmpty()) {
             reloadDataSourceById(serviceitemIdStr);
+            fillHeaderLabel();
         }
     }
 
@@ -143,6 +160,16 @@ public class ZoneitemsView extends CrudView<Zoneitem, TemplateModel>
     private void reloadDataSourceById(String id) {
         System.out.println("reloadDataSource filter by id = " + id);
         getPresenter().filter(id);
+    }
+
+    private void fillHeaderLabel() {
+        String headerText = "";
+        Optional<Serviceitem> optSrv = serviceitemRepository.findById(currentServiceitemId);
+        if (optSrv != null) {
+            Serviceitem srv = optSrv.get();
+            headerText = "ID Biglietto: " + String.valueOf(srv.getId()) + " - Descrizione: " + srv.getDescription() + " - City: " + srv.getCity();
+        }
+        headerTF.setValue(headerText);
     }
 
 

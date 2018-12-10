@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ServiceitemRepository extends JpaRepository<Serviceitem, Long> {
 
@@ -19,4 +20,5 @@ public interface ServiceitemRepository extends JpaRepository<Serviceitem, Long> 
 
     List<Serviceitem> findByService(Long service);
 
+    Optional<Serviceitem> findById(Long id);
 }

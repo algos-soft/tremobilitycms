@@ -14,7 +14,32 @@
                 flex-direction: column;
                 height: 100vh;
             }
+
+
+            vaadin-form-layout {
+                display: flex;
+                flex-direction: column;
+                height: 9vh;
+                position: center;
+                overflow: auto;
+                padding-left: 25em;
+                padding-right: 24em;
+            }
+
+            vaadin-text-field {
+                font-weight: bold;
+                font-size: larger;
+                position: center;
+                text-align: center;
+                height: 8vh;
+                background-color: yellow;
+                border: yellow;
+            }
         </style>
+
+        <vaadin-form-layout id="header-layout">
+            <vaadin-text-field id="header-tf" label="" colspan="2" readonly="true"></vaadin-text-field>
+        </vaadin-form-layout>
 
         <search-bar id="search"></search-bar>
 
