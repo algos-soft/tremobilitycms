@@ -69,10 +69,10 @@ public class ElementsView extends CrudView<Element, TemplateModel>
     private void setupGrid() {
         grid.addColumn(Element::getId).setWidth("90px").setHeader("ID").setFlexGrow(2);
         grid.addColumn(Element::getMode).setWidth("180px").setHeader("Mode").setFlexGrow(4);
-        grid.addColumn(Element::getPosColumn).setWidth("180px").setHeader("Column").setFlexGrow(4);
-        grid.addColumn(Element::getPosRow).setWidth("180px").setHeader("Row").setFlexGrow(4);
-        grid.addColumn(Element::getPosSpan).setWidth("180px").setHeader("Span").setFlexGrow(4);
-        grid.addColumn(Element::getDescription).setWidth("180px").setHeader("Description").setFlexGrow(4);
+        grid.addColumn(Element::getPosColumn).setWidth("100px").setHeader("Column").setFlexGrow(4);
+        grid.addColumn(Element::getPosRow).setWidth("100px").setHeader("Row").setFlexGrow(4);
+        grid.addColumn(Element::getPosSpan).setWidth("100px").setHeader("Span").setFlexGrow(4);
+        grid.addColumn(Element::getDescription).setWidth("300px").setHeader("Description").setFlexGrow(4);
     }
 
     @Override

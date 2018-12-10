@@ -256,16 +256,16 @@ public class DataGenerator implements HasLogger {
 
 	private void createServices(ServiceRepository servicesRepo, int numberOfItems) {
 		List<Service> services  = new ArrayList<>();
-		List<String> cities = new ArrayList<>( Arrays.asList("Milano", "Roma", "Bologna"));
-		List<String> names = new ArrayList<>( Arrays.asList("ATM", "ATAC", "TPER"));
-		List<String> types = new ArrayList<>( Arrays.asList(ServiceType.TICKETING, ServiceType.ZTL, ServiceType.PARKING));
-		List<String> icons = new ArrayList<>( Arrays.asList("GoQuick/logo/atm.png", "GoQuick/logo/atm.png", "GoQuick/logo/atm.png"));
-		List<String> infos = new ArrayList<>( Arrays.asList("Ticketing/PopUp/popup17.html", "Ticketing/PopUp/popup17.html", "Ticketing/PopUp/popup17.html"));
-		List<String> senders = new ArrayList<>( Arrays.asList("ATM Milano", "ATM Milano", "ATM Milano"));
-		List<String> msgs = new ArrayList<>( Arrays.asList("48444", "48444", "48444"));
-		List<String> telephones = new ArrayList<>( Arrays.asList("0248607607", "0248607607", "0248607607"));
+		List<String> cities = new ArrayList<>( Arrays.asList("Milano", "Alessandria"));
+		List<String> names = new ArrayList<>( Arrays.asList("ATM", "AMAG"));
+		List<String> types = new ArrayList<>( Arrays.asList(ServiceType.TICKETING, ServiceType.PARKING));
+		List<String> icons = new ArrayList<>( Arrays.asList("GoQuick/logo/atm.png", "GoQuick/logo/amag.png"));
+		List<String> infos = new ArrayList<>( Arrays.asList("Ticketing/PopUp/popup17.html", ""));
+		List<String> senders = new ArrayList<>( Arrays.asList("ATM Milano", "AMAG Mobilità"));
+		List<String> msgs = new ArrayList<>( Arrays.asList("48444", "4880807"));
+		List<String> telephones = new ArrayList<>( Arrays.asList("0248607607", "0131323811"));
 		List<String> emails = new ArrayList<>( Arrays.asList("", "", ""));
-		List<String> webs = new ArrayList<>( Arrays.asList(ServiceType.TICKETING, ServiceType.ZTL, ServiceType.PARKING));
+		List<String> webs = new ArrayList<>( Arrays.asList("http://www.atm.it", "http://www.amagmobilita.it/trasporti/it/home_page.aspx"));
 		List<String> ids = new ArrayList<>( Arrays.asList("1", "1", "1"));
 
 		for (int i = 0; i < names.size(); i++) {
@@ -289,12 +289,12 @@ public class DataGenerator implements HasLogger {
 
 	private void createServiceitems(ServiceitemRepository serviceitemsRepo, int numberOfItems) {
 		List<Serviceitem> serviceitems  = new ArrayList<>();
-		List<String> names = new ArrayList<>( Arrays.asList("Urbano", "Extraurbano (Rho Fiera)"));
-		List<String> durations = new ArrayList<>( Arrays.asList("90 minuti", "105 minuti"));
-		List<String> cities = new ArrayList<>( Arrays.asList("ATM - Milano", "ATM - Milano"));
-		List<String> types = new ArrayList<>( Arrays.asList("fromPurchaseTime", "fromPurchaseTime"));
-		List<String> serviceIds = new ArrayList<>( Arrays.asList("7", "7"));
-		List<String> ids = new ArrayList<>( Arrays.asList("10", "11"));
+		List<String> names = new ArrayList<>( Arrays.asList("Urbano", "Extraurbano (Rho Fiera)", "Parking 60 minuti", "Parking 30 minuti"));
+		List<String> durations = new ArrayList<>( Arrays.asList("90 minuti", "105 minuti", "60 minuti", "30 minuti"));
+		List<String> cities = new ArrayList<>( Arrays.asList("ATM - Milano", "ATM - Milano", "AMAG - Alessandria", "AMAG - Alessandria"));
+		List<String> types = new ArrayList<>( Arrays.asList("fromPurchaseTime", "fromPurchaseTime", "fromPurchaseTime", "fromPurchaseTime"));
+		List<String> serviceIds = new ArrayList<>( Arrays.asList("7", "7", "8", "8"));
+		List<String> ids = new ArrayList<>( Arrays.asList("10", "11", "12", "13"));
 
 		for (int i = 0; i < names.size(); i++) {
 			Serviceitem serviceit = new Serviceitem();
@@ -316,9 +316,15 @@ public class DataGenerator implements HasLogger {
 	private void createZones(ZoneRepository zonesRepo, int numberOfItems) {
 		List<Zoneitem> zoneitems = new ArrayList<>();
 		//List<Long> ids = new ArrayList<>( Arrays.asList(Long.valueOf(21),Long.valueOf(21),Long.valueOf(22)));
-		List<String> names = new ArrayList<>( Arrays.asList("zona 1", "zona 2", "zona 3"));
-		List<String> prices = new ArrayList<>( Arrays.asList("1", "1.5", "2.0"));
-		List<String> ids = new ArrayList<>(Arrays.asList("10", "10", "10"));
+		List<String> names = new ArrayList<>( Arrays.asList("Biglietto Urbano di Milano", "Zona 1", "Zona 2"));
+		List<String> values = new ArrayList<>( Arrays.asList("", "1", "2"));
+		List<String> smstexts = new ArrayList<>(Arrays.asList("ATM.", "<targa> Z1", "<targa> Z2 M"));
+		List<String> prices = new ArrayList<>( Arrays.asList("1.5", "1.0", "1.0"));
+		List<String> ids = new ArrayList<>(Arrays.asList("10", "11", "11"));
+		List<String> orders = new ArrayList<>(Arrays.asList("1", "1", "2"));
+		List<String> serviceitemnames = new ArrayList<>(Arrays.asList("Biglietto Urbano", "Parking 60 minuti", "Parking 60 minuti"));
+		List<String> servicenames = new ArrayList<>(Arrays.asList("ATM - Milano", "AMAG - Alessandria", "AMAG - Alessandria"));
+		List<String> cities = new ArrayList<>(Arrays.asList("Milano", "Alessandria", "Alessandria"));
 
 		for (int i = 0; i < names.size(); i++) {
 			Zoneitem zoneitem = new Zoneitem();
@@ -326,6 +332,12 @@ public class DataGenerator implements HasLogger {
 			zoneitem.setServiceitem(Long.valueOf(ids.get(i)));
 			zoneitem.setName(names.get(i));
 			zoneitem.setPrice(Double.valueOf(prices.get(i)));
+			zoneitem.setCity(cities.get(i));
+			zoneitem.setSmstext(smstexts.get(i));
+			zoneitem.setValue(values.get(i));
+			zoneitem.setPosition(Integer.valueOf(orders.get(i)));
+			zoneitem.setServiceName(servicenames.get(i));
+			zoneitem.setServiceitemName(serviceitemnames.get(i));
 			zoneitems.add(zonesRepo.save(zoneitem));
 		}
 	}
@@ -336,6 +348,7 @@ public class DataGenerator implements HasLogger {
 	private void createContainers(ContainerRepository containerRepository, int numberOfItems) {
 		Container cont = new Container();
 		cont.setId(Long.valueOf(1));
+		cont.setDescription("Home page di produzione");
 		cont.setState(StateType.VISIBLE);
 		containerRepository.save(cont);
 	}
@@ -345,10 +358,11 @@ public class DataGenerator implements HasLogger {
 
 	private void createElements(ElementRepository elementRepository, int numberOfItems) {
 		List<Element> elements = new ArrayList<>();
-		List<String> modes = new ArrayList<>( Arrays.asList(ElementModeType.BANNER, ElementModeType.BUTTON, ElementModeType.BUTTON));
-		List<String> cols = new ArrayList<>( Arrays.asList("1", "1", "2"));
-		List<String> rows = new ArrayList<>( Arrays.asList("1", "1", "2"));
-		List<String> spans = new ArrayList<>( Arrays.asList("2", "1", "1"));
+		List<String> modes = new ArrayList<>( Arrays.asList(ElementModeType.BANNER, ElementModeType.BUTTON, ElementModeType.BUTTON, ElementModeType.BUTTON, ElementModeType.BUTTON));
+		List<String> cols = new ArrayList<>( Arrays.asList("1", "1", "1", "1", "2"));
+		List<String> spans = new ArrayList<>( Arrays.asList("2", "2", "2", "1", "1"));
+		List<String> rows = new ArrayList<>( Arrays.asList("1", "2", "3", "4", "4"));
+		List<String> descriptions = new ArrayList<>(Arrays.asList("Banner", "Trasporti urbani", "Parcheggio", "Zona traffico limitato", "Sosta con ricarica"));
 
 		for (int i = 0; i < modes.size(); i++) {
 			Element el = new Element();
@@ -358,6 +372,7 @@ public class DataGenerator implements HasLogger {
 			el.setPosRow(Integer.valueOf(rows.get(i)));
 			el.setPosSpan(Integer.valueOf(spans.get(i)));
 			el.setState(StateType.VISIBLE);
+			el.setDescription(descriptions.get(i));
 			elements.add(elementRepository.save(el));
 		}
 	}
@@ -367,14 +382,16 @@ public class DataGenerator implements HasLogger {
 
 	private void createCards(CardRepository cardRepository, int numberOfItems) {
 		List<Card> cards = new ArrayList<>();
-		List<String> modes = new ArrayList<>( Arrays.asList(CardActionModeType.INTERNAL, CardActionModeType.INTERNAL, CardActionModeType.EXTERNAL));
-		List<String> actions = new ArrayList<>( Arrays.asList("openGoquickNews", "openTicket", "openZtl"));
+		List<String> modes = new ArrayList<>( Arrays.asList(CardActionModeType.INTERNAL, CardActionModeType.EXTERNAL, CardActionModeType.INTERNAL));
+		List<String> actions = new ArrayList<>( Arrays.asList("openGoquickNews", "http://www2.comune.prato.it/comefareper/trasporti/in-citta/archivio7_51_630_64_8.html", "openTicket"));
+		List<String> idsComponent = new ArrayList<>(Arrays.asList("17", "17", "18"));
 
 		for (int i = 0; i < modes.size(); i++) {
 			Card c = new Card();
 			c.setId(Long.valueOf(i));
 			c.setActionMode(modes.get(i));
 			c.setActionLaunch(actions.get(i));
+			c.setElement(Long.valueOf(idsComponent.get(i)));
 			cards.add(cardRepository.save(c));
 		}
 	}
