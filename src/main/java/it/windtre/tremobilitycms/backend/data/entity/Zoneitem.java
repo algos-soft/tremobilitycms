@@ -118,6 +118,6 @@ public class Zoneitem extends AbstractEntity {
     }
 
     public static String getEntityName() {
-        return " Zona";
+        return " Dettaglio";
     }
 }
