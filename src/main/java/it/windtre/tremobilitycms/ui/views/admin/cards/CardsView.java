@@ -2,14 +2,19 @@ package it.windtre.tremobilitycms.ui.views.admin.cards;
 
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.HtmlImport;
+import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.polymertemplate.Id;
+import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.router.*;
 import com.vaadin.flow.templatemodel.TemplateModel;
 import it.windtre.tremobilitycms.backend.data.Role;
 import it.windtre.tremobilitycms.backend.data.entity.Card;
+import it.windtre.tremobilitycms.backend.data.entity.Element;
+import it.windtre.tremobilitycms.backend.data.entity.Serviceitem;
 import it.windtre.tremobilitycms.backend.repositories.CardRepository;
+import it.windtre.tremobilitycms.backend.repositories.ElementRepository;
 import it.windtre.tremobilitycms.ui.MainView;
 import it.windtre.tremobilitycms.ui.components.SearchBar;
 import it.windtre.tremobilitycms.ui.crud.CrudEntityPresenter;
@@ -20,6 +25,7 @@ import org.springframework.security.access.annotation.Secured;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Optional;
 
 import static it.windtre.tremobilitycms.ui.utils.BakeryConst.PAGE_CARDS;
 import static it.windtre.tremobilitycms.ui.utils.BakeryConst.QPKEY_elementId;
@@ -38,6 +44,15 @@ public class CardsView extends CrudView<Card, TemplateModel>
     @Id("grid")
     private Grid<Card> grid;
 
+    @Id("header-layout")
+    private FormLayout headerLayout;
+
+    @Id("header-tf")
+    private TextField headerTF;
+
+
+    /** variables */
+
     private final CrudEntityPresenter<Card> presenter;
 
     private final BeanValidationBinder<Card> binder = new BeanValidationBinder<>(Card.class);
@@ -47,10 +62,11 @@ public class CardsView extends CrudView<Card, TemplateModel>
 
     private CardForm cardForm = null;
     private CardRepository cardRepository = null;
+    private ElementRepository elementRepository = null;
 
 
     @Autowired
-    public CardsView(CrudEntityPresenter<Card> presenter, CardForm form, CardRepository cardRepository) {
+    public CardsView(CrudEntityPresenter<Card> presenter, CardForm form, CardRepository cardRepository, ElementRepository elementRepository) {
         super(Card.getEntityName() /*EntityUtil.getName(Card.class)*/, form);
         super.setAddItemButtonLabel("Nuova Card");
         super.setEntityFemale(true);
@@ -67,6 +83,7 @@ public class CardsView extends CrudView<Card, TemplateModel>
         cardForm = form;
 
         this.cardRepository = cardRepository;
+        this.elementRepository = elementRepository;
     }
 
     private void setupGrid() {
@@ -123,6 +140,7 @@ public class CardsView extends CrudView<Card, TemplateModel>
         System.out.println("CardsView AfterNavigationEvent fired");
         if (elementIdStr != null && !elementIdStr.isEmpty()) {
             reloadDataSourceById(elementIdStr);
+            fillHeaderLabel();
         }
     }
 
@@ -134,6 +152,15 @@ public class CardsView extends CrudView<Card, TemplateModel>
         getPresenter().filter(id);
     }
 
+    private void fillHeaderLabel() {
+        String headerText = "";
+        Optional<Element> optElem = elementRepository.findById(currentElementId);
+        if (optElem != null) {
+            Element elem = optElem.get();
+            headerText = "ID Componente: " + String.valueOf(elem.getId()) + " - Descrizione: " + elem.getDescription();
+        }
+        headerTF.setValue(headerText);
+    }
 
     /** property change */
 
