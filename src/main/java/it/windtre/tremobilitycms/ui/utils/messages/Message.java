@@ -8,7 +8,7 @@ public class Message {
 	public static final String BUTTON_CAPTION_CANCEL = "Annulla";
 
 	public static final MessageSupplier UNSAVED_CHANGES = createMessage("Modifiche non salvate", "Annulla modifica", "Continua modifica",
-			"Ci sono modifiche non salvate in %s. Anullare modifiche?");
+			"Ci sono modifiche non salvate in %s. Annullare modifiche?");
 
 	public static final MessageSupplier CONFIRM_DELETE = createMessage(CONFIRM_CAPTION_DELETE, BUTTON_CAPTION_DELETE,
 			BUTTON_CAPTION_CANCEL, CONFIRM_MESSAGE_DELETE);

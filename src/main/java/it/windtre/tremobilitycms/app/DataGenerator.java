@@ -316,15 +316,15 @@ public class DataGenerator implements HasLogger {
 	private void createZones(ZoneRepository zonesRepo, int numberOfItems) {
 		List<Zoneitem> zoneitems = new ArrayList<>();
 		//List<Long> ids = new ArrayList<>( Arrays.asList(Long.valueOf(21),Long.valueOf(21),Long.valueOf(22)));
-		List<String> names = new ArrayList<>( Arrays.asList("Biglietto Urbano di Milano", "Zona 1", "Zona 2"));
-		List<String> values = new ArrayList<>( Arrays.asList("", "1", "2"));
-		List<String> smstexts = new ArrayList<>(Arrays.asList("ATM.", "<targa> Z1", "<targa> Z2 M"));
-		List<String> prices = new ArrayList<>( Arrays.asList("1.5", "1.0", "1.0"));
-		List<String> ids = new ArrayList<>(Arrays.asList("10", "11", "11"));
-		List<String> orders = new ArrayList<>(Arrays.asList("1", "1", "2"));
-		List<String> serviceitemnames = new ArrayList<>(Arrays.asList("Biglietto Urbano", "Parking 60 minuti", "Parking 60 minuti"));
-		List<String> servicenames = new ArrayList<>(Arrays.asList("ATM - Milano", "AMAG - Alessandria", "AMAG - Alessandria"));
-		List<String> cities = new ArrayList<>(Arrays.asList("Milano", "Alessandria", "Alessandria"));
+		List<String> names = new ArrayList<>( Arrays.asList("Extraurbano (Rho Fiera)", "Zona 1", "Zona 2", "Urbano", "Zona 1"));
+		List<String> values = new ArrayList<>( Arrays.asList("", "1", "2", "", "1"));
+		List<String> smstexts = new ArrayList<>(Arrays.asList("FIERA.", "<targa> Z1", "<targa> Z2 M", "ATM.", "<targa> Z1 M"));
+		List<String> prices = new ArrayList<>( Arrays.asList("2.5", "1.0", "1.0", "1.5", "0.5"));
+		List<String> ids = new ArrayList<>(Arrays.asList("10", "11", "11", "9", "12"));
+		List<String> orders = new ArrayList<>(Arrays.asList("1", "1", "2", "1", "1"));
+		List<String> serviceitemnames = new ArrayList<>(Arrays.asList("Extraurbano (Rho Fiera)", "Parking 60 minuti", "Parking 60 minuti", "Biglietto Urbano Milano", "Parking 30 minuti"));
+		List<String> servicenames = new ArrayList<>(Arrays.asList("ATM - Milano", "AMAG - Alessandria", "AMAG - Alessandria", "ATM - Milano", "AMAG - Alessandria"));
+		List<String> cities = new ArrayList<>(Arrays.asList("Milano", "Alessandria", "Alessandria", "Milano", "Alessandria"));
 
 		for (int i = 0; i < names.size(); i++) {
 			Zoneitem zoneitem = new Zoneitem();
@@ -384,7 +384,7 @@ public class DataGenerator implements HasLogger {
 		List<Card> cards = new ArrayList<>();
 		List<String> modes = new ArrayList<>( Arrays.asList(CardActionModeType.INTERNAL, CardActionModeType.EXTERNAL, CardActionModeType.INTERNAL));
 		List<String> actions = new ArrayList<>( Arrays.asList("openGoquickNews", "http://www2.comune.prato.it/comefareper/trasporti/in-citta/archivio7_51_630_64_8.html", "openTicket"));
-		List<String> idsComponent = new ArrayList<>(Arrays.asList("17", "17", "18"));
+		List<String> idsComponent = new ArrayList<>(Arrays.asList("19", "19", "20"));
 
 		for (int i = 0; i < modes.size(); i++) {
 			Card c = new Card();
