@@ -3,11 +3,14 @@ package it.windtre.tremobilitycms.backend.data.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "serviceitem")
 public class Serviceitem extends AbstractEntity {
 
     @Id
+    @Column(name = "id")
     private Long id = null;
     public Long getId() {
         return this.id;
@@ -16,6 +19,7 @@ public class Serviceitem extends AbstractEntity {
         this.id = id;
     }
 
+    @Column(name = "name")
     private String name = null;
     public String getName() {
         return this.name;
@@ -24,6 +28,7 @@ public class Serviceitem extends AbstractEntity {
         this.name = name;
     }
 
+    @Column(name = "description")
     private String description = null;
     public String getDescription() {
         return this.description;
@@ -32,6 +37,7 @@ public class Serviceitem extends AbstractEntity {
         this.description = description;
     }
 
+    @Column(name = "service")
     private Long service = null;
     public Long getService() {
         return this.service;
@@ -40,6 +46,7 @@ public class Serviceitem extends AbstractEntity {
         this.service = service;
     }
 
+    @Column(name = "currency")
     private String currency = null;
     public String getCurrency() {
         return this.currency;
@@ -50,26 +57,29 @@ public class Serviceitem extends AbstractEntity {
 
 
     // DURATION
-
+    @Column(name = "durationdescription")
     private String durationDescription = null;
     public String getDurationDescription() { return this.durationDescription;}
     public void setDurationDescription(String description) { this.durationDescription = description;}
 
+    @Column(name = "durationinterval")
     private Long durationInterval = null;
     public Long getDurationInterval() { return this.durationInterval;}
     public void setDurationInterval(Long interval) { this.durationInterval = interval;}
 
+    @Column(name = "durationname")
     private String durationName = null;
     public String getDurationName() { return this.durationName;}
     public void setDurationName(String name) { this.durationName = name;}
 
+    @Column(name = "durationtype")
     private String durationType = null;
     public String getDurationType() { return this.durationType;}
     public void setDurationType(String type) { this.durationType = type;}
 
 
     //  INFO ZONE
-
+    @Column(name = "infozonename")
     private String infozoneName = null;
     public String getInfozoneName() {
         return this.infozoneName;
@@ -78,6 +88,7 @@ public class Serviceitem extends AbstractEntity {
         this.infozoneName = name;
     }
 
+    @Column(name = "infozonetypez")
     private String infozoneTypez = null;
     public String getInfozoneTypez() {
         return this.infozoneTypez;
@@ -86,15 +97,7 @@ public class Serviceitem extends AbstractEntity {
         this.infozoneTypez = typez;
     }
 
-    /*TODO
-    private List<Zoneitem> infoZoneZones = null;
-    public List<Zoneitem> getInfoZoneZones() {
-        return this.infoZoneZones;
-    }
-    public void setInfoZoneZones(List<Zoneitem> zones) {
-        this.infoZoneZones = zones;
-    }
-    */
+    //Added fields
 
     private String city = null;
     public String getCity() {
@@ -129,12 +132,10 @@ public class Serviceitem extends AbstractEntity {
         sb.append(" InfoZone {\n");
         sb.append("  name: ").append(this.infozoneName).append("\n");
         sb.append("  typez: ").append(this.infozoneTypez).append("\n");
-        //sb.append("  zones: ").append(this.infozoneZones.size()).append("\n");
         sb.append("}\n");
         sb.append("}\n");
         return sb.toString();
     }
-
 
     public String getServiceDescription(Service serv) {
         String s = "";

@@ -1,12 +1,16 @@
 package it.windtre.tremobilitycms.backend.data.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "element")
 public class Element extends AbstractEntity {
 
     @Id
+    @Column(name = "id")
     private Long id = null;
     public Long getId() {
         return this.id;
@@ -15,6 +19,7 @@ public class Element extends AbstractEntity {
         this.id = id;
     }
 
+    @Column(name = "mode")
     private String mode = null;
     public String getMode() {
         return this.mode;
@@ -23,6 +28,7 @@ public class Element extends AbstractEntity {
         this.mode = mode;
     }
 
+    @Column(name = "poscolumn")
     private Integer posColumn = null;
     public Integer getPosColumn() {
         return this.posColumn;
@@ -31,6 +37,7 @@ public class Element extends AbstractEntity {
         this.posColumn = posColumn;
     }
 
+    @Column(name = "posrow")
     private Integer posRow = null;
     public Integer getPosRow() {
         return this.posRow;
@@ -39,6 +46,7 @@ public class Element extends AbstractEntity {
         this.posRow = posRow;
     }
 
+    @Column(name = "posspan")
     private Integer posSpan = null;
     public Integer getPosSpan() {
         return this.posSpan;
@@ -47,6 +55,7 @@ public class Element extends AbstractEntity {
         this.posSpan = posSpan;
     }
 
+    @Column(name = "state")
     private String state = null;
     public String getState() {
         return this.state;
@@ -55,6 +64,7 @@ public class Element extends AbstractEntity {
         this.state = state;
     }
 
+    @Column(name = "description")
     private String description = null;
     public String getDescription() {
         return this.description;

@@ -3,12 +3,15 @@ package it.windtre.tremobilitycms.backend.data.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 @Entity
+@Table(name = "service")
 public class Service extends AbstractEntity {
 
     @Id
+    @Column(name = "id")
     private Long id = null;
     public Long getId() {
         return this.id;
@@ -17,6 +20,7 @@ public class Service extends AbstractEntity {
         this.id = id;
     }
 
+    @Column(name = "city")
     private String city = null;
     public String getCity() {
         return this.city;
@@ -25,6 +29,7 @@ public class Service extends AbstractEntity {
         this.city = city;
     }
 
+    @Column(name = "lat")
     private Double lat = null;
     public Double getLat() {
         return this.lat;
@@ -33,6 +38,7 @@ public class Service extends AbstractEntity {
         this.lat = lat;
     }
 
+    @Column(name = "lon")
     private Double lon = null;
     public Double getLon() {
         return this.lon;
@@ -42,7 +48,7 @@ public class Service extends AbstractEntity {
     }
 
     @Size(max = 255)
-    @Column(unique = true)
+    @Column(name = "name", unique = true)
     private String name = null;
     public String getName() {
         return this.name;
@@ -51,6 +57,7 @@ public class Service extends AbstractEntity {
         this.name = name;
     }
 
+    @Column(name = "type")
     private String type = null;
     public String getType() {
         return this.type;
@@ -59,6 +66,7 @@ public class Service extends AbstractEntity {
         this.type = type;
     }
 
+    @Column(name = "code")
     private String code = null;
     public String getCode() {
         return this.code;
@@ -67,6 +75,7 @@ public class Service extends AbstractEntity {
         this.code = code;
     }
 
+    @Column(name = "info")
     private String info = null;
     public String getInfo() {
         return this.info;
@@ -75,6 +84,7 @@ public class Service extends AbstractEntity {
         this.info = info;
     }
 
+    @Column(name = "icon")
     private String icon = null;
     public String getIcon() {
         return this.icon;
@@ -83,6 +93,7 @@ public class Service extends AbstractEntity {
         this.icon = icon;
     }
 
+    @Column(name = "email")
     private String email = null;
     public String getEmail() {
         return this.email;
@@ -91,6 +102,7 @@ public class Service extends AbstractEntity {
         this.email = email;
     }
 
+    @Column(name = "sender")
     private String sender = null;
     public String getSender() {
         return this.sender;
@@ -99,6 +111,7 @@ public class Service extends AbstractEntity {
         this.sender = sender;
     }
 
+    @Column(name = "sms")
     private String sms = null;
     public String getSms() {
         return this.sms;
@@ -107,6 +120,7 @@ public class Service extends AbstractEntity {
         this.sms = sms;
     }
 
+    @Column(name = "telephone")
     private String telephone = null;
     public String getTelephone() {
         return this.telephone;
@@ -115,6 +129,7 @@ public class Service extends AbstractEntity {
         this.telephone = telephone;
     }
 
+    @Column(name = "web")
     private String web = null;
     public String getWeb() {
         return this.web;
@@ -122,16 +137,6 @@ public class Service extends AbstractEntity {
     public void setWeb(String web) {
         this.web = web;
     }
-
-    /*
-    private List<Serviceitem> items = null;
-    public List<Serviceitem> getItems() {
-        return this.items;
-    }
-    public void setItems(List<Serviceitem> items) {
-        this.items = items;
-    }*/
-
 
     @Override
     public String toString() {
@@ -152,7 +157,6 @@ public class Service extends AbstractEntity {
         sb.append("  type: ").append(this.type).append("\n");
         sb.append("  web: ").append(this.web).append("\n");
         sb.append("}\n");
-        //sb.append("  items: ").append(this.items.size()).append("\n");
         return sb.toString();
     }
 

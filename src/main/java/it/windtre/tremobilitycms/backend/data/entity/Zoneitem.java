@@ -1,13 +1,10 @@
 package it.windtre.tremobilitycms.backend.data.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
 
 
 @Entity
+@Table(name = "zoneitem")
 public class Zoneitem extends AbstractEntity {
 
     @Id
@@ -21,6 +18,7 @@ public class Zoneitem extends AbstractEntity {
         this.id = id;
     }
 
+    @Column(name = "name")
     private String name = null;
     public String getName() {
         return this.name;
@@ -29,6 +27,7 @@ public class Zoneitem extends AbstractEntity {
         this.name = name;
     }
 
+    @Column(name = "position")
     private Integer position = null;
     public Integer getPosition() {
         return this.position;
@@ -37,6 +36,7 @@ public class Zoneitem extends AbstractEntity {
         this.position = position;
     }
 
+    @Column(name = "price")
     private Double price = null;
     public Double getPrice() {
         return this.price;
@@ -45,6 +45,7 @@ public class Zoneitem extends AbstractEntity {
         this.price = price;
     }
 
+    @Column(name = "serviceitem")
     private Long serviceitem = null;
     public Long getServiceitem() {
         return this.serviceitem;
@@ -53,6 +54,7 @@ public class Zoneitem extends AbstractEntity {
         this.serviceitem = serviceitem;
     }
 
+    @Column(name = "shape")
     private String shape = null;
     public String getShape() {
         return this.shape;
@@ -61,6 +63,7 @@ public class Zoneitem extends AbstractEntity {
         this.shape = shape;
     }
 
+    @Column(name = "smstext")
     private String smstext = null;
     public String getSmstext() {
         return this.smstext;
@@ -69,6 +72,7 @@ public class Zoneitem extends AbstractEntity {
         this.smstext = smstext;
     }
 
+    @Column(name = "value")
     private String value = null;
     public String getValue() {
         return this.value;
@@ -77,6 +81,7 @@ public class Zoneitem extends AbstractEntity {
         this.value = value;
     }
 
+    @Column(name = "city")
     private String city = null;
     public String getCity() {
         return this.city;
@@ -84,6 +89,8 @@ public class Zoneitem extends AbstractEntity {
     public void setCity(String city) {
         this.city = city;
     }
+
+    //added fields
 
     private String serviceName = null;
     public String getServiceName() {
