@@ -274,6 +274,11 @@ public class ServiceitemForm extends PolymerTemplate<TemplateModel> implements C
         return title;
     }
 
+    @Override
+    public void hideIDField(Boolean b) {
+        id.setVisible(b);
+    }
+
     protected String getBasePage() {
         return PAGE_ZONES;
     }

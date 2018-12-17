@@ -88,4 +88,8 @@ public class UserForm extends PolymerTemplate<TemplateModel> implements CrudForm
 		return title;
 	}
 
+	@Override
+	public void hideIDField(Boolean b) {
+
+	}
 }

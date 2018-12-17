@@ -52,31 +52,40 @@ public class CardForm extends PolymerTemplate<TemplateModel> implements CrudView
 
     @Id("action-launch")
     private TextField action_launch;
+
     @Id("action-mode")
     private TextField action_mode;
 
     @Id("card-background-color")
     private TextField card_background_color;
+
     @Id("upload_background_name")
     private TextField background_image_name;
+
     @Id("upload_background")
     private Upload background_image;
 
     @Id("upload_logo_name")
     private TextField logo_image_name;
+
     @Id("upload_logo")
     private Upload logo_image;
 
     @Id("description-align")
     private TextField description_align;
+
     @Id("card-description-color")
     private TextField card_description_color;
+
     @Id("description-font")
     private TextField description_font;
+
     @Id("description-font-size")
     private TextField description_font_size;
+
     @Id("description-font-style")
     private TextField description_font_style;
+
     @Id("description-text")
     private TextField description_text;
 
@@ -237,6 +246,11 @@ public class CardForm extends PolymerTemplate<TemplateModel> implements CrudView
     @Override
     public HasText getTitle() {
         return title;
+    }
+
+    @Override
+    public void hideIDField(Boolean b) {
+        id.setVisible(b);
     }
 
     @ClientCallable

@@ -129,6 +129,10 @@ public class ZoneitemForm extends PolymerTemplate<TemplateModel> implements Crud
         return title;
     }
 
+    @Override
+    public void hideIDField(Boolean b) {
+        id.setVisible(b);
+    }
 
     /** support method */
 

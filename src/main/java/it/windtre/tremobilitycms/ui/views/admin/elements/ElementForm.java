@@ -103,6 +103,10 @@ public class ElementForm extends PolymerTemplate<TemplateModel> implements CrudV
         return title;
     }
 
+    @Override
+    public void hideIDField(Boolean b) {
+        id.setVisible(b);
+    }
 
     /** manage card */
     @EventHandler

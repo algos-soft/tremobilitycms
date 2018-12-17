@@ -129,6 +129,11 @@ public class ContainerForm extends PolymerTemplate<TemplateModel> implements Cru
         return title;
     }
 
+    @Override
+    public void hideIDField(Boolean b) {
+        id.setVisible(b);
+    }
+
     @ClientCallable
     public void changeColor(String color){
         System.out.print("selected color = " + color);

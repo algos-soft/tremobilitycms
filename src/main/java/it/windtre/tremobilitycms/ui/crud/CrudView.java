@@ -38,6 +38,8 @@ public abstract class CrudView<E extends AbstractEntity, T extends TemplateModel
 		HasText getTitle();
 
 		void setBinder(BeanValidationBinder<E> binder);
+
+		void hideIDField(Boolean b);
 	}
 
 	private final Dialog dialog = new Dialog();
@@ -177,6 +179,8 @@ public abstract class CrudView<E extends AbstractEntity, T extends TemplateModel
 				getForm().getTitle().setText((newEntity ? "Nuovo" : "Modifica") + " " + entityName);
 			}
 		}
+
+		getForm().hideIDField(!newEntity);
 	}
 
 	@Override

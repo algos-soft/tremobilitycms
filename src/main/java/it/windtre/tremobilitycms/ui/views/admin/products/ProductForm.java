@@ -271,6 +271,11 @@ public class ProductForm extends PolymerTemplate<TemplateModel> implements CrudV
 		return title;
 	}
 
+	@Override
+	public void hideIDField(Boolean b) {
+
+	}
+
 	/*@Override
 	protected void onAttach(AttachEvent attachEvent) {
 		getElement().addEventListener("colorTitleChanged", e -> {
