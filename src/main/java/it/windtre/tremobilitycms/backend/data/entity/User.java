@@ -1,39 +1,42 @@
 package it.windtre.tremobilitycms.backend.data.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
+import javax.persistence.*;
 import javax.validation.constraints.*;
 
 @Entity(name="UserInfo")
+@Table(name = "cms_user")
 public class User extends AbstractEntity {
 
 	@NotEmpty
 	@Email
 	@Size(max = 255)
-	@Column(unique = true)
+	@Column(name = "mail", unique = true)
 	private String email;
 
 	@NotNull
 	@Size(min = 4, max = 255)
+	@Column(name = "passwordhash")
 	private String passwordHash;
 
 	@NotBlank
 	@Size(max = 255)
+	@Column(name = "firstname")
 	private String firstName;
 
 	@NotBlank
 	@Size(max = 255)
+	@Column(name = "lastname")
 	private String lastName;
 
 	@NotBlank
 	@Size(max = 255)
+	@Column(name = "role")
 	private String role;
 
 	@Size(max = 2083)
 	private String photoUrl;
 
+	@Column(name = "locked")
 	private boolean locked = false;
 
 	@PrePersist
