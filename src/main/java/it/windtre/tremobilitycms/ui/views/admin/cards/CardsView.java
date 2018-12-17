@@ -87,10 +87,10 @@ public class CardsView extends CrudView<Card, TemplateModel>
     }
 
     private void setupGrid() {
-        grid.addColumn(Card::getId).setWidth("90px").setHeader("ID").setFlexGrow(2);
-        grid.addColumn(Card::getElement).setWidth("270px").setHeader("Element").setFlexGrow(5);
-        grid.addColumn(Card::getActionMode).setWidth("200px").setHeader("Action Mode").setFlexGrow(5);
-        grid.addColumn(Card::getActionLaunch).setWidth("150px").setHeader("Action Launch").setFlexGrow(5);
+        grid.addColumn(Card::getId).setWidth("50px").setHeader("ID").setFlexGrow(2);
+        grid.addColumn(Card::getElement).setWidth("50px").setHeader("Element").setFlexGrow(5);
+        grid.addColumn(Card::getActionMode).setWidth("80px").setHeader("Action Mode").setFlexGrow(5);
+        grid.addColumn(Card::getActionLaunch).setWidth("470px").setHeader("Action Launch").setFlexGrow(5);
     }
 
     @Override
