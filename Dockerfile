@@ -13,4 +13,4 @@ RUN chmod 755 /usr/local/tomcat/enrypoint.sh
 
 USER app
 
-CMD ["/usr/local/tomcat/enrypoint.sh"]
+CMD ["/usr/local/tomcat/entrypoint.sh"]
