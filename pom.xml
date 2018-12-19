@@ -196,6 +196,7 @@
     <build>
         <!-- The `pluginManagement` section allows listing plugin versions and their global
              configuration in one place. -->
+        <finalName>gertrud</finalName>
         <pluginManagement>
             <plugins>
                 <plugin>
