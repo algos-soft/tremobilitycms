@@ -9,7 +9,7 @@ RUN chown -R app /usr/local/tomcat/
 
 ADD target/gertrud.war /usr/local/tomcat/webapps/
 ADD entrypoint.sh /usr/local/tomcat/
-RUN chmod 755 /usr/local/tomcat/enrypoint.sh
+RUN chmod 755 /usr/local/tomcat/entrypoint.sh
 
 USER app
 
