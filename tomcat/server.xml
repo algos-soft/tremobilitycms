@@ -66,9 +66,12 @@
          APR (HTTP/AJP) Connector: /docs/apr.html
          Define a non-SSL/TLS HTTP/1.1 Connector on port 8080
     -->
-    <Connector port="8080" protocol="HTTP/1.1"
-               connectionTimeout="20000"
-               redirectPort="8443" />
+    <Connector port="${widi.port}" maxHttpHeaderSize="8192" maxThreads="150" minSpareThreads="25"
+               maxSpareThreads="75" enableLookups="false" disableUploadTimeout="true" acceptCount="100" 
+               scheme="https" secure="true" SSLEnabled="true" clientAuth="false" sslProtocol="TLS"
+               keystoreFile="${ssl.keystore}" keystorePass="password"
+               keystoreType="PKCS12"/>
+
     <!-- A "Connector" using the shared thread pool-->
     <!--
     <Connector executor="tomcatThreadPool"
