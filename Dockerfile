@@ -12,6 +12,7 @@ ADD entrypoint.sh /usr/local/tomcat/
 RUN chmod 755 /usr/local/tomcat/entrypoint.sh
 ADD tomcat/server.xml /usr/local/tomcat/conf/
 COPY libs/* /usr/local/tomcat/lib/
+ADD prometheus/metrics.war /usr/local/tomcat/webapps/
 
 USER app
 
