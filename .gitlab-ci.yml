@@ -1,0 +1,10 @@
+stages:
+  - build
+
+
+builder:
+  stage: build
+  script:
+  - mvn install
+  only:
+  - tags
