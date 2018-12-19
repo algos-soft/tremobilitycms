@@ -1,5 +1,4 @@
 FROM tomcat:8
-MAINTAINER xyz
 
 ADD target/tremobilitycms-${CI_BUILD_REF_NAME}.war /usr/local/tomcat/webapps/
 
