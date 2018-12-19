@@ -6,6 +6,14 @@ builder:
   stage: build
   script:
   - mvn install
+  - mvn dependency:get -Dartifact=io.prometheus:simpleclient:0.6.0
+  - mvn dependency:get -Dartifact=io.prometheus:simpleclient_common:0.6.0
+  - mvn dependency:get -Dartifact=io.prometheus:simpleclient_servlet:0.6.0
+  - mvn dependency:get -Dartifact=io.prometheus:simpleclient_hotspot:0.6.0
+  - mkdir libs
+  - mkdir prometheus
+  - find .m2/repository/io/prometheus -name "*.jar" -exec cp {} ./libs/  \;
+  - curl https://search.maven.org/remotecontent?filepath=nl/nlighten/tomcat_exporter_servlet/0.0.7/tomcat_exporter_servlet-0.0.7.war -o ./prometheus/metrics.war
   - docker build --no-cache --build-arg version=${CI_COMMIT_REF_NAME} -t docker.artifactory.wind-digital.com/windtre/gertrud:${CI_COMMIT_REF_NAME} .
   - docker push docker.artifactory.wind-digital.com/windtre/gertrud:${CI_COMMIT_REF_NAME}
   only:
