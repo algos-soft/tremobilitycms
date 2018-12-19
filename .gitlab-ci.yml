@@ -6,7 +6,7 @@ builder:
   stage: build
   script:
   - mvn install
-  - docker build --no-cache -t docker.artifactory.dev.widi/windtre/cms-3mobility:${CI_BUILD_REF_NAME} .
-  - docker push docker.artifactory.dev.widi/windtre/cms-3mobility:${CI_BUILD_REF_NAME}
+  - docker build --no-cache -t docker.artifactory.dev.widi/windtre/cms-3mobility:$CI_BUILD_REF_NAME .
+  - docker push docker.artifactory.dev.widi/windtre/cms-3mobility:$CI_BUILD_REF_NAME
   only:
   - tags
