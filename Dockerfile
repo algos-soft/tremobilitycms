@@ -1,6 +1,8 @@
 FROM tomcat:8
 
-ADD target/tremobilitycms-$CI_BUILD_REF_NAME.war /usr/local/tomcat/webapps/
+ARG version
+ENV env_version=$version
+ADD target/tremobilitycms-${env_version}.war /usr/local/tomcat/webapps/
 
 CMD ["catalina.sh", "run"]
 
